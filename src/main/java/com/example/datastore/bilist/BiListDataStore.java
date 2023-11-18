@@ -11,6 +11,11 @@ public class BiListDataStore<T extends IDataStoreObject<T>> implements IBiListDa
     private ArrayList<T> list1;
     private ArrayList<T> list2;
 
+    public BiListDataStore(){
+        this.list1 = new ArrayList<T>();
+        this.list2 = new ArrayList<T>();
+    }
+
     @Override
     public void manageData(IBiListDataStoreEditOperation<T> operation) throws IllegalOperationException{
         operation.perform(list1, list2);
