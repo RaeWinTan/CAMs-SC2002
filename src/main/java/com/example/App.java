@@ -76,16 +76,20 @@ public class App {
 	private static void CampTest(Staff staff, Student student){
  		Camp c;
 
-		c = new Camp("ADM invisible", new ArrayList<Date>(), new Date(), GroupName.ADM, "ss",10,5,"dd",false,staff);
+		Date[] datetest = new Date[2];
+		datetest[0] = new Date();
+		datetest[1] = new Date();
+
+		c = new Camp("ADM invisible", datetest, new Date(), GroupName.ADM, "ss",10,5,"dd",false,staff);
         campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
-        c = new Camp("ADM visible", new ArrayList<Date>(), new Date(), GroupName.ADM, "ss",10,5,"dd",true,staff);
+        c = new Camp("ADM visible", datetest, new Date(), GroupName.ADM, "ss",10,5,"dd",true,staff);
         campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
-		c = new Camp("SCSE invisible", new ArrayList<Date>(), new Date(), GroupName.SCSE, "ss",10,5,"dd",false,staff);
+		c = new Camp("SCSE invisible", datetest, new Date(), GroupName.SCSE, "ss",10,5,"dd",false,staff);
         campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
-		c = new Camp("SCSE visible", new ArrayList<Date>(), new Date(), GroupName.SCSE, "ss",10,5,"dd",true,staff);
+		c = new Camp("SCSE visible", datetest, new Date(), GroupName.SCSE, "ss",10,5,"dd",true,staff);
         campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
 
