@@ -3,7 +3,6 @@ package com.example;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.example.UtilityPackage.DataStorePair;
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
 import com.example.datastore.bilist.BiListDataStore;
@@ -17,6 +16,7 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.datastructure.User;
+import com.example.utility.DataStorePair;
 
 public class App {
 

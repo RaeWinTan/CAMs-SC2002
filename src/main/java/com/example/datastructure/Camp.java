@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-import com.example.UtilityPackage.Pair;
 import com.example.datastore.IDataStoreObject;
+import com.example.utility.Pair;
 
 public class Camp implements IDataStoreObject<Camp>{
 	private UUID campId;

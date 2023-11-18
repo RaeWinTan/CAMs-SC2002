@@ -2,9 +2,9 @@ package com.example.datastore.bilist.operator;
 
 import java.util.ArrayList;
 
-import com.example.UtilityPackage.DataStorePair;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
+import com.example.utility.DataStorePair;
 
 public class StudentParticipatingCampRetrieve implements IBiListDataStoreRetrivalOperation<DataStorePair<Student,Camp>> {
 

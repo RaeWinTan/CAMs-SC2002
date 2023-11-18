@@ -1,11 +1,11 @@
 package com.example.datastore.monolist.operator;
 
-import com.example.UtilityPackage.DataStorePair;
 import com.example.datastore.bilist.BiListDataStore;
 import com.example.datastore.bilist.operator.StudentParticipatingCampRetrieve;
 import com.example.datastructure.Camp;
 import com.example.datastructure.GroupName;
 import com.example.datastructure.Student;
+import com.example.utility.DataStorePair;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

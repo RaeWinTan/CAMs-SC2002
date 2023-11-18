@@ -2,8 +2,8 @@ package com.example.datastore.monolist.operator;
 
 import java.util.ArrayList;
 
-import com.example.ExceptionPackage.IllegalOperationException;
 import com.example.datastore.IDataStoreObject;
+import com.example.exception.IllegalOperationException;
 
 public class MonoListDataStoreCreate<T extends IDataStoreObject<T>> implements IMonoListDataStoreEditOperation<T> {
 

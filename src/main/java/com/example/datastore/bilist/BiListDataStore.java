@@ -2,10 +2,10 @@ package com.example.datastore.bilist;
 
 import java.util.ArrayList;
 
-import com.example.ExceptionPackage.IllegalOperationException;
 import com.example.datastore.IDataStoreObject;
 import com.example.datastore.bilist.operator.IBiListDataStoreEditOperation;
 import com.example.datastore.bilist.operator.IBiListDataStoreRetrivalOperation;
+import com.example.exception.IllegalOperationException;
 
 public class BiListDataStore<T extends IDataStoreObject<T>> implements IBiListDataStoreEditable<T>, IBiListDataStoreRetrivable<T> {
     private ArrayList<T> list1;

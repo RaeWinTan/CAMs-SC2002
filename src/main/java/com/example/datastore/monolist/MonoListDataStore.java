@@ -3,10 +3,10 @@ package com.example.datastore.monolist;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.example.ExceptionPackage.IllegalOperationException;
 import com.example.datastore.IDataStoreObject;
 import com.example.datastore.monolist.operator.IMonoListDataStoreEditOperation;
 import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
+import com.example.exception.IllegalOperationException;
 
 public class MonoListDataStore<T extends IDataStoreObject<T>> implements IMonoListDataStoreEditable<T>, IMonoListDataStoreRetrivable<T>{
 
