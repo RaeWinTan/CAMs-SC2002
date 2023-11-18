@@ -1,9 +1,13 @@
 package com.example.datastructure;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
+import com.example.UtilityPackage.Pair;
 import com.example.datastore.IDataStoreObject;
 
 public class Camp implements IDataStoreObject<Camp>{
@@ -72,6 +76,75 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.description = description;
 		this.visibility = visibility;
 		this.createdBy = createdBy;
+	}
+
+	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
+		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
+		rtn.add(new Pair<String, String>("campId", this.campId.toString()));
+		rtn.add(new Pair<String, String>("campName", this.campName));
+		rtn.add(new Pair<String, String>("dates", dates.get(0).toString()+"-"+dates.get(1).toString()));
+		rtn.add(new Pair<String, String>("closingDate", this.closingDate.toString()));
+		rtn.add(new Pair<String, String>("userGroup", this.userGroup.toString()));
+		rtn.add(new Pair<String, String>("location", this.location));
+		rtn.add(new Pair<String, String>("totalSlots", this.totalSlots + ""));
+		rtn.add(new Pair<String, String>("committeeSlot", this.committeeSlot+""));
+		rtn.add(new Pair<String, String>("description", this.description));
+		rtn.add(new Pair<String, String>("visibility", ""+this.visibility));
+		rtn.add(new Pair<String, String>("createdBy", this.createdBy.getUserId()));
+		return rtn;
+	}
+	public Camp(ArrayList<Pair<String,String>> attrMapping, Staff s){
+		for(Pair<String, String> i:attrMapping){
+			if(i.getFirst().equals("campName")){
+				this.campName = i.getSecond();
+			}
+			if(i.getFirst().equals("dates")){
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+				this.dates = new ArrayList<Date>();
+				//TODO later jstu hat 
+				this.dates.add( new Date()  );
+				this.dates.add(new Date());
+			}
+			if(i.getFirst().equals("closingDate")){
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+				//TODO later convert
+				this.closingDate = new Date();
+			}
+			if(i.getFirst().equals("userGroup")){
+				switch(i.getSecond()){
+					case "ADM":
+						this.userGroup = GroupName.ADM;
+						break;
+					case "EEE":
+						this.userGroup = GroupName.EEE;
+						break;
+					case "NMS":
+						this.userGroup = GroupName.NMS;
+						break;
+					case "SCSE":
+						this.userGroup = GroupName.SCSE;
+						break;
+					case "SSS":
+						this.userGroup = GroupName.SSS;
+						break;
+					case "NTU":
+						this.userGroup = GroupName.NTU;
+						break;
+					default:
+						// TODO: Error handling
+						//throw new Exception("Invalid faculty: " + facultyStr);
+						// TEMPCODE:
+						this.userGroup = GroupName.NTU;	
+				} 
+			}
+			if(i.getFirst().equals("location")) this.location = i.getSecond();
+			if(i.getFirst().equals("totalSlots")) this.totalSlots = Integer.valueOf(i.getSecond());
+			if(i.getFirst().equals("committeeSlot")) this.committeeSlot = Integer.valueOf(i.getSecond());
+			if(i.getFirst().equals("description")) this.description = i.getSecond();
+			if(i.getFirst().equals("visibility")) this.visibility = i.getSecond().equals("true") ? true : false;
+		}
+		this.createdBy = s;
+
 	}
 
 	/**

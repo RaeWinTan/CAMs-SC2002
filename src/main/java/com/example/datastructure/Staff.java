@@ -1,5 +1,8 @@
 package com.example.datastructure;
 
+import java.util.ArrayList;
+
+import com.example.UtilityPackage.Pair;
 import com.example.dataservice.*;
 import com.example.datastore.IDataStoreObject;
 
@@ -18,6 +21,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 		this.dbService = new StaffDBService();
 	}
 
+
 	/**
 	 * Constructor for Staff class.
 	 * @param userId		Unique Identifier of the staff.
@@ -28,6 +32,10 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	public Staff(String userId, String name, GroupName faculty, String password) {
 		super(userId, name, faculty, password);
 		this.dbService = new StaffDBService();
+	}
+
+	public Staff(ArrayList<Pair<String, String>> attrMapping){
+		super(attrMapping);
 	}
 
 	/**
