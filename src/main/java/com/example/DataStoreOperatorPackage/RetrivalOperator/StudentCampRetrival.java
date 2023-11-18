@@ -3,12 +3,13 @@ package com.example.DataStoreOperatorPackage.RetrivalOperator;
 import com.example.UtilityPackage.DataStorePair;
 import com.example.datastore.bilist.BiListDataStore;
 import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
+import com.example.datastore.monolist.operator.StudentParticipatingCampRetrieve;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.DataStructurePackage.Camp;
+import com.example.DataStructurePackage.GroupName;
 import com.example.DataStructurePackage.Student;
 
 public class StudentCampRetrival implements IMonoListDataStoreRetrivalOperation<Camp> {
@@ -32,12 +33,13 @@ public class StudentCampRetrival implements IMonoListDataStoreRetrivalOperation<
 	 * @see #filter(Camp)
 	 * @see IMonoListDataStoreRetrivalOperation
 	 */
-	public ArrayList<Camp> perform(ArrayList<Camp> data) {		
-		return (ArrayList<Camp>) data.stream().
-				filter(i->{
-					return this.filter(i);
+	public ArrayList<Camp> perform(ArrayList<Camp> data) {
+		ArrayList<DataStorePair<Student,Camp>> participating = this.scDataStore.retrieveData(new StudentParticipatingCampRetrieve(this.student));
+
+		return (ArrayList<Camp>) data.stream()
+				.filter(i->{
+					return this.filter(i,participating);
 				})
-				.map(i->i.copyOf())
 				.collect(Collectors.toList());
 	}
 
@@ -46,23 +48,18 @@ public class StudentCampRetrival implements IMonoListDataStoreRetrivalOperation<
 	 * @param camp	Camp being evaluated.
 	 * @return true if camp should stay.
 	 */
-	private boolean filter(Camp camp) {
-		return true;
-		// //	Filter by (isCommitte of that camp) or (inFaculty and visible).
-		// if(camp.getVisibility() && camp.getUserGroup() == student.getFaculty()) return true;
+	private boolean filter(Camp camp, ArrayList<DataStorePair<Student,Camp>> participating) {
 
-		// // TODO: Replace .getList1 with appropriate operators
-		// ArrayList<Pair<Student, Camp>> committee_camp =  this.scDataStore.getList1();
-		// // ArrayList<Pair<Student, Camp>> attendee_camp =  this.studentDBService.getScDataStore().getList2();
+		//	Filter by visibility or falcaty.
+		if(camp.getVisibility() && (camp.getUserGroup() == GroupName.NTU || camp.getUserGroup() == student.getFaculty())) 
+			return true;
 		
-		// // If Student is a committee of the camp, return true.
-		// for(Pair<Student,Camp>i:committee_camp) {
-		// 	if(i.getFirst().isEquals(student) && i.getSecond().isEquals(camp)) return true;
-		// }
+		// If Student is a participating in the camp (regardless of attendee or committee), return true.
+		for(DataStorePair<Student,Camp> scPair:participating) {
+			if(scPair.getSecond().isEquals(camp)) 
+				return true;
+		}
 		
-		// return false;
+		return false;
 	}
-
-
-
 }
