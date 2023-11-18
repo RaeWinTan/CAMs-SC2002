@@ -53,4 +53,13 @@ public class AdminCampDBService implements IAdminCampDBService {
 	public IMonoListDataStoreRetrivalOperation<Camp> DSCampRetrival() {
 		return new StaffCampRetrival();
 	}
+
+	/**
+	 * 
+	 * This method returns a datastore operation to retrieve relevant camps.
+	 */
+	@Override
+	public IMonoListDataStoreRetrivalOperation<Camp> DSRelevantCampRetrival() {
+		return new StaffCampRetrival(this.staff);
+	}
 }

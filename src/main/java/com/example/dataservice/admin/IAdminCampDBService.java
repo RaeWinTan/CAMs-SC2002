@@ -9,4 +9,5 @@ public interface IAdminCampDBService {
     IMonoListDataStoreEditOperation<Camp> DSDeleteCamp(Camp camp);
     IMonoListDataStoreEditOperation<Camp> DSEditCamp(Camp camp);
     IMonoListDataStoreRetrivalOperation<Camp> DSCampRetrival();
+    IMonoListDataStoreRetrivalOperation<Camp> DSRelevantCampRetrival();
 }
