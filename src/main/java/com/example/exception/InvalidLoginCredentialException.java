@@ -1,4 +1,4 @@
-package com.example.ExceptionPackage;
+package com.example.exception;
 
 public class InvalidLoginCredentialException extends RuntimeException {
     public InvalidLoginCredentialException(){

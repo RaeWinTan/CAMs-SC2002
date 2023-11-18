@@ -1,4 +1,4 @@
-package com.example.UtilityPackage;
+package com.example.utility;
 
 import com.example.datastore.IDataStoreObject;
 

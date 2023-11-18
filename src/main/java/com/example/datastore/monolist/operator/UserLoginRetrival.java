@@ -3,8 +3,8 @@ package com.example.datastore.monolist.operator;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.example.ExceptionPackage.InvalidLoginCredentialException;
 import com.example.datastructure.User;
+import com.example.exception.InvalidLoginCredentialException;
 
 public class UserLoginRetrival<T extends User> implements IMonoListDataStoreRetrivalOperation<T>{
 

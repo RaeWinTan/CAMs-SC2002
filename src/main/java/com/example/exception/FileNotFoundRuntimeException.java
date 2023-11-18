@@ -1,4 +1,4 @@
-package com.example.ExceptionPackage;
+package com.example.exception;
 
 public class FileNotFoundRuntimeException extends RuntimeException{
     public FileNotFoundRuntimeException(String filePath){

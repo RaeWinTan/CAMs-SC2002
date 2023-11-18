@@ -3,7 +3,7 @@ package com.example.dataloader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.example.ExceptionPackage.FileNotFoundRuntimeException;
+import com.example.exception.FileNotFoundRuntimeException;
 
 import java.io.FileNotFoundException;
 

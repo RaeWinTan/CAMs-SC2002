@@ -2,9 +2,9 @@ package com.example.datastructure;
 
 import java.util.ArrayList;
 
-import com.example.UtilityPackage.Pair;
 import com.example.dataservice.*;
 import com.example.datastore.IDataStoreObject;
+import com.example.utility.Pair;
 
 public class Staff extends User implements IDataStoreObject<Staff>{
 

@@ -1,11 +1,11 @@
 package com.example.dataservice.student;
 
-import com.example.UtilityPackage.DataStorePair;
 import com.example.datastore.bilist.BiListDataStore;
 import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
 import com.example.datastore.monolist.operator.StudentCampRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
+import com.example.utility.DataStorePair;
 
 public class StudentCampDBService implements IStudentCampDBService{
 
