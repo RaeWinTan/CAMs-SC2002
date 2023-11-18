@@ -13,12 +13,12 @@ import com.example.datastore.IDataStoreObject;
 public class Camp implements IDataStoreObject<Camp>{
 	private UUID campId;
 	private String campName;
-	private ArrayList<Date> dates;
+	private Date[] dates; 
 	private Date closingDate;
 	private GroupName userGroup;
 	private String location;
 	private int totalSlots;
-	private int committeeSlot;
+	private int committeeSlots;
 	private String description;
 	private boolean visibility;
 	private Staff createdBy;
@@ -27,28 +27,35 @@ public class Camp implements IDataStoreObject<Camp>{
 		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
 		rtn.add(new Pair<String, String>("campId", this.campId.toString()));
 		rtn.add(new Pair<String, String>("campName", this.campName));
-		rtn.add(new Pair<String, String>("dates", dates.get(0).toString()+"-"+dates.get(1).toString()));
+		rtn.add(new Pair<String, String>("startDate", this.dates[0].toString()));
+		rtn.add(new Pair<String, String>("endDate", this.dates[1].toString()));
 		rtn.add(new Pair<String, String>("closingDate", this.closingDate.toString()));
 		rtn.add(new Pair<String, String>("userGroup", this.userGroup.toString()));
 		rtn.add(new Pair<String, String>("location", this.location));
 		rtn.add(new Pair<String, String>("totalSlots", this.totalSlots + ""));
-		rtn.add(new Pair<String, String>("committeeSlot", this.committeeSlot+""));
+		rtn.add(new Pair<String, String>("committeeSlot", this.committeeSlots+""));
 		rtn.add(new Pair<String, String>("description", this.description));
 		rtn.add(new Pair<String, String>("visibility", ""+this.visibility));
 		rtn.add(new Pair<String, String>("createdBy", this.createdBy.getUserId()));
 		return rtn;
 	}
 	public Camp(ArrayList<Pair<String,String>> attrMapping, Staff s){
+		this.dates = new Date[2];
+		this.dates[0]=null;
+		this.dates[1] = null;
 		for(Pair<String, String> i:attrMapping){
 			if(i.getFirst().equals("campName")){
 				this.campName = i.getSecond();
 			}
-			if(i.getFirst().equals("dates")){
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-				this.dates = new ArrayList<Date>();
+			if(i.getFirst().equals("startDate")){
+				SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
 				//TODO later jstu hat 
-				this.dates.add( new Date()  );
-				this.dates.add(new Date());
+				this.dates[0] = new Date();
+			}
+			if(i.getFirst().equals("endDate")){
+				SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
+				//TODO later jstu hat 
+				this.dates[1] = new Date();
 			}
 			if(i.getFirst().equals("closingDate")){
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
@@ -84,7 +91,7 @@ public class Camp implements IDataStoreObject<Camp>{
 			}
 			if(i.getFirst().equals("location")) this.location = i.getSecond();
 			if(i.getFirst().equals("totalSlots")) this.totalSlots = Integer.valueOf(i.getSecond());
-			if(i.getFirst().equals("committeeSlot")) this.committeeSlot = Integer.valueOf(i.getSecond());
+			if(i.getFirst().equals("committeeSlot")) this.committeeSlots = Integer.valueOf(i.getSecond());
 			if(i.getFirst().equals("description")) this.description = i.getSecond();
 			if(i.getFirst().equals("visibility")) this.visibility = i.getSecond().equals("true") ? true : false;
 		}
@@ -105,7 +112,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param visibility	Flag for Student's access to view the camp.
 	 * @param createdBy		Staff who created the camp.
 	 */
-	public Camp(String campName, ArrayList<Date> dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
+	public Camp(String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
 		this.campId = UUID.randomUUID();
 		this.campName = campName;
 		this.dates = dates;
@@ -113,7 +120,7 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.userGroup = userGroup;
 		this.location = location;
 		this.totalSlots = totalSlots;
-		this.committeeSlot = committeeSlot;
+		this.committeeSlots = committeeSlot;
 		this.description = description;
 		this.visibility = visibility;
 		this.createdBy = createdBy;
@@ -133,7 +140,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param visibility	Flag for Student's access to view the camp.
 	 * @param createdBy		Staff who created the camp.
 	 */
-	public Camp(UUID campId, String campName, ArrayList<Date> dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
+	public Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
 		this.campId = campId;
 		this.campName = campName;
 		this.dates = dates;
@@ -141,7 +148,7 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.userGroup = userGroup;
 		this.location = location;
 		this.totalSlots = totalSlots;
-		this.committeeSlot = committeeSlot;
+		this.committeeSlots = committeeSlot;
 		this.description = description;
 		this.visibility = visibility;
 		this.createdBy = createdBy;
@@ -167,7 +174,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * Get method for dates.
 	 * @return		Dates in which the camp is active.
 	 */
-	public ArrayList<Date> getDates() {
+	public Date[] getDates() {
 		return this.dates;
 	}
 
@@ -200,7 +207,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @return 		Maximum number of slots for commitee members.
 	 */
 	public int getCommitteeSlot() {
-		return this.committeeSlot;
+		return this.committeeSlots;
 	}
 
 	/**
@@ -257,8 +264,8 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * Set method for dates.
 	 * @param dates		Dates in which the camp is active.
 	 */
-	public void setDates(ArrayList<Date> dates) {
-		this.dates = dates;
+	public void setDates(Date[] dates) {
+		this.dates = dates.clone();
 	}
 
 	/**
@@ -298,7 +305,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param committeeSlot		Maximum number of slots for commitee members.
 	 */
 	public void setCommitteeSlot(int committeeSlot) {
-		this.committeeSlot = committeeSlot;
+		this.committeeSlots = committeeSlot;
 	}
 
 	/**
@@ -332,7 +339,7 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.setUserGroup(other.userGroup);
 		this.setLocation(other.getLocation());
 		this.setTotalSlots(other.getTotalSlots());
-		this.setCommitteeSlot(other.committeeSlot);
+		this.setCommitteeSlot(other.committeeSlots);
 		this.setDescription(other.getDescription());
 		this.setVisibility(other.getVisibility());
 	}
@@ -353,7 +360,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 */
 	@Override
 	public Camp copyOf() {
-		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlot,  description,  visibility,  createdBy);
+		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy);
 	}
 
 }
