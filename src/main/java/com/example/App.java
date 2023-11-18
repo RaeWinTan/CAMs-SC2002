@@ -1,7 +1,7 @@
 package com.example;
 
-import java.util.ArrayList;
-import java.util.Date;
+
+import java.util.HashMap;
 
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
@@ -11,12 +11,14 @@ import com.example.datastore.monolist.operator.UserDataStoreLoad;
 import com.example.datastore.monolist.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
-import com.example.datastructure.GroupName;
+
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
-import com.example.datastructure.User;
+import com.example.exception.InvalidLoginCredentialException;
 import com.example.utility.DataStorePair;
+import com.example.view.IPromptPage;
+import com.example.view.LoginPromptPage;
 
 public class App {
 
@@ -27,28 +29,64 @@ public class App {
 	public static MonoListDataStore<Suggestion> suggestionDataStore;
 
 	public static BiListDataStore<DataStorePair<Student,Camp>> scDatastore;
+	public static HashMap<String, IPromptPage> hm;
+
 	public static void main(String arg[]) {
-
 		initialise();
+		workFlow();
+		
 
-
-		// hardcoded staff
-		User staffUser = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("HUKUMAR","password")).get(0);
-
-		// hardcoded student
-		User studentUser = studentDataStore.retrieveData(new UserLoginRetrival<Student>("KOH1", "password")).get(0);
-	
-
-
-		Staff staff = (Staff) staffUser;
-		Student student = (Student) studentUser;
-		//start here  
-
-		CampTest(staff, student);
-		UserTest();
-
-       
 	}
+	public static void workFlow(){
+		
+		Staff staff = null;
+		Student student = null;
+		String username = "";
+		String password = "";
+		String userType = "";
+		while (staff==null && student==null) {
+			IPromptPage loginPage = redirect("login");
+			loginPage.prompting();
+
+			for(int i = 0; i < loginPage.returnInputs().size();i++){
+				if(loginPage.returnInputs().get(i).getResult().getFirst() == "username"){
+					username = loginPage.returnInputs().get(i).getResult().getSecond();
+				}
+				if(loginPage.returnInputs().get(i).getResult().getFirst() == "password"){
+					password = loginPage.returnInputs().get(i).getResult().getSecond();
+				}
+				if(loginPage.returnInputs().get(i).getResult().getFirst() == "userType"){
+					userType = loginPage.returnInputs().get(i).getResult().getSecond();
+				}
+			}
+
+			try {
+				if (userType.equals("Staff")){
+					staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>(username, password)).get(0);
+				} else{
+					student = studentDataStore.retrieveData(new UserLoginRetrival<Student>(username, password)).get(0);
+				}
+			} 
+			catch (InvalidLoginCredentialException e){
+				System.out.println(e.toString());
+
+			}
+		}
+
+		System.out.println("User type: " + userType);
+		System.out.println("Username: " + username);
+		System.out.println("password: " + password);
+		if (userType.equals("Staff")){
+			System.out.println("Welcome, " + staff.getName());
+		} else {
+			System.out.println("Welcome, " + student.getName());
+		}
+
+	}
+
+	public static IPromptPage redirect(String pagename){
+		return hm.get(pagename);
+	} 
 
 
 	private static void initialise(){
@@ -64,91 +102,10 @@ public class App {
 		// Populate userDataStore with Staff and Student objects.
 		staffDataStore.manageData(new UserDataStoreLoad<Staff>(new StaffCSVLoader("./src/.data/staff.csv")));
 		studentDataStore.manageData(new UserDataStoreLoad<Student>(new StudentCSVLoader("./src/.data/student.csv")));
+
+		hm = new HashMap<>();
+		hm.put("login", new LoginPromptPage());
 		
-		// enquriy.addReply(reply);
-		// enquiryDataStore.manageData(staff.getDbService().GetEnquiryDBService().DSAddReplyEnquiry(enquiry));
-
-		// // INSIDE DATASTORE
-		// find enquiry
-		// realenquiry.reply = obj.reply;
-	}
-
-	private static void CampTest(Staff staff, Student student){
- 		Camp c;
-
-		Date[] datetest = new Date[2];
-		datetest[0] = new Date();
-		datetest[1] = new Date();
-
-		c = new Camp("ADM invisible", datetest, new Date(), GroupName.ADM, "ss",10,5,"dd",false,staff);
-        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
-
-        c = new Camp("ADM visible", datetest, new Date(), GroupName.ADM, "ss",10,5,"dd",true,staff);
-        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
-
-		c = new Camp("SCSE invisible", datetest, new Date(), GroupName.SCSE, "ss",10,5,"dd",false,staff);
-        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
-
-		c = new Camp("SCSE visible", datetest, new Date(), GroupName.SCSE, "ss",10,5,"dd",true,staff);
-        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
-
-
-        System.out.println("Staff retrieve");
-		ArrayList<Camp> allCampDataRetrivedByStaff;
-		
-		allCampDataRetrivedByStaff = campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival());
-        allCampDataRetrivedByStaff.forEach(camp->{
-            System.out.println("\t" + camp.getCampName());
-        });
-
-        System.out.println("Student retrieve");
-        campDataStore.retrieveData(student.getDbService().GetCampDBService().DSCampRetrival(scDatastore)).forEach(camp->{
-            System.out.println("\t" + camp.getCampName());
-        });
-		
-		System.out.println("Changing first camp name");
-		Camp editedCamp = allCampDataRetrivedByStaff.get(0);
-		editedCamp.setCampName("Renamed camp");
-
-		System.out.println("Staff retrieve again (before applying changes)");
-		campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival()).forEach(camp->{
-            System.out.println("\t" + camp.getCampName());
-        });
-
-		System.out.println("Applying changes");
-		campDataStore.manageData(staff.getDbService().GetCampDBService().DSEditCamp(editedCamp));
-
-		System.out.println("Staff retrieve again (after applying changes)");
-		allCampDataRetrivedByStaff = campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival());
-
-		allCampDataRetrivedByStaff.forEach(camp->{
-            System.out.println("\t" + camp.getCampName());
-        });
-
-		System.out.println("Delete second camp");
-		Camp campToDelete = allCampDataRetrivedByStaff.get(1);
-		campDataStore.manageData(staff.getDbService().GetCampDBService().DSDeleteCamp(campToDelete));
-
-		campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival()).forEach(camp->{
-			System.out.println("\t" + camp.getCampName());
-		});
-	}
-
-	private static void UserTest(){
-		Staff staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("HUKUMAR","password")).get(0);
-
-		System.out.println("Current user password: " + staff.getPassword());
-		System.out.println("Changing user password");
-		staff.setPassword("newpassword");
-
-		User staff2;
-		staff2 = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("HUKUMAR","password")).get(0);
-		System.out.println("User password (before applying changes): " + staff2.getPassword());
-		
-		staffDataStore.manageData(staff.getDbService().DBEditUser(staff));
-		staff2 = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("HUKUMAR","newpassword")).get(0);
-		
-		System.out.println("User password (after applying changes): " + staff.getPassword());
 	}
 }
 

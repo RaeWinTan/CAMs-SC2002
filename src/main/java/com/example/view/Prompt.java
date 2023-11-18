@@ -2,6 +2,8 @@ package com.example.view;
 
 import java.util.Scanner;
 
+import com.example.utility.Pair;
+
 public class Prompt implements IPrompt{
 
     protected String question;

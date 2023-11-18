@@ -2,16 +2,15 @@ package com.example.view;
 
 import java.util.ArrayList;
 
-public class ReplyToEnquiryPage extends PromptPage {
+import com.example.utility.Pair;
+
+public class ReplyToEnquiryPromptPage extends PromptPage {
 
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
-    ReplyToEnquiryPage() {
+    ReplyToEnquiryPromptPage() {
         initialise_question_attribute_mapping();
-        for (Pair<String, String> p : question_attribute_mapping){
-        Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
-                question_attribute_mapping.get(0).getSecond());
-        this.prompts.add(tmp);}
+        
     }
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
@@ -27,6 +26,14 @@ public class ReplyToEnquiryPage extends PromptPage {
         question_attribute_mapping.add(new Pair<String,String>("Submit your reply below ",
                 "campEnquiryReply"));
 
+    }
+
+    @Override
+    public void prompting() {
+        for (Pair<String, String> p : question_attribute_mapping){
+        Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
+                question_attribute_mapping.get(0).getSecond());
+        this.prompts.add(tmp);}
     }
 }
 

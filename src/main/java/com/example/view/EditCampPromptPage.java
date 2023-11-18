@@ -1,25 +1,76 @@
 package com.example.view;
 import java.util.ArrayList;
 
-public class EditCampPage extends PromptPage {
+import com.example.utility.Pair;
+
+public class EditCampPromptPage extends PromptPage {
 
     private ArrayList<Pair<String, String>> question_attribute_mapping = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<>();
+    private ArrayList<ArrayList<Pair<String,String>>> camps;
 
-    public EditCampPage(ArrayList<ArrayList<Pair<String,String>>> camps ) throws Exception {
+    public EditCampPromptPage(ArrayList<ArrayList<Pair<String,String>>> camps ) throws Exception {
         initialise_question_attribute_mapping();
+        this.camps = camps;
 
 
-        ArrayList<String> campNames = new ArrayList<String>();
+        
+    }
+
+
+    @Override
+    public ArrayList<IPrompt> returnInputs() {
+        return this.prompts;
+    }
+
+    @Override
+    //public void addQuestion_attribute(String question, String attributeName) { return; }
+
+    public void initialise_question_attribute_mapping() {
+
+        question_attribute_mapping.add(new Pair<String, String>("Enter new camp name." +
+                " Press enter for no change: ", "newCampName"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new camp start date." +
+                " Press enter for no change: ", "startDate"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new camp end date. " +
+                "Press enter for no change: ", "endDate"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new closing date for" +
+                " registration. Press enter for no change: ", "closingDate"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new faculty the camp is open to" +
+                ". Press enter for no change: ",
+                "userGroup"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new camp location" +
+                ". Press enter for no change: ", "location"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new total slots" +
+                ". Press enter for no change: ", "totalSlots"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new committee slots" +
+                ". Press enter for no change: ",
+                "committeeSlots"));
+        question_attribute_mapping.add(new Pair<String, String>("Enter new camp description" +
+                ". Press enter for no change: ",
+                "description"));
+    }
+
+
+    @Override
+    public void prompting() {
+       ArrayList<String> campNames = new ArrayList<String>();
         for (ArrayList<Pair<String,String>> campList: camps){
             for(Pair<String,String> camp:campList){
                 if(camp.getFirst().equals("campName")) campNames.add(camp.getSecond());
             }
         }
-        IPrompt first = new PromptOption(question_attribute_mapping.get(0).getFirst(),
-                question_attribute_mapping.get(0).getSecond(), campNames);
+        IPrompt first;
+        try {
+            first = new PromptOption(question_attribute_mapping.get(0).getFirst(),
+                    question_attribute_mapping.get(0).getSecond(), campNames);
+        
 
         this.prompts.add(first);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         int i = 0;
         while (i < question_attribute_mapping.size()) {
             Pair<String, String> questionPair = question_attribute_mapping.get(i);
@@ -65,40 +116,6 @@ public class EditCampPage extends PromptPage {
             prompts.add(tmp);
             i++;
         }
-        System.out.println("Thank you for your input!");
-    }
-
-
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        return this.prompts;
-    }
-
-    @Override
-    //public void addQuestion_attribute(String question, String attributeName) { return; }
-
-    public void initialise_question_attribute_mapping() {
-
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp name." +
-                " Press enter for no change: ", "newCampName"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp start date." +
-                " Press enter for no change: ", "startDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp end date. " +
-                "Press enter for no change: ", "endDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new closing date for" +
-                " registration. Press enter for no change: ", "closingDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new faculty the camp is open to" +
-                ". Press enter for no change: ",
-                "userGroup"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp location" +
-                ". Press enter for no change: ", "location"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new total slots" +
-                ". Press enter for no change: ", "totalSlots"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new committee slots" +
-                ". Press enter for no change: ",
-                "committeeSlots"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp description" +
-                ". Press enter for no change: ",
-                "description"));
+        
     }
 }

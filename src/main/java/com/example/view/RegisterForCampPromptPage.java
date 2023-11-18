@@ -2,15 +2,15 @@ package com.example.view;
 
 import java.util.ArrayList;
 
-public class RegisterForCampPage extends PromptPage {
+import com.example.utility.Pair;
+
+public class RegisterForCampPromptPage extends PromptPage {
 
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
-    RegisterForCampPage() {
+    RegisterForCampPromptPage() {
         initialise_question_attribute_mapping();
-        Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
-                question_attribute_mapping.get(0).getSecond());
-        this.prompts.add(tmp);
+        
     }
     //public void addQuestion_attribute(String question, String attributeName) return;}
 
@@ -24,5 +24,12 @@ public class RegisterForCampPage extends PromptPage {
         question_attribute_mapping.add(new Pair<String,String>("Enter the name of the camp you would like " +
                 "to register for as an attendee: ",
                 "campAttendeeRegister"));
+    }
+
+    @Override
+    public void prompting() {
+        Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
+                question_attribute_mapping.get(0).getSecond());
+        this.prompts.add(tmp);
     }
 }

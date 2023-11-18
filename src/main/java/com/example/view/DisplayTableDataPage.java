@@ -2,6 +2,8 @@ package com.example.view;
 
 import java.util.ArrayList;
 
+import com.example.utility.Pair;
+
 public abstract class DisplayTableDataPage {
 
     private ArrayList<Pair<String, String>> data;
