@@ -2,7 +2,8 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.example.DataLoaderPackage.StaffCSVLoader;
 import com.example.DataLoaderPackage.StudentCSVLoader;
 import com.example.DataStoreOperatorPackage.UserDataStoreLoad;
@@ -27,8 +28,10 @@ public class App {
 	public static MonoListDataStore<Suggestion> suggestionDataStore;
 
 	public static BiListDataStore<DataStorePair<Student,Camp>> scDatastore;
-	public static void main(String arg[]) {
 
+
+	public static void main(String argvStrings[]) {
+		
 		initialise();
 
 
@@ -42,9 +45,15 @@ public class App {
 
 		Staff staff = (Staff) staffUser;
 		Student student = (Student) studentUser;
-
-		CampTest(staff, student);
-		UserTest();
+		//start here  
+		GsonBuilder builder = new GsonBuilder(); 
+		builder.setPrettyPrinting(); 
+		Gson gson = builder.create(); 
+		
+		String jsonString = gson.toJson(student); 
+		System.out.println(jsonString);
+		//CampTest(staff, student);
+		//UserTest();
 
        
 	}

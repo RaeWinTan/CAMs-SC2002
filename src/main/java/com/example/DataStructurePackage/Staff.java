@@ -1,6 +1,9 @@
 package com.example.DataStructurePackage;
 
+import java.util.ArrayList;
+
 import com.example.DataServicePackage.*;
+import com.example.UtilityPackage.Pair;
 import com.example.datastore.IDataStoreObject;
 
 public class Staff extends User implements IDataStoreObject<Staff>{
@@ -16,6 +19,10 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	public Staff(String userId, String name, GroupName faculty) {
 		super(userId, name, faculty);
 		this.dbService = new StaffDBService();
+	}
+
+	public Staff(ArrayList<Pair<String, String>> attrMapping){
+		super(attrMapping);
 	}
 
 	/**
@@ -57,5 +64,6 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	public boolean isEquals(Staff o) {
 		return super.isEquals(o);
 	}
+
 
 }
