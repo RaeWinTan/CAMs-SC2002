@@ -7,9 +7,18 @@ import com.example.datastore.monolist.operator.MonoListDataStoreCreate;
 import com.example.datastore.monolist.operator.MonoListDataStoreDelete;
 import com.example.datastore.monolist.operator.StaffCampRetrival;
 import com.example.datastructure.Camp;
+import com.example.datastructure.Staff;
 
 public class AdminCampDBService implements IAdminCampDBService {
-    	/**
+
+
+	private Staff staff;
+	public AdminCampDBService(Staff staff){
+		this.staff = staff;
+	}
+
+
+    /**
 	 * This method returns a datastore operation to create a new camp.
 	 * @param camp: Camp to be created.
 	 */

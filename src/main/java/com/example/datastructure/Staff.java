@@ -18,7 +18,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	public Staff(String userId, String name, GroupName faculty) {
 		super(userId, name, faculty);
-		this.dbService = new StaffDBService();
+		this.dbService = new StaffDBService(this);
 	}
 
 
@@ -31,7 +31,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	public Staff(String userId, String name, GroupName faculty, String password) {
 		super(userId, name, faculty, password);
-		this.dbService = new StaffDBService();
+		this.dbService = new StaffDBService(this);
 	}
 
 	public Staff(ArrayList<Pair<String, String>> attrMapping){

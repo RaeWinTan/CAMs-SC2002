@@ -15,10 +15,10 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminDataSe
 	private IAdminEnquiryDBService enquiryDBService;
 	private IAdminSuggestionDBService suggestionDBService;
 	
-	public StaffDBService(){
-		this.campDBService = new AdminCampDBService();
-		this.enquiryDBService = new AdminEnquiryDBService();
-		this.suggestionDBService = new AdminSuggestionDBService();
+	public StaffDBService(Staff staff){
+		this.campDBService = new AdminCampDBService(staff);
+		this.enquiryDBService = new AdminEnquiryDBService(staff);
+		this.suggestionDBService = new AdminSuggestionDBService(staff);
 	}
 
 	@Override
