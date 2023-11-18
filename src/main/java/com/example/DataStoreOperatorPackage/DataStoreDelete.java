@@ -26,7 +26,7 @@ public class DataStoreDelete<T extends IDataStoreObject<T>> implements IMonoList
 	 */
 	@Override
 	public void perform(ArrayList<T> data) throws IllegalOperationException {
-		if(!data.removeIf(i->i.isEquals(this.obj)));           
+		if(!data.removeIf(i->i.isEquals(this.obj)))
 			throw new IllegalOperationException("Object doesn't exists");
 	}
 }
