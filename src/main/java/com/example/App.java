@@ -3,20 +3,20 @@ package com.example;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.example.DataLoaderPackage.StaffCSVLoader;
-import com.example.DataLoaderPackage.StudentCSVLoader;
-import com.example.DataStoreOperatorPackage.UserDataStoreLoad;
-import com.example.DataStoreOperatorPackage.RetrivalOperator.UserLoginRetrival;
-import com.example.DataStructurePackage.Camp;
-import com.example.DataStructurePackage.Enquiry;
-import com.example.DataStructurePackage.GroupName;
-import com.example.DataStructurePackage.Suggestion;
-import com.example.DataStructurePackage.User;
 import com.example.UtilityPackage.DataStorePair;
+import com.example.dataloader.StaffCSVLoader;
+import com.example.dataloader.StudentCSVLoader;
 import com.example.datastore.bilist.BiListDataStore;
 import com.example.datastore.monolist.MonoListDataStore;
-import com.example.DataStructurePackage.Staff;
-import com.example.DataStructurePackage.Student;
+import com.example.datastore.monolist.operator.UserDataStoreLoad;
+import com.example.datastore.monolist.operator.UserLoginRetrival;
+import com.example.datastructure.Camp;
+import com.example.datastructure.Enquiry;
+import com.example.datastructure.GroupName;
+import com.example.datastructure.Staff;
+import com.example.datastructure.Student;
+import com.example.datastructure.Suggestion;
+import com.example.datastructure.User;
 
 public class App {
 
@@ -76,28 +76,28 @@ public class App {
  		Camp c;
 
 		c = new Camp("ADM invisible", new ArrayList<Date>(), new Date(), GroupName.ADM, "ss",10,5,"dd",false,staff);
-        campDataStore.manageData(staff.getDbService().DSCreateCamp(c));
+        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
         c = new Camp("ADM visible", new ArrayList<Date>(), new Date(), GroupName.ADM, "ss",10,5,"dd",true,staff);
-        campDataStore.manageData(staff.getDbService().DSCreateCamp(c));
+        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
 		c = new Camp("SCSE invisible", new ArrayList<Date>(), new Date(), GroupName.SCSE, "ss",10,5,"dd",false,staff);
-        campDataStore.manageData(staff.getDbService().DSCreateCamp(c));
+        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
 		c = new Camp("SCSE visible", new ArrayList<Date>(), new Date(), GroupName.SCSE, "ss",10,5,"dd",true,staff);
-        campDataStore.manageData(staff.getDbService().DSCreateCamp(c));
+        campDataStore.manageData(staff.getDbService().GetCampDBService().DSCreateCamp(c));
 
 
         System.out.println("Staff retrieve");
 		ArrayList<Camp> allCampDataRetrivedByStaff;
 		
-		allCampDataRetrivedByStaff = campDataStore.retrieveData(staff.getDbService().DSCampRetrival());
+		allCampDataRetrivedByStaff = campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival());
         allCampDataRetrivedByStaff.forEach(camp->{
             System.out.println("\t" + camp.getCampName());
         });
 
         System.out.println("Student retrieve");
-        campDataStore.retrieveData(student.getDbService().DSCampRetrival(scDatastore)).forEach(camp->{
+        campDataStore.retrieveData(student.getDbService().GetCampDBService().DSCampRetrival(scDatastore)).forEach(camp->{
             System.out.println("\t" + camp.getCampName());
         });
 		
@@ -106,15 +106,15 @@ public class App {
 		editedCamp.setCampName("Renamed camp");
 
 		System.out.println("Staff retrieve again (before applying changes)");
-		campDataStore.retrieveData(staff.getDbService().DSCampRetrival()).forEach(camp->{
+		campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival()).forEach(camp->{
             System.out.println("\t" + camp.getCampName());
         });
 
 		System.out.println("Applying changes");
-		campDataStore.manageData(staff.getDbService().DSEditCamp(editedCamp));
+		campDataStore.manageData(staff.getDbService().GetCampDBService().DSEditCamp(editedCamp));
 
 		System.out.println("Staff retrieve again (after applying changes)");
-		allCampDataRetrivedByStaff = campDataStore.retrieveData(staff.getDbService().DSCampRetrival());
+		allCampDataRetrivedByStaff = campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival());
 
 		allCampDataRetrivedByStaff.forEach(camp->{
             System.out.println("\t" + camp.getCampName());
@@ -122,9 +122,9 @@ public class App {
 
 		System.out.println("Delete second camp");
 		Camp campToDelete = allCampDataRetrivedByStaff.get(1);
-		campDataStore.manageData(staff.getDbService().DSDeleteCamp(campToDelete));
+		campDataStore.manageData(staff.getDbService().GetCampDBService().DSDeleteCamp(campToDelete));
 
-		campDataStore.retrieveData(staff.getDbService().DSCampRetrival()).forEach(camp->{
+		campDataStore.retrieveData(staff.getDbService().GetCampDBService().DSCampRetrival()).forEach(camp->{
 			System.out.println("\t" + camp.getCampName());
 		});
 	}
