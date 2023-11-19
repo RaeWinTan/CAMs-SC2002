@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.example.datastructure.Camp;
 import com.example.exception.IllegalOperationException;
+import com.example.exception.InsufficientPermissionException;
 
 public class CampDataStoreEdit implements IMonoListDataStoreEditOperation<Camp> {
 
@@ -29,6 +30,8 @@ public class CampDataStoreEdit implements IMonoListDataStoreEditOperation<Camp> 
         for (int i=0; i<data.size(); i++){
             Camp camp = data.get(i);
             if (camp.isEquals(newCamp)){
+                if (!camp.getCreatedBy().equals(newCamp.getCreatedBy()))
+                    throw new InsufficientPermissionException("Staff can only be edit camps created by themselves.");
                 camp.setAll(newCamp);
                 return;
             }

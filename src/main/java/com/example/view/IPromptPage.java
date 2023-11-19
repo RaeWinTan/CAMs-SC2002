@@ -5,4 +5,5 @@ public interface IPromptPage {
     ArrayList<IPrompt> returnInputs();
 
     //void addQuestion_attribute(String question, String attributeName);
+    void prompting();
 }

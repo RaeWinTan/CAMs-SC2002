@@ -1,6 +1,8 @@
 package com.example.view;
 
 import java.util.ArrayList;
+
+import com.example.utility.Pair;
 public class ViewOwnSuggestions extends DisplayTableDataPage {
 
     private ArrayList<Pair<String, String>> data;
