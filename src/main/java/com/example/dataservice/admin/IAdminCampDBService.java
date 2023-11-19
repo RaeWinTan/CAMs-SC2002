@@ -1,13 +1,13 @@
 package com.example.dataservice.admin;
 
-import com.example.datastore.monolist.operator.IMonoListDataStoreEditOperation;
-import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
+import com.example.datastore.operator.DataStoreEditOperation;
+import com.example.datastore.operator.DataStoreRetrivalOperation;
 import com.example.datastructure.Camp;
 
 public interface IAdminCampDBService {
-    IMonoListDataStoreEditOperation<Camp> DSCreateCamp(Camp camp);
-    IMonoListDataStoreEditOperation<Camp> DSDeleteCamp(Camp camp);
-    IMonoListDataStoreEditOperation<Camp> DSEditCamp(Camp camp);
-    IMonoListDataStoreRetrivalOperation<Camp> DSCampRetrival();
-    IMonoListDataStoreRetrivalOperation<Camp> DSRelevantCampRetrival();
+    DataStoreEditOperation<Camp> DSCreateCamp(Camp camp);
+    DataStoreEditOperation<Camp> DSDeleteCamp(Camp camp);
+    DataStoreEditOperation<Camp> DSEditCamp(Camp camp);
+    DataStoreRetrivalOperation<Camp> DSCampRetrival();
+    DataStoreRetrivalOperation<Camp> DSRelevantCampRetrival();
 }

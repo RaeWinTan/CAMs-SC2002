@@ -1,10 +1,10 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
 import com.example.datastructure.*;
 
-public class StaffCampRetrival implements IMonoListDataStoreRetrivalOperation<Camp> {
+public class StaffCampRetrival implements DataStoreRetrivalOperation<Camp> {
 
 	private Staff staff;
 

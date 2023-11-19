@@ -1,14 +1,14 @@
 package com.example.dataservice.student;
 
-import com.example.datastore.monolist.operator.IMonoListDataStoreEditOperation;
-import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
+import com.example.datastore.operator.DataStoreEditOperation;
+import com.example.datastore.operator.DataStoreRetrivalOperation;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
 
 public interface IStudentEnquiryDBService {
-    IMonoListDataStoreEditOperation<Enquiry> DSCreateEnquiry(Enquiry enquiry);
-    IMonoListDataStoreEditOperation<Enquiry> DSDeleteEnquiry(Enquiry enquiry);
-    IMonoListDataStoreEditOperation<Enquiry> DSEditEnquiry(Enquiry enquiry);
-    IMonoListDataStoreEditOperation<Enquiry> DSEnquiryAddReply(Enquiry enquiry, Message reply);
-    IMonoListDataStoreRetrivalOperation<Enquiry> DSEnquiryRetrival();
+    DataStoreEditOperation<Enquiry> DSCreateEnquiry(Enquiry enquiry);
+    DataStoreEditOperation<Enquiry> DSDeleteEnquiry(Enquiry enquiry);
+    DataStoreEditOperation<Enquiry> DSEditEnquiry(Enquiry enquiry);
+    DataStoreEditOperation<Enquiry> DSEnquiryAddReply(Enquiry enquiry, Message reply);
+    DataStoreRetrivalOperation<Enquiry> DSEnquiryRetrival();
 }

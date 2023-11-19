@@ -1,8 +1,8 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-public interface IMonoListDataStoreRetrivalOperation<T> {
+public interface DataStoreRetrivalOperation<T> {
 
 	/**
 	 * This method is to be called from a DataStore object. 

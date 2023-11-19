@@ -1,9 +1,9 @@
 package com.example.dataservice.admin;
 
-import com.example.datastore.monolist.operator.IMonoListDataStoreEditOperation;
-import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
-import com.example.datastore.monolist.operator.StaffSuggestionRetrival;
-import com.example.datastore.monolist.operator.StaffSuggestionApproveOperator;
+import com.example.datastore.operator.DataStoreEditOperation;
+import com.example.datastore.operator.DataStoreRetrivalOperation;
+import com.example.datastore.operator.StaffSuggestionApproveOperator;
+import com.example.datastore.operator.StaffSuggestionRetrival;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Suggestion;
 
@@ -15,12 +15,12 @@ public class AdminSuggestionDBService implements IAdminSuggestionDBService {
 	}
 
     @Override
-    public IMonoListDataStoreEditOperation<Suggestion> DSApproveSuggestion(Suggestion suggestion) {
+    public DataStoreEditOperation<Suggestion> DSApproveSuggestion(Suggestion suggestion) {
         return new StaffSuggestionApproveOperator(this.staff, suggestion);
     }
 
     @Override
-    public IMonoListDataStoreRetrivalOperation<Suggestion> DSSuggestionRetrival() {
+    public DataStoreRetrivalOperation<Suggestion> DSSuggestionRetrival() {
         return new StaffSuggestionRetrival(this.staff);
     }
     

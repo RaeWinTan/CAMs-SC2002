@@ -1,11 +1,11 @@
 package com.example.dataservice.admin;
 
-import com.example.datastore.monolist.operator.IMonoListDataStoreEditOperation;
-import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
+import com.example.datastore.operator.DataStoreEditOperation;
+import com.example.datastore.operator.DataStoreRetrivalOperation;
 import com.example.datastructure.Suggestion;
 
 public interface IAdminSuggestionDBService {
     // TODO: Implement this operations
-    IMonoListDataStoreEditOperation<Suggestion> DSApproveSuggestion(Suggestion suggestion);
-    IMonoListDataStoreRetrivalOperation<Suggestion> DSSuggestionRetrival();
+    DataStoreEditOperation<Suggestion> DSApproveSuggestion(Suggestion suggestion);
+    DataStoreRetrivalOperation<Suggestion> DSSuggestionRetrival();
 }

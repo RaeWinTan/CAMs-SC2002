@@ -1,8 +1,8 @@
 package com.example.dataservice.admin;
 
-import com.example.datastore.monolist.operator.IMonoListDataStoreEditOperation;
-import com.example.datastore.monolist.operator.IMonoListDataStoreRetrivalOperation;
-import com.example.datastore.monolist.operator.StaffEnquiryRetrivalOperation;
+import com.example.datastore.operator.DataStoreEditOperation;
+import com.example.datastore.operator.DataStoreRetrivalOperation;
+import com.example.datastore.operator.StaffEnquiryRetrivalOperation;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
@@ -15,13 +15,13 @@ public class AdminEnquiryDBService implements IAdminEnquiryDBService {
 	}
 
     @Override
-    public IMonoListDataStoreEditOperation<Enquiry> DSEnquiryAddReply(Enquiry enquiry, Message reply) {
+    public DataStoreEditOperation<Enquiry> DSEnquiryAddReply(Enquiry enquiry, Message reply) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'DSEnquiryAddReply'");
     }
 
     @Override
-    public IMonoListDataStoreRetrivalOperation<Enquiry> DSEnquiryRetrival() {
+    public DataStoreRetrivalOperation<Enquiry> DSEnquiryRetrival() {
         return new StaffEnquiryRetrivalOperation(this.staff);
     }
     

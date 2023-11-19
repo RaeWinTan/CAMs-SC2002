@@ -1,4 +1,4 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import com.example.datastore.bilist.BiListDataStore;
 import com.example.datastore.bilist.operator.StudentParticipatingCampRetrieve;
@@ -10,7 +10,7 @@ import com.example.utility.DataStorePair;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class StudentCampRetrival implements IMonoListDataStoreRetrivalOperation<Camp> {
+public class StudentCampRetrival implements DataStoreRetrivalOperation<Camp> {
 	private Student student;
 	private BiListDataStore<DataStorePair<Student,Camp>> scDataStore;
 
@@ -29,7 +29,7 @@ public class StudentCampRetrival implements IMonoListDataStoreRetrivalOperation<
 	 * @param data		Clone of ArrayList of Camps from Camp DataStore.
 	 * @return 			Deep clone of filtered data. 
 	 * @see #filter(Camp)
-	 * @see IMonoListDataStoreRetrivalOperation
+	 * @see DataStoreRetrivalOperation
 	 */
 	public ArrayList<Camp> perform(ArrayList<Camp> data) {
 		ArrayList<DataStorePair<Student,Camp>> participating = this.scDataStore.retrieveData(new StudentParticipatingCampRetrieve(this.student));

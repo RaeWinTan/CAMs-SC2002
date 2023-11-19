@@ -1,4 +1,4 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import com.example.datastructure.Suggestion;
 import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 
-public class StaffSuggestionApproveOperator implements IMonoListDataStoreEditOperation<Suggestion>{
+public class StaffSuggestionApproveOperator implements DataStoreEditOperation<Suggestion>{
 
 
     private Suggestion suggestion;

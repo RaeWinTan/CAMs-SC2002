@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
+import com.example.datastore.DataStore;
 import com.example.datastore.bilist.BiListDataStore;
-import com.example.datastore.monolist.MonoListDataStore;
-import com.example.datastore.monolist.operator.UserDataStoreLoad;
-import com.example.datastore.monolist.operator.UserLoginRetrival;
+import com.example.datastore.operator.UserDataStoreLoad;
+import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 
@@ -22,11 +22,11 @@ import com.example.view.LoginPromptPage;
 
 public class App {
 
-	public static MonoListDataStore<Staff> staffDataStore;
-	public static MonoListDataStore<Student> studentDataStore;
-	public static MonoListDataStore<Camp> campDataStore;
-	public static MonoListDataStore<Enquiry> enquiryDataStore;
-	public static MonoListDataStore<Suggestion> suggestionDataStore;
+	public static DataStore<Staff> staffDataStore;
+	public static DataStore<Student> studentDataStore;
+	public static DataStore<Camp> campDataStore;
+	public static DataStore<Enquiry> enquiryDataStore;
+	public static DataStore<Suggestion> suggestionDataStore;
 
 	public static BiListDataStore<DataStorePair<Student,Camp>> scDatastore;
 	public static HashMap<String, IPromptPage> hm;
@@ -91,11 +91,11 @@ public class App {
 
 	private static void initialise(){
 		// Initialise Datastores.
-		staffDataStore = new MonoListDataStore<Staff>();
-		studentDataStore = new MonoListDataStore<Student>();
-		campDataStore = new MonoListDataStore<Camp>();
-		enquiryDataStore = new MonoListDataStore<Enquiry>();
-		suggestionDataStore = new MonoListDataStore<Suggestion>();
+		staffDataStore = new DataStore<Staff>();
+		studentDataStore = new DataStore<Student>();
+		campDataStore = new DataStore<Camp>();
+		enquiryDataStore = new DataStore<Enquiry>();
+		suggestionDataStore = new DataStore<Suggestion>();
 
 		scDatastore = new BiListDataStore<DataStorePair<Student,Camp>>();
 		

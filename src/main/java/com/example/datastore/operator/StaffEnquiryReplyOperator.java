@@ -1,4 +1,4 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import com.example.exception.InsufficientPermissionException;
 /**
  * Operator for staff to reply to enquiry.
  */
-public class StaffEnquiryReplyOperator implements IMonoListDataStoreEditOperation<Enquiry> {
+public class StaffEnquiryReplyOperator implements DataStoreEditOperation<Enquiry> {
 
     private Enquiry enquiry;
     private Message reply;
