@@ -6,7 +6,7 @@ import com.example.datastructure.Camp;
 import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 
-public class CampDataStoreEdit implements DataStoreEditOperation<Camp> {
+public class CampDataStoreEdit implements IDataStoreEditOperation<Camp> {
 
     private Camp newCamp;
 
@@ -23,10 +23,10 @@ public class CampDataStoreEdit implements DataStoreEditOperation<Camp> {
 	 * This method iterates through data to search for currentCamp.
 	 * If found, the camp attributes will be updated to that of newCamp.
 	 * @param data      ArrayList of Camps from Camp DataStore.
-     * @see DataStoreEditOperation
+     * @see IDataStoreEditOperation
 	 */
     @Override
-    public void perform(ArrayList<Camp> data) throws IllegalOperationException {
+    public void perform(ArrayList<Camp> data) {
         for (int i=0; i<data.size(); i++){
             Camp camp = data.get(i);
             if (camp.isEquals(newCamp)){

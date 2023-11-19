@@ -25,12 +25,8 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 * @param faculty		Faculty the user is staff.
 	 * @param password		Password of the staff.
 	 */
-	public Staff(String userId, String name, GroupName faculty, String password) {
+	private Staff(String userId, String name, GroupName faculty, String password) {
 		super(userId, name, faculty, password);
-	}
-
-	public Staff(ArrayList<Pair<String, String>> attrMapping){
-		super(attrMapping);
 	}
 
 	/**

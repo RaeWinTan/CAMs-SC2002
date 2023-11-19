@@ -8,7 +8,7 @@ import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 
-public class StudentJoinCampAsAttendee implements DataStoreEditOperation<Camp> {
+public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> {
 
     Student student;
     Camp camp;
@@ -20,7 +20,7 @@ public class StudentJoinCampAsAttendee implements DataStoreEditOperation<Camp> {
     }
 
     @Override
-    public void perform(ArrayList<Camp> data) throws IllegalOperationException {
+    public void perform(ArrayList<Camp> data) {
         // Check if camp has enough slots
         if (this.camp.getRemaindingSlots() <= 0){
             throw new IllegalOperationException("Camp has reached the maximum number of participants.");

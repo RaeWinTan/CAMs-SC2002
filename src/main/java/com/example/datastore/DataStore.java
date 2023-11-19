@@ -3,8 +3,8 @@ package com.example.datastore;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.example.datastore.operator.DataStoreEditOperation;
-import com.example.datastore.operator.DataStoreRetrivalOperation;
+import com.example.datastore.operator.IDataStoreEditOperation;
+import com.example.datastore.operator.IDataStoreRetrivalOperation;
 import com.example.exception.IllegalOperationException;
 
 public class DataStore<T extends IDataStoreObject<T>> implements DataStoreEditable<T>, DataStoreRetrivable<T>{
@@ -17,9 +17,9 @@ public class DataStore<T extends IDataStoreObject<T>> implements DataStoreEditab
 
 	/**
 	 * @param operation Modification operation that will be performed on the datastore.
-	 * @see DataStoreEditOperation
+	 * @see IDataStoreEditOperation
 	 */
-	public void manageData(DataStoreEditOperation<T> operation) throws IllegalOperationException {
+	public void manageData(IDataStoreEditOperation<T> operation) throws IllegalOperationException {
 		operation.perform(this.data);
 	}
 
@@ -29,7 +29,7 @@ public class DataStore<T extends IDataStoreObject<T>> implements DataStoreEditab
 	 * @see IDataStoreRetrival
 	 */
 	// TODO: ADD INSTANCE OF
-	public ArrayList<T> retrieveData(DataStoreRetrivalOperation<T> operation) throws IllegalOperationException{
+	public ArrayList<T> retrieveData(IDataStoreRetrivalOperation<T> operation) throws IllegalOperationException{
 		ArrayList<T> copy = (ArrayList<T>) data
 							.stream()
 							.map(i->i.copyOf())

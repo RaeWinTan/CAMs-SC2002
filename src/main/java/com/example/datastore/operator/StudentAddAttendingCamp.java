@@ -7,7 +7,7 @@ import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 
-public class StudentAddAttendingCamp implements DataStoreEditOperation<Student>{
+public class StudentAddAttendingCamp implements IDataStoreEditOperation<Student>{
 
     private Student student;
     private Camp camp;
@@ -18,7 +18,7 @@ public class StudentAddAttendingCamp implements DataStoreEditOperation<Student>{
     }
 
     @Override
-    public void perform(ArrayList<Student> data) throws IllegalOperationException {
+    public void perform(ArrayList<Student> data) {
         for (Student student : data) {
             if (student.isEquals(this.student)){
                 student.getAttending().add(new CampMember(this.student, this.camp));

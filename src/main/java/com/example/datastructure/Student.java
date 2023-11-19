@@ -29,7 +29,7 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 * @param faculty		Faculty the student is from.
 	 * @param password		Password of the student.
 	 */
-	public Student(String userId, String name, GroupName faculty, String password) {
+	private Student(String userId, String name, GroupName faculty, String password) {
 		super(userId, name, faculty, password);
 	}
 

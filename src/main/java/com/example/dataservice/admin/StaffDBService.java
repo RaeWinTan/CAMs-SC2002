@@ -4,8 +4,8 @@ import com.example.dataservice.UserDBService;
 import com.example.datastore.operator.CampDataStoreEdit;
 import com.example.datastore.operator.DataStoreCreate;
 import com.example.datastore.operator.DataStoreDelete;
-import com.example.datastore.operator.DataStoreEditOperation;
-import com.example.datastore.operator.DataStoreRetrivalOperation;
+import com.example.datastore.operator.IDataStoreEditOperation;
+import com.example.datastore.operator.IDataStoreRetrivalOperation;
 import com.example.datastore.operator.StaffCampRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
@@ -24,7 +24,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	 * @param camp: Camp to be created.
 	 */
 	@Override
-	public DataStoreEditOperation<Camp> DSCreateCamp(Camp camp) {
+	public IDataStoreEditOperation<Camp> DSCreateCamp(Camp camp) {
 		return new DataStoreCreate<Camp>(camp);
 	}
 
@@ -33,7 +33,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	 * @param camp: Camp to be deleted.
 	 */
 	@Override
-	public DataStoreEditOperation<Camp> DSDeleteCamp(Camp camp) {
+	public IDataStoreEditOperation<Camp> DSDeleteCamp(Camp camp) {
 		return new DataStoreDelete<Camp>(camp);
 	}
 
@@ -42,7 +42,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	 * @param camp: Camp with updated attributes.
 	 */
 	@Override
-	public DataStoreEditOperation<Camp> DSEditCamp(Camp camp) {
+	public IDataStoreEditOperation<Camp> DSEditCamp(Camp camp) {
 		return new CampDataStoreEdit(camp);
 	}
 
@@ -51,7 +51,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	 * This method returns a datastore operation to retrieve camps.
 	 */
 	@Override
-	public DataStoreRetrivalOperation<Camp> DSCampRetrival() {
+	public IDataStoreRetrivalOperation<Camp> DSCampRetrival() {
 		return new StaffCampRetrival();
 	}
 
@@ -60,7 +60,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	 * This method returns a datastore operation to retrieve relevant camps.
 	 */
 	@Override
-	public DataStoreRetrivalOperation<Camp> DSRelevantCampRetrival() {
+	public IDataStoreRetrivalOperation<Camp> DSRelevantCampRetrival() {
 		return new StaffCampRetrival(this.staff);
 	}
 }

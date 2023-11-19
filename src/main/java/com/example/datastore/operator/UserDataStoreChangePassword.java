@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.example.datastructure.User;
 import com.example.exception.IllegalOperationException;
 
-public class UserDataStoreChangePassword<T extends User> implements DataStoreEditOperation<T> {
+public class UserDataStoreChangePassword<T extends User> implements IDataStoreEditOperation<T> {
 
     T user;
 

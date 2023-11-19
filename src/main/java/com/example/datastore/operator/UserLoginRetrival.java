@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.example.datastructure.User;
 import com.example.exception.InvalidLoginCredentialException;
 
-public class UserLoginRetrival<T extends User> implements DataStoreRetrivalOperation<T>{
+public class UserLoginRetrival<T extends User> implements IDataStoreRetrivalOperation<T>{
 
     private String userId;
     private String password;
