@@ -40,7 +40,7 @@ public class CreateCampPromptPage implements IPromptPage{
 
 
     @Override
-    public void prompting() {
+    public void perform() {
         int i = 0;
         while (i < question_attribute_mapping.size()) {
             Pair<String, String> questionPair = question_attribute_mapping.get(i);

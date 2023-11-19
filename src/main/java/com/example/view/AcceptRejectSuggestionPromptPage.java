@@ -29,7 +29,7 @@ public class AcceptRejectSuggestionPromptPage implements IPromptPage {
     }
 
     @Override
-    public void prompting() {
+    public void perform() {
         for (Pair<String, String> questionPair : question_attribute_mapping) {
             String attribute = questionPair.getSecond();
 

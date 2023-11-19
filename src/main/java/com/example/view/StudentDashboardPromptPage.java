@@ -2,10 +2,8 @@ package com.example.view;
 
 import java.util.ArrayList;
 
-import com.example.utility.Pair;
-//dashboard can be the redirections?
 public class StudentDashboardPromptPage implements IPromptPage{
-    private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
+    private ArrayList<String>options = new ArrayList<String>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private boolean isCommittee;
     public StudentDashboardPromptPage(boolean isCommittee){//here must determine if committee or not
@@ -14,25 +12,24 @@ public class StudentDashboardPromptPage implements IPromptPage{
     }
 
     private void initialise_question_attribute_mapping(){
-        this.question_attribute_mapping.add(new Pair<String, String>("Change password","changePassword"));
-        this.question_attribute_mapping.add(new Pair<String, String>("View Available Camps","viewAvailableCamps"));
-        this.question_attribute_mapping.add(new Pair<String, String>("View all registered camps","viewAllRegisteredCamps"));
-        this.question_attribute_mapping.add(new Pair<String, String>("Register for camp as attendee","registerAttendeeCamp"));
         
-        this.question_attribute_mapping.add(new Pair<String, String>("Enquire about a camp","enquireCamp"));
-        this.question_attribute_mapping.add(new Pair<String, String>("View replies to enquiries","viewRepliesToEnquiry"));
+        this.options.add("changePassword");
+        this.options.add("viewAvailableCamps");
+        this.options.add("viewAllRegisteredCamps");
+        this.options.add("registerAttendeeCamp");
         
-        this.question_attribute_mapping.add(new Pair<String, String>("Withdraw from a camp","withdrawFromCamp"));
-        this.question_attribute_mapping.add(new Pair<String, String>("Register for camp as camp committee member","registerCommitteeCamp"));
-
-
-        if(isCommittee) this.question_attribute_mapping.add(new Pair<String, String>("Submit suggestions to change camp details","suggestionCamp"));
-        if(isCommittee) this.question_attribute_mapping.add(new Pair<String, String>("View enquiries from students","viewEnquiresFromStudent"));
-        if(isCommittee) this.question_attribute_mapping.add(new Pair<String, String>("View your submitted suggestions","viewSubmittedSuggestions"));
-        if(isCommittee) this.question_attribute_mapping.add(new Pair<String, String>("Edit your submitted suggestions","editSuggestion"));
-        if(isCommittee) this.question_attribute_mapping.add(new Pair<String, String>("Delete your submitted suggestions","deleteSuggestion"));
-        if(isCommittee) this.question_attribute_mapping.add(new Pair<String, String>("Generate report of attendees for each camp","generateReportAtteedeesForEachCamp"));
-        this.question_attribute_mapping.add(new Pair<String, String>("Logout","logout"));
+        this.options.add("enquireCamp");
+        this.options.add("viewRepliesToEnquiry");
+        
+        this.options.add("withdrawFromCamp");
+        this.options.add("registerCommitteeCamp");
+        if(isCommittee) this.options.add("suggestionCamp");
+        if(isCommittee) this.options.add("viewEnquiresFromStudent");
+        if(isCommittee) this.options.add("viewSubmittedSuggestions");
+        if(isCommittee) this.options.add("editSuggestion");
+        if(isCommittee) this.options.add("deleteSuggestion");
+        if(isCommittee) this.options.add("generateReportAtteedeesForEachCamp");
+        this.options.add("logout");
     }
     @Override
     public ArrayList<IPrompt> returnInputs() {
@@ -40,12 +37,13 @@ public class StudentDashboardPromptPage implements IPromptPage{
     }
 
     @Override
-    public void prompting() {
-        //for(Pair<String,String> i : this.question_attribute_mapping){
-            //this.prompts.add(new Prompt());
-        //}
-        // TODO Auto-generated method stub
-        
+    public void perform() {
+        try {
+            this.prompts.add(new PromptOption("What actions you want to do?", "page",this.options ));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
 }

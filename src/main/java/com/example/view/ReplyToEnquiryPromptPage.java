@@ -28,7 +28,7 @@ public class ReplyToEnquiryPromptPage implements IPromptPage {
     }
 
     @Override
-    public void prompting() {
+    public void perform() {
         for (Pair<String, String> p : question_attribute_mapping){
         Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
                 question_attribute_mapping.get(0).getSecond());
