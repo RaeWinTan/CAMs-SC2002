@@ -1,7 +1,10 @@
 package com.example.dataservice.student;
 
 import com.example.dataservice.UserDBService;
-import com.example.datastore.DataStore;
+import com.example.datastore.IDataStoreEditable;
+import com.example.datastore.IDataStoreRetrivable;
+import com.example.datastore.operator.AttendeeCampRetrival;
+import com.example.datastore.operator.CommitteeCampRetrival;
 import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastore.operator.IDataStoreRetrivalOperation;
 import com.example.datastore.operator.StudentCampRetrival;
@@ -22,21 +25,19 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
 		return new StudentCampRetrival(this.student);
 	}
     @Override
-    public IDataStoreRetrivalOperation<Camp> DSCommiteeCampRetrival() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'DSCommiteeCampRetrival'");
+    public IDataStoreRetrivalOperation<Camp> DSCommiteeCampRetrival(IDataStoreRetrivable<Student> studentDataStore) {
+        return new CommitteeCampRetrival(this.student, studentDataStore);
     }
     @Override
-    public IDataStoreRetrivalOperation<Camp> DSAteendeeCampRetrival() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'DSAteendeeCampRetrival'");
+    public IDataStoreRetrivalOperation<Camp> DSAteendeeCampRetrival(IDataStoreRetrivable<Student> studentDataStore) {
+        return new AttendeeCampRetrival(this.student, studentDataStore);
     }
     @Override
-    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, DataStore<Student> studentDataStore) {
+    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStore) {
         return new StudentJoinCampAsAttendee(this.student, camp, studentDataStore);
     }
     @Override
-    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, DataStore<Student> studentDataStore) {
+    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStore) {
         return new StudentJoinCampAsCommittee(this.student, camp, studentDataStore);
     }
 }

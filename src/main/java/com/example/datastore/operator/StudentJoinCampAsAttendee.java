@@ -7,6 +7,7 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectNotFoundException;
 
 public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> {
 
@@ -39,12 +40,7 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
                 return;
             }
         }
-
-        throw new IllegalOperationException("Camp not found");
-
-        
-
-        
+        throw new ObjectNotFoundException("Camp");
     }
     
 }

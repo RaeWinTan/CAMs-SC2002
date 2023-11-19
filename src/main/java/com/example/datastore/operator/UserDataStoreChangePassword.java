@@ -3,7 +3,7 @@ package com.example.datastore.operator;
 import java.util.ArrayList;
 
 import com.example.datastructure.User;
-import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectNotFoundException;
 
 public class UserDataStoreChangePassword<T extends User> implements IDataStoreEditOperation<T> {
 
@@ -23,6 +23,6 @@ public class UserDataStoreChangePassword<T extends User> implements IDataStoreEd
             }
         }
         // Should not happen, but throw an error if no user in datastore matches the user being edited.
-        throw new IllegalOperationException("User not found");
+        throw new ObjectNotFoundException("User");
     }
 }
