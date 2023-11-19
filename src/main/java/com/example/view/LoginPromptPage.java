@@ -31,7 +31,7 @@ public class LoginPromptPage implements IPromptPage{
 
 
     @Override
-    public void prompting() {
+    public void perform() {
         // TODO Auto-generated method stub
         int i = 0;
         while (i < question_attribute_mapping.size()) {

@@ -50,7 +50,7 @@ public class EditCampPromptPage implements IPromptPage {
 
 
     @Override
-    public void prompting() {
+    public void perform() {
        ArrayList<String> campNames = new ArrayList<String>();
         for (ArrayList<Pair<String,String>> campList: camps){
             for(Pair<String,String> camp:campList){

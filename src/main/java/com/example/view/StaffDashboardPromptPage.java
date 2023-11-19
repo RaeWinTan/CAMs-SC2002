@@ -11,7 +11,7 @@ public class StaffDashboardPromptPage implements IPromptPage{
     }
 
     @Override
-    public void prompting() {
+    public void perform() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'prompting'");
     }

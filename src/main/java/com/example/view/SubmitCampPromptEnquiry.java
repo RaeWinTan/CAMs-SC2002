@@ -25,7 +25,7 @@ public class SubmitCampPromptEnquiry implements IPromptPage {
     }
 
     @Override
-    public void prompting() {
+    public void perform() {
         Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
                 question_attribute_mapping.get(0).getSecond());
         this.prompts.add(tmp);

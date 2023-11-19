@@ -17,6 +17,7 @@ import com.example.datastructure.Suggestion;
 import com.example.exception.InvalidLoginCredentialException;
 import com.example.view.IPromptPage;
 import com.example.view.LoginPromptPage;
+import com.example.view.StudentDashboardPromptPage;
 
 enum UserType{
 	STAFF,
@@ -35,6 +36,9 @@ public class App {
 	public static Staff staff;
 	public static Student student;
 	public static UserType userType;
+	public static String currentPage;
+
+	public static boolean isCommittee;
 	
 
 	public static void main(String arg[]) {
@@ -47,7 +51,7 @@ public class App {
 		String userType = "";
 		while (staff==null && student==null) {
 			IPromptPage loginPage = redirect("login");
-			loginPage.prompting();
+			loginPage.perform();
 			for(int i = 0; i < loginPage.returnInputs().size();i++){
 				if(loginPage.returnInputs().get(i).getResult().getFirst() == "username"){
 					username = loginPage.returnInputs().get(i).getResult().getSecond();
@@ -72,15 +76,39 @@ public class App {
 		}
 	}
 	public static void workFlow(){
-		login();
+		while(true){
+			login();
+			while(staff!=null||student!=null){//while it is logged in
+				IPromptPage dashboard;
+				if(userType==UserType.STAFF){
+					dashboard = redirect("staffDashboard");
+				}else{
+					dashboard = redirect("studentDashboard");
+				}
+				dashboard.perform();
+				currentPage = dashboard.returnInputs().get(0).getResult().getSecond();
+				if(currentPage.equals("logout")) break;
+				redirect(currentPage);
+			}
+			System.out.println("SUCCESSFUL LOGOUT");
+			staff = null;
+			student = null;
+			
+		}
+		
+
 		
 	}
 
 	public static IPromptPage redirect(String pagename){
 		//check for those page name that has an array set for them, got to create here
-		IPromptPage rtn;
+		
+		currentPage = pagename;
+		//must do down casting either for display or prompt
 		if(pagename=="login"){
 			return new LoginPromptPage();
+		}else if(pagename == "studentDashboard"){
+			return new StudentDashboardPromptPage(isCommittee);
 		}
 		return new LoginPromptPage();
 	} 
