@@ -6,6 +6,7 @@ import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.exception.IllegalOperationException;
+import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
 public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
@@ -22,12 +23,17 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
 
     @Override
     public void perform(ArrayList<Camp> data) {
-        // Get latest version of the camp & check if there are participants
+        // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.camp)){
-                if (camp.getAttendees().size() + camp.getCommittees().size() > 0){
+                // Check credentials
+                if (!camp.getCreatedBy().isEquals(this.staff))
+                    throw new InsufficientPermissionException("Staff deleting camp does not match createdBy in camp.");
+
+                // Deny deletion of camp has participants
+                if (camp.getAttendees().size() + camp.getCommittees().size() > 0)
                     throw new IllegalOperationException("Unable to delete camp with participants");
-                }
+                
                 break;
             }
         }
@@ -39,7 +45,7 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
             return;
         }
 
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

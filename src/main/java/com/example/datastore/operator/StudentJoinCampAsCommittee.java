@@ -43,7 +43,7 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
                 return;
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

@@ -40,7 +40,7 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
                 return;
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

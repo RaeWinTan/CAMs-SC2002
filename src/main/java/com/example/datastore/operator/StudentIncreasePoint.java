@@ -20,7 +20,7 @@ public class StudentIncreasePoint implements IDataStoreEditOperation<Student>{
                 return;
             }
         }
-        throw new ObjectNotFoundException("Student");
+        throw new ObjectNotFoundException("Student", "DataStore");
     } 
     
 }

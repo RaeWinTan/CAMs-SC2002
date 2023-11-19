@@ -22,6 +22,7 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
 
     @Override
     public void perform(ArrayList<Camp> data) {
+        // TODO: Check if staff has permission to approve suggestion
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.suggestion.getCamp())){
@@ -35,10 +36,10 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
                         return;
                     }
                 }
-                throw new ObjectNotFoundException("Suggestion");
+                throw new ObjectNotFoundException("Suggestion", "Camp");
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

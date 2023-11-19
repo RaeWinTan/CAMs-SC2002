@@ -23,8 +23,7 @@ public class StaffAddCamp implements IDataStoreEditOperation<Staff> {
                 return;
             }
         }
-
-        throw new ObjectNotFoundException("Staff");
+        throw new ObjectNotFoundException("Staff", "DataStore");
     }
     
 }

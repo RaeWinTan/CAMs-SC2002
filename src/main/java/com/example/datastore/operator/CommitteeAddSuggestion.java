@@ -2,30 +2,31 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-import com.example.datastructure.Camp;
-import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
+import com.example.datastructure.Suggestion;
 import com.example.exception.ObjectNotFoundException;
 
-public class StudentAddAttendingCamp implements IDataStoreEditOperation<Student>{
+public class CommitteeAddSuggestion implements IDataStoreEditOperation<Student>{
 
     private Student student;
-    private Camp camp;
+    private Suggestion suggestion;
 
-    public StudentAddAttendingCamp(Student student, Camp camp){
+    public CommitteeAddSuggestion(Student student, Suggestion suggestion){
         this.student = student;
-        this.camp = camp;
+        this.suggestion = suggestion;
     }
 
     @Override
     public void perform(ArrayList<Student> data) {
+        // Get student
         for (Student student : data) {
             if (student.isEquals(this.student)){
-                student.getAttending().add(new CampMember(this.student, this.camp));
+                // Add suggestion to student
+                student.getSuggestions().add(this.suggestion);
                 return;
             }
         }
-
         throw new ObjectNotFoundException("Student", "DataStore");
     }
+    
 }

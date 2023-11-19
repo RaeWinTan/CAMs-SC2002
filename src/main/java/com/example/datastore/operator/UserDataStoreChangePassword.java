@@ -22,7 +22,6 @@ public class UserDataStoreChangePassword<T extends User> implements IDataStoreEd
                 return;
             }
         }
-        // Should not happen, but throw an error if no user in datastore matches the user being edited.
-        throw new ObjectNotFoundException("User");
+        throw new ObjectNotFoundException("User", "DataStore");
     }
 }
