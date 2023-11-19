@@ -10,7 +10,7 @@ public abstract class UserDBService<T extends User> implements IUserDataServicab
      * This method reutrns a datastore operation to edit an existing user.
      * @param user  User with updated password.
      */
-    public DataStoreEditOperation<T> DBEditUser(T user){
+    public DataStoreEditOperation<T> DBUserChangePassword(T user){
         return new UserDataStoreChangePassword<T>(user);
     }
 }

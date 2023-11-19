@@ -1,5 +1,6 @@
 package com.example.dataservice.admin;
 
+import com.example.dataservice.UserDBService;
 import com.example.datastore.operator.CampDataStoreEdit;
 import com.example.datastore.operator.DataStoreCreate;
 import com.example.datastore.operator.DataStoreDelete;
@@ -9,14 +10,14 @@ import com.example.datastore.operator.StaffCampRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 
-public class AdminCampDBService implements IAdminCampDBService {
+public class StaffDBService extends UserDBService<Staff> implements IAdminCampDBService {
 
 
 	private Staff staff;
-	public AdminCampDBService(Staff staff){
+	
+	public StaffDBService(Staff staff){
 		this.staff = staff;
 	}
-
 
     /**
 	 * This method returns a datastore operation to create a new camp.

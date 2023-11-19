@@ -2,13 +2,10 @@ package com.example.datastructure;
 
 import java.util.ArrayList;
 
-import com.example.dataservice.*;
 import com.example.datastore.IDataStoreObject;
 import com.example.utility.Pair;
 
 public class Staff extends User implements IDataStoreObject<Staff>{
-
-	private StaffDBService dbService;
 
 	/**
 	 * Constructor for Staff class, password will be set to default.
@@ -18,7 +15,6 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	public Staff(String userId, String name, GroupName faculty) {
 		super(userId, name, faculty);
-		this.dbService = new StaffDBService(this);
 	}
 
 
@@ -31,19 +27,10 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	public Staff(String userId, String name, GroupName faculty, String password) {
 		super(userId, name, faculty, password);
-		this.dbService = new StaffDBService(this);
 	}
 
 	public Staff(ArrayList<Pair<String, String>> attrMapping){
 		super(attrMapping);
-	}
-
-	/**
-	 * Get method for dbService.
-	 * @return		dbService.
-	 */
-	public StaffDBService getDbService() {
-		return this.dbService;
 	}
 
 	/**
