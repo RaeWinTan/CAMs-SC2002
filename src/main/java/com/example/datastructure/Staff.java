@@ -3,10 +3,11 @@ package com.example.datastructure;
 import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreObject;
-import com.example.utility.Pair;
+
 
 public class Staff extends User implements IDataStoreObject<Staff>{
-
+	private ArrayList<Message> repliedTo;
+	private ArrayList<Camp> campsCreated;
 	/**
 	 * Constructor for Staff class, password will be set to default.
 	 * @param userId		Unique Identifier of the staff.
@@ -25,12 +26,18 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 * @param faculty		Faculty the user is staff.
 	 * @param password		Password of the staff.
 	 */
-	public Staff(String userId, String name, GroupName faculty, String password) {
+	private Staff(String userId, String name, GroupName faculty, String password, ArrayList<Message> repliedTo, ArrayList<Camp> campsCreated) {
 		super(userId, name, faculty, password);
+		this.repliedTo = repliedTo;
+		this.campsCreated = campsCreated;
 	}
 
-	public Staff(ArrayList<Pair<String, String>> attrMapping){
-		super(attrMapping);
+	public ArrayList<Message> getRepliedTo(){
+		return this.repliedTo;
+	}
+
+	public ArrayList<Camp> getCampsCreated(){
+		return this.campsCreated;
 	}
 
 	/**
@@ -39,7 +46,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	@Override
 	public Staff copyOf() {
-		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword());
+		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getRepliedTo(), this.getCampsCreated());
 	}
 
 	

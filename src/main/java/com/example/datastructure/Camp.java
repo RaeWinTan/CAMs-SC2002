@@ -23,6 +23,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	private Staff createdBy;
 	private ArrayList<CampMember> committees;
 	private ArrayList<CampMember> attendees;
+	private ArrayList<Enquiry> enquiries;
 
 	/**
 	 * Constructor for Camp class.
@@ -67,7 +68,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param visibility	Flag for Student's access to view the camp.
 	 * @param createdBy		Staff who created the camp.
 	 */
-	public Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy, ArrayList<CampMember> attendees, ArrayList<CampMember> committees) {
+	private Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy, ArrayList<CampMember> attendees, ArrayList<CampMember> committees, ArrayList<Enquiry> enquiries) {
 		this.campId = campId;
 		this.campName = campName;
 		this.dates = dates;
@@ -81,6 +82,7 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.createdBy = createdBy;
 		this.attendees = attendees;
 		this.committees = committees;
+		this.enquiries = enquiries;
 	}
 
 	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
@@ -267,6 +269,10 @@ public class Camp implements IDataStoreObject<Camp>{
 		return this.committees;
 	}
 
+	public ArrayList<Enquiry> getEnquiries(){
+		return this.enquiries;
+	}
+
 
 	/**
 	 * Set method for campName.
@@ -385,7 +391,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 */
 	@Override
 	public Camp copyOf() {
-		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, new ArrayList<CampMember>(this.attendees), new ArrayList<CampMember>(this.committees));
+		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, new ArrayList<CampMember>(this.attendees), new ArrayList<CampMember>(this.committees), new ArrayList<Enquiry>(this.enquiries));
 	}
 
 }

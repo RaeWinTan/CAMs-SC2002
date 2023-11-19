@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.datastructure.*;
 
-public class StaffCampRetrival implements DataStoreRetrivalOperation<Camp> {
+public class StaffCampRetrival implements IDataStoreRetrivalOperation<Camp> {
 
 	private Staff staff;
 

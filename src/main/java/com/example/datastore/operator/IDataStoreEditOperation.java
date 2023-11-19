@@ -2,9 +2,7 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-import com.example.exception.IllegalOperationException;
-
-public interface DataStoreEditOperation<IDataStoreObject> {
+public interface IDataStoreEditOperation<IDataStoreObject> {
 
 	/**
 	 * This method is to be called from a DataStore object. 
@@ -13,6 +11,6 @@ public interface DataStoreEditOperation<IDataStoreObject> {
 	 * @param data		ArrayList from DataStore.
 	 * @see DataStore
 	 */
-	void perform(ArrayList<IDataStoreObject> data) throws IllegalOperationException;
+	void perform(ArrayList<IDataStoreObject> data);
 
 }

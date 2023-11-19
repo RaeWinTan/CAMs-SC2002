@@ -8,6 +8,8 @@ public class Student extends User implements IDataStoreObject<Student>{
 	private int points;
 	private ArrayList<CampMember> leading;
 	private ArrayList<CampMember> attending;
+	private ArrayList<Message> repliedTo;
+	private ArrayList<Enquiry> enquireAbout;
 
 	/**
 	 * Constructor for Student class, password will be set to default.
@@ -29,8 +31,13 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 * @param faculty		Faculty the student is from.
 	 * @param password		Password of the student.
 	 */
-	public Student(String userId, String name, GroupName faculty, String password) {
+	private Student(String userId, String name, GroupName faculty, String password, int points, ArrayList<CampMember> leading, ArrayList<CampMember> attending, ArrayList<Message> repliedTo, ArrayList<Enquiry> enquireAbout) {
 		super(userId, name, faculty, password);
+		this.points = points;
+		this.leading = leading;
+		this.attending = attending;
+		this.repliedTo = repliedTo;
+		this.enquireAbout = enquireAbout;
 	}
 
 	public int getPoints(){
@@ -49,13 +56,21 @@ public class Student extends User implements IDataStoreObject<Student>{
 		this.points++;
 	}
 
+	public ArrayList<Enquiry> getEnquireAbout(){
+		return this.enquireAbout;
+	}
+
+	public ArrayList<Message> getRepliedTo(){
+		return this.repliedTo;
+	}
+
 	/**
 	 * This method returns a copy of the student.
 	 * @return		A copy of the student.
 	 */
 	@Override
 	public Student copyOf() {
-		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword());
+		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), new ArrayList<>(this.getLeading()), new ArrayList<CampMember>(this.getAttending()), new ArrayList<Message>(this.getRepliedTo()), new ArrayList<Enquiry>(this.getEnquireAbout()));
 	}
 	
 	/**

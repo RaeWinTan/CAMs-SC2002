@@ -2,25 +2,25 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-import com.example.datastore.DataStore;
+import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 
-public class StudentJoinCampAsCommittee implements DataStoreEditOperation<Camp> {
+public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp> {
 
     Student student;
     Camp camp;
-    DataStore<Student> studenDataStore;
-    public StudentJoinCampAsCommittee(Student student, Camp camp, DataStore<Student> studentDataStore){
+    IDataStoreEditable<Student> studenDataStore;
+    public StudentJoinCampAsCommittee(Student student, Camp camp, IDataStoreEditable<Student> studentDataStore){
         this.student = student;
         this.camp = camp;
         this.studenDataStore = studentDataStore;
     }
 
     @Override
-    public void perform(ArrayList<Camp> data) throws IllegalOperationException {
+    public void perform(ArrayList<Camp> data) {
         // Check if camp has enough slots
         if (this.camp.getRemaindingCommitteeSlots() <= 0){
             throw new IllegalOperationException("Camp has reached the maximum number of committee members.");

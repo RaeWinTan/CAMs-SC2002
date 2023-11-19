@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.example.datastore.IDataStoreObject;
 import com.example.exception.IllegalOperationException;
 
-public class DataStoreCreate<T extends IDataStoreObject<T>> implements DataStoreEditOperation<T> {
+public class DataStoreCreate<T extends IDataStoreObject<T>> implements IDataStoreEditOperation<T> {
 
 	private T obj;
 
@@ -21,10 +21,10 @@ public class DataStoreCreate<T extends IDataStoreObject<T>> implements DataStore
 	 * This method iterates through data to check for duplicates.
 	 * If no duplicates, obj will be added to data.
 	 * @param data		ArrayList of T from DataStore.
-	 * @see DataStoreEditOperation
+	 * @see IDataStoreEditOperation
 	 */
 	@Override
-	public void perform(ArrayList<T> data) throws IllegalOperationException{
+	public void perform(ArrayList<T> data) {
 		if(data.stream().anyMatch(i->i.isEquals(this.obj))) throw new IllegalOperationException("Object already exists");
 		data.add(obj);
 	}

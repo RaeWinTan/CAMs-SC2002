@@ -33,52 +33,11 @@ public abstract class User { //implements IDataStoreObject<User>{
 	 * @param faculty		Faculty the user is from.
 	 * @param password		Password of the user.
 	 */
-	public User(String userId, String name,GroupName faculty,  String password) {
+	protected User(String userId, String name,GroupName faculty,  String password) {
 		this.userId= userId;
 		this.name = name;
 		this.faculty = faculty;
 		this.password = password;
-	}
-
-public User(ArrayList<Pair<String, String>> attrMapping){
-		for(Pair<String, String> i:attrMapping){
-			if(i.getFirst().equals("userId")){
-				this.userId = i.getSecond();
-			}
-			if(i.getFirst().equals("faculty")){
-				switch(i.getSecond()){
-					case "ADM":
-						this.faculty = GroupName.ADM;
-						break;
-					case "EEE":
-						this.faculty = GroupName.EEE;
-						break;
-					case "NMS":
-						this.faculty = GroupName.NMS;
-						break;
-					case "SCSE":
-						this.faculty = GroupName.SCSE;
-						break;
-					case "SSS":
-						this.faculty = GroupName.SSS;
-						break;
-					default:
-						// TODO: Error handling
-						//throw new Exception("Invalid faculty: " + facultyStr);
-						// TEMPCODE:
-						this.faculty = GroupName.NTU;
-
-				} 
-			}
-
-			if(i.getFirst().equals("passowrd")){
-				this.password = i.getSecond();
-			}
-
-		}
-		if(this.userId == null || this.faculty==null ){
-			//throw error
-		}
 	}
 
 	/**

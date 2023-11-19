@@ -2,7 +2,7 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-public interface DataStoreRetrivalOperation<T> {
+public interface IDataStoreRetrivalOperation<T> {
 
 	/**
 	 * This method is to be called from a DataStore object. 

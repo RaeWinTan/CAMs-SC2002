@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.example.dataloader.DataLoader;
 import com.example.datastructure.User;
 
-public class UserDataStoreLoad<T extends User> implements DataStoreEditOperation<T> {
+public class UserDataStoreLoad<T extends User> implements IDataStoreEditOperation<T> {
     private DataLoader<T> dataLoader;
 
     /**
@@ -20,7 +20,7 @@ public class UserDataStoreLoad<T extends User> implements DataStoreEditOperation
      * This method calls the loadData method from dataLoader, which returns an ArrayList of Users.
      * This method then adds these Users to the DataStore.
      * @param data  ArrayList of Users from User DataStore.
-     * @see DataStoreEditOperation
+     * @see IDataStoreEditOperation
      */
     public void perform(ArrayList<T> data){
         this.dataLoader.loadData().forEach(
