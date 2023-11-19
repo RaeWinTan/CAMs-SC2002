@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
 import com.example.datastore.DataStore;
-import com.example.datastore.bilist.BiListDataStore;
 import com.example.datastore.operator.UserDataStoreLoad;
 import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
@@ -16,7 +15,6 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.InvalidLoginCredentialException;
-import com.example.utility.DataStorePair;
 import com.example.view.IPromptPage;
 import com.example.view.LoginPromptPage;
 
@@ -28,7 +26,6 @@ public class App {
 	public static DataStore<Enquiry> enquiryDataStore;
 	public static DataStore<Suggestion> suggestionDataStore;
 
-	public static BiListDataStore<DataStorePair<Student,Camp>> scDatastore;
 	public static HashMap<String, IPromptPage> hm;
 
 	public static void main(String arg[]) {
@@ -96,8 +93,6 @@ public class App {
 		campDataStore = new DataStore<Camp>();
 		enquiryDataStore = new DataStore<Enquiry>();
 		suggestionDataStore = new DataStore<Suggestion>();
-
-		scDatastore = new BiListDataStore<DataStorePair<Student,Camp>>();
 		
 		// Populate userDataStore with Staff and Student objects.
 		staffDataStore.manageData(new UserDataStoreLoad<Staff>(new StaffCSVLoader("./src/.data/staff.csv")));
