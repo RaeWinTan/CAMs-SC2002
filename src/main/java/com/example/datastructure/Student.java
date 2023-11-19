@@ -22,6 +22,8 @@ public class Student extends User implements IDataStoreObject<Student>{
 		this.points = 0;
 		this.leading = new ArrayList<CampMember>();
 		this.attending = new ArrayList<CampMember>();
+		this.repliedTo = new ArrayList<>();
+		this.enquireAbout = new ArrayList<>();
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 */
 	@Override
 	public Student copyOf() {
-		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), new ArrayList<>(this.getLeading()), new ArrayList<CampMember>(this.getAttending()), new ArrayList<Message>(this.getRepliedTo()), new ArrayList<Enquiry>(this.getEnquireAbout()));
+		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), (ArrayList<CampMember>)this.getLeading().clone(), (ArrayList<CampMember>)this.getAttending().clone(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Enquiry> )this.enquireAbout.clone());
 	}
 	
 	/**

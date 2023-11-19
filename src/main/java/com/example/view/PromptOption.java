@@ -8,35 +8,35 @@ public class PromptOption extends Prompt {
     public PromptOption(String question, String attributeName, ArrayList<String> options) throws Exception {
         super(question, attributeName, true);
         this.options = options;
-        this.prompting();
-        if (this.options == null){
+        if (this.options == null || options.size() == 0){
             throw new Exception("There is an error");
         }
+        
+        this.prompting();
+        
     }
     private void prompting(){
         System.out.println(this.question);
-        int v = -1;
-
-        do {
-            System.out.println("Choose one of the options:");
-            for (int i = 0; i < this.options.size(); i++) {
-                System.out.println((i + 1) + ". " + this.options.get(i)); // Display options starting from 1
-            }
-
-            while (!userInput.hasNextInt()) {
+        
+        int ans;
+        System.out.println("Choose one of the options:");
+        for (int i = 0; i < this.options.size(); i++) { System.out.println(i  + ". " + this.options.get(i));}
+        while (!this.userInput.hasNextInt()) {
+            System.out.println("That's not a number. Please enter a valid option.");
+            this.userInput.next();
+        }
+        ans = this.userInput.nextInt();
+        while(ans < 0 || ans >=this.options.size()){
+            System.out.println("Options does not exists. Try Again!");
+            while (!this.userInput.hasNextInt()) {
                 System.out.println("That's not a number. Please enter a valid option number.");
                 userInput.next();
             }
-
-            v = userInput.nextInt() - 1;
-            userInput.nextLine();
-
-            if (v < 0 || v >= this.options.size()) {
-                System.out.println("Option does not exist. Please try again.");
-            }
-        } while (v < 0 || v >= this.options.size());
-
-        this.value = this.options.get(v);
+            ans = userInput.nextInt(); 
+        }
+        
+        this.value = options.get(ans);
+        
     }
 
 

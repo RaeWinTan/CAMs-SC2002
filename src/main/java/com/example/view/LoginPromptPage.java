@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-public class LoginPromptPage extends PromptPage{
+public class LoginPromptPage implements IPromptPage{
 
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
@@ -19,14 +19,13 @@ public class LoginPromptPage extends PromptPage{
         return this.prompts;
     }
 
-    @Override
+
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
-    public void initialise_question_attribute_mapping(){
+    private void initialise_question_attribute_mapping(){
         question_attribute_mapping.add(new Pair<String,String>("Please enter your UserID: ", "username"));
         question_attribute_mapping.add(new Pair<String,String>("Please enter your password: ", "password"));
-        question_attribute_mapping.add(new Pair<String,String>("Please enter your User Type" +
-               " (Staff/Student): ", "userType"));
+        question_attribute_mapping.add(new Pair<String,String>("Please enter your User Type", "userType"));
         
     }
 
@@ -35,20 +34,19 @@ public class LoginPromptPage extends PromptPage{
     public void prompting() {
         // TODO Auto-generated method stub
         int i = 0;
-
         while (i < question_attribute_mapping.size()) {
             Pair<String, String> questionPair = question_attribute_mapping.get(i);
             String attribute = questionPair.getSecond();
             IPrompt tmp;
-
             if ("userType".equals(attribute)) {
-
                 ArrayList<String> options = new ArrayList<>();
                 options.add("Staff");
                 options.add("Student");
                 try {
+                    
                     tmp = new PromptOption(questionPair.getFirst(), questionPair.getSecond(), options);
                     this.prompts.add(tmp);
+                    
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }

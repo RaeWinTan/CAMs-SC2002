@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-public class EditCampPromptPage extends PromptPage {
+public class EditCampPromptPage implements IPromptPage {
 
     private ArrayList<Pair<String, String>> question_attribute_mapping = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<>();
@@ -23,10 +23,7 @@ public class EditCampPromptPage extends PromptPage {
         return this.prompts;
     }
 
-    @Override
-    //public void addQuestion_attribute(String question, String attributeName) { return; }
-
-    public void initialise_question_attribute_mapping() {
+    private void initialise_question_attribute_mapping() {
 
         question_attribute_mapping.add(new Pair<String, String>("Enter new camp name." +
                 " Press enter for no change: ", "newCampName"));

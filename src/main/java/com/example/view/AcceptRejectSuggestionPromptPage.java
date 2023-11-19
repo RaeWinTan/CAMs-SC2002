@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.example.utility.Pair;
 
-public class AcceptRejectSuggestionPromptPage extends PromptPage {
+public class AcceptRejectSuggestionPromptPage implements IPromptPage {
 
     private ArrayList<Pair<String, String>> question_attribute_mapping = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<>();
@@ -21,10 +21,10 @@ public class AcceptRejectSuggestionPromptPage extends PromptPage {
         return this.prompts;
     }
 
-    @Override
+    
     //public void addQuestion_attribute(String question, String attributeName) { return; }
 
-    public void initialise_question_attribute_mapping() {
+    private void initialise_question_attribute_mapping() {
         question_attribute_mapping.add(new Pair<>("Would you like to accept or reject this suggestion: ", "suggestionAcceptance"));
     }
 

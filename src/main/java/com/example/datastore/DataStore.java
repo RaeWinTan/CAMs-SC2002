@@ -1,6 +1,7 @@
 package com.example.datastore;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.datastore.operator.IDataStoreEditOperation;
@@ -30,10 +31,10 @@ public class DataStore<T extends IDataStoreObject<T>> implements IDataStoreEdita
 	 */
 	// TODO: ADD INSTANCE OF
 	public ArrayList<T> retrieveData(IDataStoreRetrivalOperation<T> operation) throws IllegalOperationException{
-		ArrayList<T> copy = (ArrayList<T>) data
+		List<T> copy =  data
 							.stream()
 							.map(i->i.copyOf())
 							.collect((Collectors.toList()));
-		return operation.perform(copy);
+		return operation.perform(new ArrayList<T>(copy));
 	}
 }

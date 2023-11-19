@@ -11,23 +11,21 @@ public class Prompt implements IPrompt{
     protected String value;
     protected Scanner userInput = new Scanner(System.in);
 
-
-    protected boolean shouldPromptImmediately;
-
     public Prompt(String question, String attributeName) {
         this.question = question;
         this.attributeName = attributeName;
         this.prompting();
     }
+    public Prompt(String question, String attributeName, boolean isOptions) {
+        this.question = question;
+        this.attributeName = attributeName;
+        
+    }
     public void setValue(String newValue) {
         this.value = newValue;
     }
 
-    // Protected constructor for derived classes, does not call prompting()
-    protected Prompt(String question, String attributeName, boolean skipPrompting) {
-        this.question = question;
-        this.attributeName = attributeName;
-    }
+    
     private void prompting(){
         System.out.println(this.question);
         this.value = this.userInput.nextLine();

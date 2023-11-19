@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-public class ReplyToEnquiryPromptPage extends PromptPage {
+public class ReplyToEnquiryPromptPage implements IPromptPage {
 
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
@@ -19,8 +19,7 @@ public class ReplyToEnquiryPromptPage extends PromptPage {
         return this.prompts;
     }
 
-    @Override
-    public void initialise_question_attribute_mapping() {
+    private void initialise_question_attribute_mapping() {
         question_attribute_mapping.add(new Pair<String,String>("Whose enquiry would you like to reply to? ",
                 "campEnquiryID"));
         question_attribute_mapping.add(new Pair<String,String>("Submit your reply below ",

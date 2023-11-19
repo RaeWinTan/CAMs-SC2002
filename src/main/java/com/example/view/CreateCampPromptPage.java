@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.example.utility.Pair;
 
-public class CreateCampPromptPage extends PromptPage{
+public class CreateCampPromptPage implements IPromptPage{
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     public CreateCampPromptPage() {
@@ -20,8 +20,7 @@ public class CreateCampPromptPage extends PromptPage{
         return this.prompts;
     }
 
-    @Override
-    public void initialise_question_attribute_mapping() {
+    private void initialise_question_attribute_mapping() {
         question_attribute_mapping.add(new Pair<String, String>("Enter camp name ", "campName"));
         question_attribute_mapping.add(new Pair<String, String>("Enter camp start date ", "startDate"));
         question_attribute_mapping.add(new Pair<String, String>("Enter camp end date ", "endDate"));
