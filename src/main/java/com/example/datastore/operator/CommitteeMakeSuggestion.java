@@ -22,6 +22,7 @@ public class CommitteeMakeSuggestion implements IDataStoreEditOperation<Camp> {
 
     @Override
     public void perform(ArrayList<Camp> data) {
+        // TODO: Check if student is a committee memember of the camp
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.suggestion.getCamp())){

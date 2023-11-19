@@ -6,6 +6,7 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.IllegalOperationException;
+import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
 public class CommitteeDeleteSuggestion implements IDataStoreEditOperation<Camp>{
@@ -21,9 +22,7 @@ public class CommitteeDeleteSuggestion implements IDataStoreEditOperation<Camp>{
     @Override
     public void perform(ArrayList<Camp> data) {
 
-        if (!this.suggestion.getAuthor().isEquals(this.student)){
-            throw new IllegalOperationException("Student making suggestion does not match author in suggestion.");
-        }
+        
 
         // Get camp
         for (Camp camp : data) {
@@ -32,11 +31,14 @@ public class CommitteeDeleteSuggestion implements IDataStoreEditOperation<Camp>{
                 // Get suggestion
                 for (Suggestion suggestion : camp.getSuggestions()) {
                     if (suggestion.isEquals(this.suggestion)){
-                        
+                        // Check if student has permission to delete suggestion
+                        if (!suggestion.getAuthor().isEquals(this.student))
+                            throw new InsufficientPermissionException("Student deleting suggestion does not match author in suggestion.");
+
                         // Check if suggestion is approved
-                        if (suggestion.getApproved()){
+                        if (suggestion.getApproved())
                             throw new IllegalOperationException("Unable to delete approved suggestions.");
-                        }
+                        
                         break;
                     }
                 }

@@ -23,7 +23,7 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
             if (camp.isEquals(this.newCamp)){
                 // check staff has permission to edit this camp
                 if (!camp.getCreatedBy().isEquals(this.staff))
-                    throw new InsufficientPermissionException("Staff " + this.staff.getName() + " has no permission to edit camp " + camp.getCampName() + ".");
+                    throw new InsufficientPermissionException("Staff editing the camp does not match createdBy in camp.");
                 
                 // special checks when camp has more than one participants
                 if (camp.getAttendees().size() + camp.getCommittees().size() > 0){

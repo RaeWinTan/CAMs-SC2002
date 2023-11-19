@@ -22,7 +22,7 @@ public class StaffRemoveCamp implements IDataStoreEditOperation<Staff>{
         for (Staff staff : data) {
             if (staff.isEquals(this.staff)){
                 if (!staff.getCampsCreated().removeIf(camp->camp.isEquals(this.camp))){
-                    throw new IllegalOperationException("Camp not found in staff object.");
+                    throw new ObjectNotFoundException("Camp");
                 }
                 return;
             }

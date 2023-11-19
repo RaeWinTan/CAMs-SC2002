@@ -22,6 +22,7 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
 
     @Override
     public void perform(ArrayList<Camp> data) {
+        // TODO: Check if staff has permission to approve suggestion
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.suggestion.getCamp())){
