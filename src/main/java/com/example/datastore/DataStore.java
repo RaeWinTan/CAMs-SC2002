@@ -7,7 +7,7 @@ import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastore.operator.IDataStoreRetrivalOperation;
 import com.example.exception.IllegalOperationException;
 
-public class DataStore<T extends IDataStoreObject<T>> implements DataStoreEditable<T>, DataStoreRetrivable<T>{
+public class DataStore<T extends IDataStoreObject<T>> implements IDataStoreEditable<T>, IDataStoreRetrivable<T>{
 
 	private ArrayList<T> data;
 

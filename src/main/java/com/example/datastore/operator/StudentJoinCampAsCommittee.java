@@ -2,7 +2,7 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-import com.example.datastore.DataStore;
+import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
@@ -12,8 +12,8 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
 
     Student student;
     Camp camp;
-    DataStore<Student> studenDataStore;
-    public StudentJoinCampAsCommittee(Student student, Camp camp, DataStore<Student> studentDataStore){
+    IDataStoreEditable<Student> studenDataStore;
+    public StudentJoinCampAsCommittee(Student student, Camp camp, IDataStoreEditable<Student> studentDataStore){
         this.student = student;
         this.camp = camp;
         this.studenDataStore = studentDataStore;
