@@ -51,4 +51,8 @@ public class Message {
     public UUID getMessageId(){
         return this.messageId;
     }
+
+    public Message copyOf(){
+        return new Message(this.getMessageId(), this.getText(), this.getAuthor());
+    }
 }

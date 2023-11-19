@@ -1,11 +1,11 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreObject;
 import com.example.exception.IllegalOperationException;
 
-public class MonoListDataStoreCreate<T extends IDataStoreObject<T>> implements IMonoListDataStoreEditOperation<T> {
+public class DataStoreCreate<T extends IDataStoreObject<T>> implements DataStoreEditOperation<T> {
 
 	private T obj;
 
@@ -13,7 +13,7 @@ public class MonoListDataStoreCreate<T extends IDataStoreObject<T>> implements I
 	 * Constructor for CampDataStoreCreate class.
 	 * @param obj: Camp to be created.
 	 */
-	public MonoListDataStoreCreate(T obj) {
+	public DataStoreCreate(T obj) {
 		this.obj = obj;
 	}
 
@@ -21,7 +21,7 @@ public class MonoListDataStoreCreate<T extends IDataStoreObject<T>> implements I
 	 * This method iterates through data to check for duplicates.
 	 * If no duplicates, obj will be added to data.
 	 * @param data		ArrayList of T from DataStore.
-	 * @see IMonoListDataStoreEditOperation
+	 * @see DataStoreEditOperation
 	 */
 	@Override
 	public void perform(ArrayList<T> data) throws IllegalOperationException{

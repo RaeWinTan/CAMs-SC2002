@@ -1,10 +1,10 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
 import com.example.exception.IllegalOperationException;
 
-public interface IMonoListDataStoreEditOperation<IDataStoreObject> {
+public interface DataStoreEditOperation<IDataStoreObject> {
 
 	/**
 	 * This method is to be called from a DataStore object. 

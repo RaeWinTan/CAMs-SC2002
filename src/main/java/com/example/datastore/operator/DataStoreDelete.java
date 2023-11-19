@@ -1,11 +1,11 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreObject;
 import com.example.exception.IllegalOperationException;
 
-public class MonoListDataStoreDelete<T extends IDataStoreObject<T>> implements IMonoListDataStoreEditOperation<T> {
+public class DataStoreDelete<T extends IDataStoreObject<T>> implements DataStoreEditOperation<T> {
 
 	private T obj;
 
@@ -13,7 +13,7 @@ public class MonoListDataStoreDelete<T extends IDataStoreObject<T>> implements I
 	 * Constructor for CampDataStoreDelete class.
 	 * @param obj: Camp to be deleted.
 	 */
-	public MonoListDataStoreDelete(T obj) {
+	public DataStoreDelete(T obj) {
 		this.obj = obj;
 	}
 
@@ -21,7 +21,7 @@ public class MonoListDataStoreDelete<T extends IDataStoreObject<T>> implements I
 	 * This method iterates through data to search for obj.
 	 * If found, obj will be removed from data.
 	 * @param data		ArrayList of T from DataStore.
-	 * @see IMonoListDataStoreEditOperation
+	 * @see DataStoreEditOperation
 	 */
 	@Override
 	public void perform(ArrayList<T> data) throws IllegalOperationException {

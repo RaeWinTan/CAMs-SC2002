@@ -1,11 +1,11 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
 import com.example.datastructure.User;
 import com.example.exception.IllegalOperationException;
 
-public class UserDataStoreChangePassword<T extends User> implements IMonoListDataStoreEditOperation<T> {
+public class UserDataStoreChangePassword<T extends User> implements DataStoreEditOperation<T> {
 
     T user;
 

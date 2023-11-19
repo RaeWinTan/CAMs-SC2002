@@ -1,11 +1,11 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
 import com.example.dataloader.DataLoader;
 import com.example.datastructure.User;
 
-public class UserDataStoreLoad<T extends User> implements IMonoListDataStoreEditOperation<T> {
+public class UserDataStoreLoad<T extends User> implements DataStoreEditOperation<T> {
     private DataLoader<T> dataLoader;
 
     /**
@@ -20,7 +20,7 @@ public class UserDataStoreLoad<T extends User> implements IMonoListDataStoreEdit
      * This method calls the loadData method from dataLoader, which returns an ArrayList of Users.
      * This method then adds these Users to the DataStore.
      * @param data  ArrayList of Users from User DataStore.
-     * @see IMonoListDataStoreEditOperation
+     * @see DataStoreEditOperation
      */
     public void perform(ArrayList<T> data){
         this.dataLoader.loadData().forEach(

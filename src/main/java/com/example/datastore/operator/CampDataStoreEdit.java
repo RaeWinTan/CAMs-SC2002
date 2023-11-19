@@ -1,4 +1,4 @@
-package com.example.datastore.monolist.operator;
+package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import com.example.datastructure.Camp;
 import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 
-public class CampDataStoreEdit implements IMonoListDataStoreEditOperation<Camp> {
+public class CampDataStoreEdit implements DataStoreEditOperation<Camp> {
 
     private Camp newCamp;
 
@@ -23,7 +23,7 @@ public class CampDataStoreEdit implements IMonoListDataStoreEditOperation<Camp> 
 	 * This method iterates through data to search for currentCamp.
 	 * If found, the camp attributes will be updated to that of newCamp.
 	 * @param data      ArrayList of Camps from Camp DataStore.
-     * @see IMonoListDataStoreEditOperation
+     * @see DataStoreEditOperation
 	 */
     @Override
     public void perform(ArrayList<Camp> data) throws IllegalOperationException {

@@ -5,10 +5,9 @@ import java.util.HashMap;
 
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
-import com.example.datastore.bilist.BiListDataStore;
-import com.example.datastore.monolist.MonoListDataStore;
-import com.example.datastore.monolist.operator.UserDataStoreLoad;
-import com.example.datastore.monolist.operator.UserLoginRetrival;
+import com.example.datastore.DataStore;
+import com.example.datastore.operator.UserDataStoreLoad;
+import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 
@@ -16,19 +15,17 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.InvalidLoginCredentialException;
-import com.example.utility.DataStorePair;
 import com.example.view.IPromptPage;
 import com.example.view.LoginPromptPage;
 
 public class App {
 
-	public static MonoListDataStore<Staff> staffDataStore;
-	public static MonoListDataStore<Student> studentDataStore;
-	public static MonoListDataStore<Camp> campDataStore;
-	public static MonoListDataStore<Enquiry> enquiryDataStore;
-	public static MonoListDataStore<Suggestion> suggestionDataStore;
+	public static DataStore<Staff> staffDataStore;
+	public static DataStore<Student> studentDataStore;
+	public static DataStore<Camp> campDataStore;
+	public static DataStore<Enquiry> enquiryDataStore;
+	public static DataStore<Suggestion> suggestionDataStore;
 
-	public static BiListDataStore<DataStorePair<Student,Camp>> scDatastore;
 	public static HashMap<String, IPromptPage> hm;
 
 	public static void main(String arg[]) {
@@ -91,13 +88,11 @@ public class App {
 
 	private static void initialise(){
 		// Initialise Datastores.
-		staffDataStore = new MonoListDataStore<Staff>();
-		studentDataStore = new MonoListDataStore<Student>();
-		campDataStore = new MonoListDataStore<Camp>();
-		enquiryDataStore = new MonoListDataStore<Enquiry>();
-		suggestionDataStore = new MonoListDataStore<Suggestion>();
-
-		scDatastore = new BiListDataStore<DataStorePair<Student,Camp>>();
+		staffDataStore = new DataStore<Staff>();
+		studentDataStore = new DataStore<Student>();
+		campDataStore = new DataStore<Camp>();
+		enquiryDataStore = new DataStore<Enquiry>();
+		suggestionDataStore = new DataStore<Suggestion>();
 		
 		// Populate userDataStore with Staff and Student objects.
 		staffDataStore.manageData(new UserDataStoreLoad<Staff>(new StaffCSVLoader("./src/.data/staff.csv")));

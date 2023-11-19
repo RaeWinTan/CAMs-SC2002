@@ -1,6 +1,5 @@
 package com.example.datastructure;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +21,8 @@ public class Camp implements IDataStoreObject<Camp>{
 	private String description;
 	private boolean visibility;
 	private Staff createdBy;
+	private ArrayList<CampMember> committees;
+	private ArrayList<CampMember> attendees;
 
 	/**
 	 * Constructor for Camp class.
@@ -48,6 +49,8 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.description = description;
 		this.visibility = visibility;
 		this.createdBy = createdBy;
+		this.attendees = new ArrayList<CampMember>();
+		this.committees = new ArrayList<CampMember>();
 	}
 
 	/**
@@ -64,7 +67,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param visibility	Flag for Student's access to view the camp.
 	 * @param createdBy		Staff who created the camp.
 	 */
-	public Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
+	public Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy, ArrayList<CampMember> attendees, ArrayList<CampMember> committees) {
 		this.campId = campId;
 		this.campName = campName;
 		this.dates = dates;
@@ -76,6 +79,8 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.description = description;
 		this.visibility = visibility;
 		this.createdBy = createdBy;
+		this.attendees = attendees;
+		this.committees = committees;
 	}
 
 	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
@@ -247,8 +252,19 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @return 		Number of slots remaining.
 	 */
 	public int getRemaindingSlots() {
-		// TODO - implement Camp.getRemaindingSlots
-		throw new UnsupportedOperationException();
+		return this.totalSlots - this.committees.size() - this.attendees.size();
+	}
+
+	public int getRemaindingCommitteeSlots() {
+		return this.committeeSlots - this.committees.size();
+	}
+
+	public ArrayList<CampMember> getAttendees(){
+		return this.attendees;
+	}
+
+	public ArrayList<CampMember> getCommittees(){
+		return this.committees;
 	}
 
 
@@ -297,6 +313,12 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param totalSlots		Maximum number of slots for students to participate (including committees).
 	 */
 	public void setTotalSlots(int totalSlots) {
+		if (totalSlots < this.committeeSlots){
+			throw new IllegalArgumentException("Number of committee members shall not exceed number of attendees");
+		}
+		if (totalSlots < this.attendees.size() + this.committees.size()){
+			throw new IllegalArgumentException("Number of participants exceeds the new total slot value.");
+		}
 		this.totalSlots = totalSlots;
 	}
 
@@ -305,6 +327,9 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param committeeSlots		Maximum number of slots for commitee members.
 	 */
 	public void setCommitteeSlot(int committeeSlots) {
+		if (committeeSlots < this.committees.size()){
+			throw new IllegalArgumentException("Number of committees exceeds the new commitee slot value.");
+		}
 		this.committeeSlots = committeeSlots;
 	}
 
@@ -360,7 +385,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 */
 	@Override
 	public Camp copyOf() {
-		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy);
+		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, new ArrayList<CampMember>(this.attendees), new ArrayList<CampMember>(this.committees));
 	}
 
 }
