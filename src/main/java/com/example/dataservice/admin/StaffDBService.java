@@ -3,11 +3,11 @@ package com.example.dataservice.admin;
 import com.example.dataservice.UserDBService;
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastore.operator.CampDataStoreEdit;
-import com.example.datastore.operator.DataStoreCreate;
 import com.example.datastore.operator.DataStoreDelete;
 import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastore.operator.IDataStoreRetrivalOperation;
 import com.example.datastore.operator.StaffCampCreate;
+import com.example.datastore.operator.StaffCampDelete;
 import com.example.datastore.operator.StaffCampRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
@@ -36,7 +36,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	 */
 	@Override
 	public IDataStoreEditOperation<Camp> DSDeleteCamp(Camp camp, IDataStoreEditable<Staff> staffDataStore) {
-		return new DataStoreDelete<Camp>(camp);
+		return new StaffCampDelete(this.staff, camp, staffDataStore);
 	}
 
 	/**
