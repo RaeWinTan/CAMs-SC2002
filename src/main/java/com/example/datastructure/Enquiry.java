@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
+import com.example.utility.Pair;
 
 public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
     private Camp to;
@@ -71,5 +72,13 @@ public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
             repliesCopy.add(message.copyOf());
         }
 		return new Enquiry(this.getMessageId(), this.getText(), (Student) this.getAuthor(), this.to, repliesCopy);
+	}
+
+    public ArrayList<Pair<String, String>> toAttributeValueMapping(){
+		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
+		rtn.add(new Pair<String, String>("text", this.text));
+		rtn.add(new Pair<String, String>("author", this.author.getName()));
+		rtn.add(new Pair<String, String>("password", this.to.getCampName()));
+		return rtn;
 	}
 }

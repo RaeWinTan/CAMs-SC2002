@@ -1,8 +1,10 @@
 package com.example.datastructure;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
+import com.example.utility.Pair;
 
 public class Suggestion implements IDataStoreObject<Suggestion> {
     private UUID suggestionId;
@@ -35,6 +37,14 @@ public class Suggestion implements IDataStoreObject<Suggestion> {
         this.newCamp = camp;
         this.approved = approved;
     }
+
+    public ArrayList<Pair<String, String>> toAttributeValueMapping(){
+		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
+		rtn.add(new Pair<String, String>("author", this.author.getName()));
+		rtn.add(new Pair<String, String>("camp", this.getCamp().getCampName()));
+		rtn.add(new Pair<String, String>("approved", ""+this.approved));
+		return rtn;
+	}
 
     /**
      * Get method for author.

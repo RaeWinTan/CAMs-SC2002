@@ -3,6 +3,7 @@ package com.example.datastructure;
 import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreObject;
+import com.example.utility.Pair;
 
 
 public class Staff extends User implements IDataStoreObject<Staff>{
@@ -46,7 +47,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	@Override
 	public Staff copyOf() {
-		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getRepliedTo(), this.getCampsCreated());
+		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Camp>)this.getCampsCreated().clone());
 	}
 
 	
@@ -60,4 +61,14 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 		return super.isEquals(o);
 	}
 
+	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
+		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
+		rtn.add(new Pair<String, String>("name", this.getName()));
+		rtn.add(new Pair<String, String>("faculty", this.getFaculty().toString()));
+		
+		return rtn;
+	}
+
+	
+	
 }

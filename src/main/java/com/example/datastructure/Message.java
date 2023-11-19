@@ -1,11 +1,14 @@
 package com.example.datastructure;
 
+import java.util.ArrayList;
 import java.util.UUID;
+
+import com.example.utility.Pair;
 
 public class Message {
     private UUID messageId;
-    private User author;
-    private String text;
+    protected User author;
+    protected String text;
 
     /**
      * Constructor for Message Class.
@@ -55,4 +58,11 @@ public class Message {
     public Message copyOf(){
         return new Message(this.getMessageId(), this.getText(), this.getAuthor());
     }
+
+    public ArrayList<Pair<String, String>> toAttributeValueMapping(){
+		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
+		rtn.add(new Pair<String, String>("text", this.text));
+		rtn.add(new Pair<String, String>("author", this.author.getName()));
+		return rtn;
+	}
 }
