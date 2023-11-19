@@ -1,11 +1,17 @@
 package com.example.datastructure;
 
+import java.util.ArrayList;
+
 import com.example.dataservice.*;
 import com.example.datastore.IDataStoreObject;
 
 public class Student extends User implements IDataStoreObject<Student>{
 
 	private StudentDBService dbService;
+
+	private int points;
+	private ArrayList<CampMember> leading;
+	private ArrayList<CampMember> attending;
 
 	/**
 	 * Constructor for Student class, password will be set to default.
@@ -16,6 +22,9 @@ public class Student extends User implements IDataStoreObject<Student>{
 	public Student(String userId, String name, GroupName faculty) {
 		super(userId, name, faculty);
 		this.dbService = new StudentDBService(this);
+		this.points = 0;
+		this.leading = new ArrayList<CampMember>();
+		this.attending = new ArrayList<CampMember>();
 	}
 
 	/**
@@ -37,6 +46,22 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 */
 	public StudentDBService getDbService() {
 		return this.dbService;
+	}
+
+	public int getPoints(){
+		return this.points;
+	}
+
+	public ArrayList<CampMember> getAttending(){
+		return this.attending;
+	}
+
+	public ArrayList<CampMember> getLeading(){
+		return this.leading;
+	}
+	
+	public void increasePoints(){
+		this.points++;
 	}
 
 	/**
