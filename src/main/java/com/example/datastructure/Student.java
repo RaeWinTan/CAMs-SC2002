@@ -2,6 +2,7 @@ package com.example.datastructure;
 
 import java.util.ArrayList;
 import com.example.datastore.IDataStoreObject;
+import com.example.utility.Pair;
 
 public class Student extends User implements IDataStoreObject<Student>{
 
@@ -10,6 +11,7 @@ public class Student extends User implements IDataStoreObject<Student>{
 	private ArrayList<CampMember> attending;
 	private ArrayList<Message> repliedTo;
 	private ArrayList<Enquiry> enquireAbout;
+	private ArrayList<Suggestion> suggestions;
 
 	/**
 	 * Constructor for Student class, password will be set to default.
@@ -24,6 +26,7 @@ public class Student extends User implements IDataStoreObject<Student>{
 		this.attending = new ArrayList<CampMember>();
 		this.repliedTo = new ArrayList<>();
 		this.enquireAbout = new ArrayList<>();
+		this.suggestions = new ArrayList<>();
 	}
 
 	/**
@@ -65,6 +68,9 @@ public class Student extends User implements IDataStoreObject<Student>{
 	public ArrayList<Message> getRepliedTo(){
 		return this.repliedTo;
 	}
+	public ArrayList<Suggestion> getSuggestions(){
+		return this.suggestions;
+	}
 
 	/**
 	 * This method returns a copy of the student.
@@ -83,5 +89,13 @@ public class Student extends User implements IDataStoreObject<Student>{
 	@Override
 	public boolean isEquals(Student o) {
 		return super.isEquals(o);
+	}
+
+	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
+		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
+		rtn.add(new Pair<String, String>("name", this.getName()));
+		rtn.add(new Pair<String, String>("faculty", this.getFaculty().toString()));
+		rtn.add(new Pair<String, String>("points", ""+this.points));
+		return rtn;
 	}
 }

@@ -24,6 +24,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	private ArrayList<CampMember> committees;
 	private ArrayList<CampMember> attendees;
 	private ArrayList<Enquiry> enquiries;
+	private ArrayList<Suggestion> suggestions; 
 
 	/**
 	 * Constructor for Camp class.
@@ -391,7 +392,11 @@ public class Camp implements IDataStoreObject<Camp>{
 	 */
 	@Override
 	public Camp copyOf() {
-		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, new ArrayList<CampMember>(this.attendees), new ArrayList<CampMember>(this.committees), new ArrayList<Enquiry>(this.enquiries));
+		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, (ArrayList<CampMember>)this.attendees.clone(), (ArrayList<CampMember>)this.committees.clone(), (ArrayList<Enquiry>)this.enquiries.clone());
+	}
+
+	public ArrayList<Suggestion> getSuggestions(){
+		return this.suggestions;
 	}
 
 }
