@@ -8,7 +8,7 @@ public class CampWithdrawalPromptPage implements IPromptPage {
 
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
-    CampWithdrawalPromptPage() {
+    public CampWithdrawalPromptPage() {
         initialise_question_attribute_mapping();
         
     }

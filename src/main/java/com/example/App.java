@@ -1,6 +1,7 @@
 package com.example;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.example.dataloader.StaffCSVLoader;
@@ -15,9 +16,10 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.InvalidLoginCredentialException;
+import com.example.view.AcceptRejectSuggestionPromptPage;
 import com.example.view.IPromptPage;
 import com.example.view.LoginPromptPage;
-import com.example.view.StudentDashboardPromptPage;
+import com.example.view.*;
 
 enum UserType{
 	STAFF,
@@ -100,7 +102,7 @@ public class App {
 		
 	}
 
-	public static IPromptPage redirect(String pagename){
+	public static IViewPage redirect(String pagename){
 		//check for those page name that has an array set for them, got to create here
 		
 		currentPage = pagename;
@@ -123,7 +125,7 @@ public class App {
 			return new CreateCampPromptPage();
 		}
 		else if(pagename == "EditCampPromptPage"){
-			return new EditCampPromptPage();
+			return new EditCampPromptPage(new ArrayList<>());
 		}
 		else if(pagename == "registerCommmitteeCamp"){
 			return new RegisterForCampCommitteeMember();
@@ -161,7 +163,7 @@ public class App {
 		else if (pagename == "ViewCreatedCamps"){
 			return new ViewCreatedCamps();
 		}
-		else if(Pagename == "viewRepliesToEnquiry"){
+		else if(pagename == "viewRepliesToEnquiry"){
 			return new viewRepliesToEnquiry();
 		}
 		else if (pagename == "viewEnquiriesFromStudent"){

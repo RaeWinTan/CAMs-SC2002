@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-public abstract class DisplayTableDataPage {
+public abstract class DisplayTableDataPage implements IViewPage{
 
     private ArrayList<Pair<String, String>> data;
 
@@ -12,11 +12,11 @@ public abstract class DisplayTableDataPage {
         this.data = data;
     }
 
-    public abstract void Display(ArrayList<Pair<String, String>> data);
+    
 
-    public abstract ArrayList<String> getHeaders();
+    protected abstract ArrayList<String> getHeaders();
 
-    public void displayData() {
+    public void perform() {
         ArrayList<String> headers = getHeaders();
         int[] columnWidths = calculateColumnWidths(headers);
 
@@ -32,7 +32,7 @@ public abstract class DisplayTableDataPage {
         printBorder(columnWidths);
     }
 
-    private int[] calculateColumnWidths(ArrayList<String> headers) {
+    protected int[] calculateColumnWidths(ArrayList<String> headers) {
         int[] columnWidths = new int[headers.size()];
         for (int i = 0; i < headers.size(); i++) {
             columnWidths[i] = headers.get(i).length();
@@ -44,7 +44,7 @@ public abstract class DisplayTableDataPage {
         return columnWidths;
     }
 
-    private void printBorder(int[] columnWidths) {
+    protected void printBorder(int[] columnWidths) {
         for (int width : columnWidths) {
             System.out.print("+");
             System.out.print(new String(new char[width + 2]).replace("\0", "-")); // "+2" for padding
@@ -52,7 +52,7 @@ public abstract class DisplayTableDataPage {
         System.out.println("+");
     }
 
-    private void printRow(ArrayList<String> row, int[] columnWidths) {
+    protected void printRow(ArrayList<String> row, int[] columnWidths) {
         System.out.print("|");
         for (int i = 0; i < row.size(); i++) {
             String format = " %-"+ columnWidths[i] +"s |";

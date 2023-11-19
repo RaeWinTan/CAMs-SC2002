@@ -10,8 +10,8 @@ public class deleteSuggestion implements IPromptPage {
     private ArrayList<Pair<String, String>> question_attribute_mapping = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<>();
 
-    public AcceptRejectSuggestionPromptPage() {
-        viewSubmittedSuggestions();
+    public deleteSuggestion() {
+       
         this.initialise_question_attribute_mapping();
 
         
@@ -32,7 +32,7 @@ public class deleteSuggestion implements IPromptPage {
     }
 
     @Override
-    public void prompting() {
+    public void perform() {
         for (Pair<String, String> questionPair : question_attribute_mapping) {
             String attribute = questionPair.getSecond();
 
