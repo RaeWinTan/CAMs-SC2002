@@ -82,7 +82,77 @@ public class App {
 		if(pagename=="login"){
 			return new LoginPromptPage();
 		}
-		return new LoginPromptPage();
+		else if(pagename == "AcceptRejectSuggestionPromptPage"){
+			return new AcceptRejectSuggestionPromptPage();
+		}
+		else if(pagename == "withdrawFromCamp"){
+			return new CampWithdrawalPromptPage();
+		}
+		else if(pagename == "changePassword"){
+			return new ChangePasswordPromptPage();
+		}
+		else if(pagename == "CreateCampPromptPage"){
+			return new CreateCampPromptPage();
+		}
+		else if(pagename == "EditCampPromptPage"){
+			return new EditCampPromptPage();
+		}
+		else if(pagename == "registerCommmitteeCamp"){
+			return new RegisterForCampCommitteeMember();
+		}
+		else if(pagename == "editSuggestion"){
+			return new editSuggestion();
+		}
+		else if(pagename == "deleteSuggestion"){
+			return new deleteSuggestion;
+		}
+		else if(pagename == "registerAttendeeCamp"){
+			return new RegisterForCampPromptPage();
+		}
+		else if (pagename == "ReplyToEnquiryPromptPage"){
+			return new ReplyToEnquiryPromptPage();
+		}
+		else if (pagename == "enquireCamp"){
+			return new SubmitCampPromptEnquiry();
+		}
+		else if (pagename == "suggestionCamp"){
+			return new SubmitCampSuggestionPromptPage();
+		}
+		else if (pagename == "ViewCampsStaff"){
+			return new ViewCampsStaff();
+		}
+		else if(pagename == "viewAllRegisteredCamps"){
+			return new viewAllRegisteredCamps();
+		}
+		else if (pagename == "viewAvailableCamps"){
+			return new ViewCampsStudent();
+		}
+		else if (pagename == "ViewCommitteePerformance"){
+			return new ViewCommitteePerformance();
+		}
+		else if (pagename == "ViewCreatedCamps"){
+			return new ViewCreatedCamps();
+		}
+		else if(Pagename == "viewRepliesToEnquiry"){
+			return new viewRepliesToEnquiry();
+		}
+		else if (pagename == "viewEnquiriesFromStudent"){
+			return new ViewEnquiryReport();
+		}
+		else if (pagename == "ViewListOfCommittee"){
+			return new ViewListOfCommittee();
+		}
+		else if (pagename == "generateReportAtteedeesForEachCamp"){
+			return new ViewListOfStudent();
+		}
+		else if (pagename == "viewSubmittedSuggestions"){
+			return new ViewOwnSuggestions();
+		}
+		else if (pagename ==  "ViewSuggestion"){
+			return new ViewSuggestion();
+		}
+		else {
+		return new LoginPromptPage();}
 	} 
 
 
