@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
-import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectNotFoundException;
 
 public class StaffAddCamp implements IDataStoreEditOperation<Staff> {
 
@@ -24,7 +24,7 @@ public class StaffAddCamp implements IDataStoreEditOperation<Staff> {
             }
         }
 
-        throw new IllegalOperationException("Staff not found");
+        throw new ObjectNotFoundException("Staff");
     }
     
 }

@@ -3,7 +3,7 @@ package com.example.datastore.operator;
 import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreObject;
-import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectNotFoundException;
 
 public class DataStoreRetrieve<T extends IDataStoreObject<T>> implements IDataStoreRetrivalOperation<T>{
 
@@ -23,7 +23,7 @@ public class DataStoreRetrieve<T extends IDataStoreObject<T>> implements IDataSt
             }
         }
 
-        throw new IllegalOperationException("Object not found");
+        throw new ObjectNotFoundException("Object");
     }
     
 }

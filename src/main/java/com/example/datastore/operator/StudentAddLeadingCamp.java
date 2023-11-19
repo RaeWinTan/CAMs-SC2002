@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
-import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectNotFoundException;
 
 public class StudentAddLeadingCamp implements IDataStoreEditOperation<Student> {
 
@@ -26,7 +26,7 @@ public class StudentAddLeadingCamp implements IDataStoreEditOperation<Student> {
             }
         }
 
-        throw new IllegalOperationException("Student not found.");
+        throw new ObjectNotFoundException("Student");
     }
     
 }

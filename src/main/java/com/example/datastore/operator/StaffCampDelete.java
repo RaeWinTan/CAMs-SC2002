@@ -6,6 +6,7 @@ import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectNotFoundException;
 
 public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
 
@@ -21,10 +22,24 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
 
     @Override
     public void perform(ArrayList<Camp> data) {
-        if (data.removeIf(camp->camp.isEquals(this.camp))){
-            staffDataStore.manageData(new StaffRemoveCamp(this.staff, this.camp));
+        // Get latest version of the camp & check if there are participants
+        for (Camp camp : data) {
+            if (camp.isEquals(this.camp)){
+                if (camp.getAttendees().size() + camp.getCommittees().size() > 0){
+                    throw new IllegalOperationException("Unable to delete camp with participants");
+                }
+                break;
+            }
         }
-        throw new IllegalOperationException("Camp not found");
+
+        // Delete camp from campdatastore
+        if (data.removeIf(camp->camp.isEquals(this.camp))){
+            // Delete camp from staff in staffdatastore
+            staffDataStore.manageData(new StaffRemoveCamp(this.staff, this.camp));
+            return;
+        }
+
+        throw new ObjectNotFoundException("Camp");
     }
     
 }
