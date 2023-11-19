@@ -7,12 +7,12 @@ import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 
-public class StudentAddAttendingCamp implements DataStoreEditOperation<Student>{
+public class StudentAddLeadingCamp implements DataStoreEditOperation<Student> {
 
     private Student student;
     private Camp camp;
 
-    public StudentAddAttendingCamp(Student student, Camp camp){
+    public StudentAddLeadingCamp(Student student, Camp camp){
         this.student = student;
         this.camp = camp;
     }
@@ -21,11 +21,12 @@ public class StudentAddAttendingCamp implements DataStoreEditOperation<Student>{
     public void perform(ArrayList<Student> data) throws IllegalOperationException {
         for (Student student : data) {
             if (student.isEquals(this.student)){
-                student.getAttending().add(new CampMember(this.student, this.camp));
+                student.getLeading().add(new CampMember(this.student, this.camp));
                 return;
             }
         }
 
         throw new IllegalOperationException("Student not found.");
     }
+    
 }

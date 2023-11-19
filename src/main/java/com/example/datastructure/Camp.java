@@ -255,6 +255,10 @@ public class Camp implements IDataStoreObject<Camp>{
 		return this.totalSlots - this.committees.size() - this.attendees.size();
 	}
 
+	public int getRemaindingCommitteeSlots() {
+		return this.committeeSlots - this.committees.size();
+	}
+
 	public ArrayList<CampMember> getAttendees(){
 		return this.attendees;
 	}

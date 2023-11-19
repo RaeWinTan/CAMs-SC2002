@@ -23,7 +23,7 @@ public class StudentJoinCampAsAttendee implements DataStoreEditOperation<Camp> {
     public void perform(ArrayList<Camp> data) throws IllegalOperationException {
         // Check if camp has enough slots
         if (this.camp.getRemaindingSlots() <= 0){
-            throw new IllegalOperationException("Camp has reached the maximum participants.");
+            throw new IllegalOperationException("Camp has reached the maximum number of participants.");
         }
 
         // TODO: Check for clash in dates
