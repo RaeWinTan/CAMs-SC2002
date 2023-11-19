@@ -6,12 +6,12 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.ObjectNotFoundException;
 
-public class CommitteeAddSuggestion implements IDataStoreEditOperation<Student>{
+public class CommitteeRemoveSuggestion implements IDataStoreEditOperation<Student> {
 
     private Student student;
     private Suggestion suggestion;
 
-    public CommitteeAddSuggestion(Student student, Suggestion suggestion){
+    public CommitteeRemoveSuggestion(Student student, Suggestion suggestion){
         this.student = student;
         this.suggestion = suggestion;
     }
@@ -21,9 +21,12 @@ public class CommitteeAddSuggestion implements IDataStoreEditOperation<Student>{
         // Get student
         for (Student student : data) {
             if (student.isEquals(this.student)){
-                // Add suggestion to student
-                student.getSuggestions().add(this.suggestion);
-                return;
+
+                // Remove suggestion
+                if (student.getSuggestions().removeIf(suggestion->suggestion.isEquals(this.suggestion))){
+                    return;
+                }
+                throw new ObjectNotFoundException("Suggestion", "Student");
             }
         }
         throw new ObjectNotFoundException("Student", "DataStore");

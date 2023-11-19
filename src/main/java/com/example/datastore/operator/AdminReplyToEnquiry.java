@@ -42,10 +42,10 @@ public class AdminReplyToEnquiry implements IDataStoreEditOperation<Camp>{
                         return;
                     }
                 }
-                throw new ObjectNotFoundException("Enquiry");
+                throw new ObjectNotFoundException("Enquiry", "Camp");
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

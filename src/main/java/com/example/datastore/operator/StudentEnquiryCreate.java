@@ -33,7 +33,7 @@ public class StudentEnquiryCreate implements IDataStoreEditOperation<Camp> {
                 return;
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

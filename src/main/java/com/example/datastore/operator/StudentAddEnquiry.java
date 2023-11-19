@@ -26,6 +26,6 @@ public class StudentAddEnquiry implements IDataStoreEditOperation<Student> {
                 return;
             }
         }
-        throw new ObjectNotFoundException("Student");
+        throw new ObjectNotFoundException("Student", "DataStore");
     }
 }

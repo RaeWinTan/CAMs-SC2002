@@ -19,6 +19,8 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
 
     @Override
     public void perform(ArrayList<Camp> data) {
+
+        // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.newCamp)){
                 // check staff has permission to edit this camp
@@ -37,7 +39,7 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
                 return;
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

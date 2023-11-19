@@ -23,7 +23,7 @@ public class DataStoreRetrieve<T extends IDataStoreObject<T>> implements IDataSt
             }
         }
 
-        throw new ObjectNotFoundException("Object");
+        throw new ObjectNotFoundException("Object", "DataStore");
     }
     
 }

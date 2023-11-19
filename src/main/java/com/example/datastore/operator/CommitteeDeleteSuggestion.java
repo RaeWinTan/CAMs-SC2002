@@ -2,6 +2,7 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
+import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
@@ -13,10 +14,12 @@ public class CommitteeDeleteSuggestion implements IDataStoreEditOperation<Camp>{
 
     private Student student;
     private Suggestion suggestion;
+    private IDataStoreEditable<Student> studentDataStore;
 
-    public CommitteeDeleteSuggestion(Student student, Suggestion suggestion){
+    public CommitteeDeleteSuggestion(Student student, Suggestion suggestion, IDataStoreEditable<Student> studentDataStore){
         this.student = student;
         this.suggestion = suggestion;
+        this.studentDataStore = studentDataStore;
     }
 
     @Override
@@ -43,13 +46,16 @@ public class CommitteeDeleteSuggestion implements IDataStoreEditOperation<Camp>{
                     }
                 }
 
-                // Delete suggestion
+                // Delete suggestion from student
+                studentDataStore.manageData(new CommitteeRemoveSuggestion(this.student, this.suggestion));
+
+                // Delete suggestion from camp
                 if (camp.getSuggestions().removeIf(suggestion->suggestion.isEquals(this.suggestion))){
                     return;
                 }
-                throw new ObjectNotFoundException("Suggestion");
+                throw new ObjectNotFoundException("Suggestion", "Camp");
             }   
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
 }

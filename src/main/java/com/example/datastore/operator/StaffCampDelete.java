@@ -28,8 +28,7 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
             if (camp.isEquals(this.camp)){
                 // Check credentials
                 if (!camp.getCreatedBy().isEquals(this.staff))
-                    throw new InsufficientPermissionException("Staff making deleting camp does not match createdBy in camp.");
-
+                    throw new InsufficientPermissionException("Staff deleting camp does not match createdBy in camp.");
 
                 // Deny deletion of camp has participants
                 if (camp.getAttendees().size() + camp.getCommittees().size() > 0)
@@ -46,7 +45,7 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
             return;
         }
 
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

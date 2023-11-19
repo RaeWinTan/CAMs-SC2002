@@ -36,10 +36,10 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
                         return;
                     }
                 }
-                throw new ObjectNotFoundException("Suggestion");
+                throw new ObjectNotFoundException("Suggestion", "Camp");
             }
         }
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

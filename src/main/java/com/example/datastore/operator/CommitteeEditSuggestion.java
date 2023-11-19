@@ -38,10 +38,11 @@ public class CommitteeEditSuggestion implements IDataStoreEditOperation<Camp>{
                         return;
                     }
                 }
+                throw new ObjectNotFoundException("Suggestion", "Camp");
             }
         }
 
-        throw new ObjectNotFoundException("Camp");
+        throw new ObjectNotFoundException("Camp", "DataStore");
     }
     
 }

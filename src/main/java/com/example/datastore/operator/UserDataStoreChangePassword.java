@@ -22,6 +22,6 @@ public class UserDataStoreChangePassword<T extends User> implements IDataStoreEd
                 return;
             }
         }
-        throw new ObjectNotFoundException("User");
+        throw new ObjectNotFoundException("User", "DataStore");
     }
 }

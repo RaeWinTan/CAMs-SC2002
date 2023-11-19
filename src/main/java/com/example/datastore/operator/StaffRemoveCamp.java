@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
-import com.example.exception.IllegalOperationException;
 import com.example.exception.ObjectNotFoundException;
 
 public class StaffRemoveCamp implements IDataStoreEditOperation<Staff>{
@@ -22,12 +21,12 @@ public class StaffRemoveCamp implements IDataStoreEditOperation<Staff>{
         for (Staff staff : data) {
             if (staff.isEquals(this.staff)){
                 if (!staff.getCampsCreated().removeIf(camp->camp.isEquals(this.camp))){
-                    throw new ObjectNotFoundException("Camp");
+                    throw new ObjectNotFoundException("Camp", "Staff");
                 }
                 return;
             }
         }
-        throw new ObjectNotFoundException("Staff");
+        throw new ObjectNotFoundException("Staff", "DataStore");
     }
     
 }

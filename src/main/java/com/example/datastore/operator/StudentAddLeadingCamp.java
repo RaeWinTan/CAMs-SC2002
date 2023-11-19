@@ -26,7 +26,7 @@ public class StudentAddLeadingCamp implements IDataStoreEditOperation<Student> {
             }
         }
 
-        throw new ObjectNotFoundException("Student");
+        throw new ObjectNotFoundException("Student", "DataStore");
     }
     
 }
