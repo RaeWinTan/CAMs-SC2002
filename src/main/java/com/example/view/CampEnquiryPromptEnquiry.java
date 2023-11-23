@@ -9,6 +9,8 @@ import com.example.utility.Pair;
 
 public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
     private Student student;
+    private Camp campReferingTo;
+    private String text;
     private ArrayList<Camp> camps;
     private ArrayList<String> cs;
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
@@ -23,7 +25,6 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
             if(i == 0){
                 try { 
                     this.prompts.add(new PromptOption(this.questions.get(i),cs));
-                    
                 } catch (Exception e) {e.printStackTrace();}
             }else { 
                 this.prompts.add(new Prompt(this.questions.get(i)));
@@ -43,15 +44,17 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
     public void perform() {//the prompting starts 
         for(int i = 0; i < this.prompts.size(); i++){
             this.prompts.get(i).startPrompt();
-            if(i==0){
-                cs.indexOf();
+            if (i==0){
+                int idx = cs.indexOf(this.prompts.get(i).getResult());
+                this.campReferingTo = this.camps.get(idx);
+            } else{
+                this.text = this.prompts.get(i).getResult();
             }
         }
     }
     @Override
     public Enquiry getObject() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getObject'");
+        return new Enquiry(text, student, campReferingTo);
     }
 }
 

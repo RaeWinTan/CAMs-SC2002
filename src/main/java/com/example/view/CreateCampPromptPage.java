@@ -3,39 +3,64 @@ package com.example.view;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.example.UserType;
+import com.example.datastructure.Camp;
+import com.example.datastructure.GroupName;
 import com.example.utility.Pair;
 
-public class CreateCampPromptPage implements IPromptPage{
-    private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
+public class CreateCampPromptPage implements IPromptPage<Camp>{
+    
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
+    private Camp newCamp;
     public CreateCampPromptPage() {
-        initialise_question_attribute_mapping();
+        this.newCamp = new Camp();//
+        initPrompts();
     }
 
 
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        return this.prompts;
-    }
+  
 
-    private void initialise_question_attribute_mapping() {
-        question_attribute_mapping.add(new Pair<String, String>("Enter camp name ", "campName"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter camp start date ", "startDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter camp end date ", "endDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter closing date for registration ",
-                "closingDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter faculty the camp is open to ",
-                "userGroup"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter camp location ", "location"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter total slots ", "totalSlots"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter committee slots ",
-                "committeeSlots"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter camp description ",
-                "description"));
-        question_attribute_mapping.add(new Pair<String, String>("Toggle Camp Visibility ",
-                "visibility"));
+    private void initPrompts() {
+        ArrayList<String> questions = new ArrayList<>();
+        questions.add("Enter camp name ");
+        questions.add("Enter camp start date ");
+        questions.add("Enter camp end date ");
+        questions.add("Enter closing date for registration ");
+        questions.add("Enter faculty the camp is open to ");
+        questions.add("Enter camp location ");
+        questions.add("Enter total slots ");
+        questions.add("Enter committee slots ");
+        questions.add("Enter camp description ");
+        questions.add("Set Camp Visibility ");
+        for(int i = 0; i < questions.size(); i++){
+            if(i == 4){
+                ArrayList<String> ops = new ArrayList<>();
+                for(i = 0; i < GroupName.values().length;i++){
+                    ops.add(GroupName.values()[i].toString());//TODO LATER MUST CHANGE ACCORDING TO ROBIN CODE
+                }
+                try {
+                    this.prompts.add(new PromptOption(questions.get(i), ops));
+                } catch (Exception e) {
+                    e.printStackTrace();
+      
+                }
+            }else if(i==9){
+                ArrayList<String> ops = new ArrayList<>();
+                ops.add("true");
+                ops.add("false");
+                try{
+                    this.prompts.add(new PromptOption(questions.get(i), ops));
+                }catch (Exception e){
+                    e.printStackTrace();
+                   
+                }
+            }else{
+                this.prompts.add(new Prompt(questions.get(i)));
+            }
+        }
+        
     }
 
 
@@ -91,6 +116,13 @@ public class CreateCampPromptPage implements IPromptPage{
             //i++; // Increment at the end of the loop
         }
         
+    }
+
+
+    @Override
+    public Camp getObject() {
+        // TODO Auto-generated method stub
+        return this.newCamp;
     }
 }
 

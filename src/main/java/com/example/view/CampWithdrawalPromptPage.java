@@ -2,33 +2,48 @@ package com.example.view;
 
 import java.util.ArrayList;
 
+import com.example.datastructure.Camp;
+import com.example.datastructure.CampMember;
+import com.example.datastructure.Student;
 import com.example.utility.Pair;
 
-public class CampWithdrawalPromptPage implements IPromptPage {
+public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
 
-    private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
-    private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
-    public CampWithdrawalPromptPage() {
-        initialise_question_attribute_mapping();
+    private IPrompt prompt;
+    private Student student;
+    private ArrayList<Camp> camps;
+    private ArrayList<String>camp_str = new ArrayList<>();
+    private Camp value;
+    public CampWithdrawalPromptPage(Student student) {
+        this.student = student;
+        this.camps = new ArrayList<Camp>();
+        for(CampMember cm:student.getAttending()) this.camps.add(cm.getCamp());
+        initPrompt();
+        
         
     }
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        return this.prompts;
-    }
-
-    private void initialise_question_attribute_mapping() {
-        question_attribute_mapping.add(new Pair<String, String>("Enter the name of the camp you would " +
-                "like to withdraw from",
-                "campWithdrawal"));
+    private void initPrompt() {
+        
+        for(Camp c:this.camps) camp_str.add(c.getCampName());
+        try {
+            this.prompt = new PromptOption("Enter the name of the camp you would like to withdraw from", camp_str);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void perform() {
-        Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
-                question_attribute_mapping.get(0).getSecond());
-        this.prompts.add(tmp);
+        this.prompt.startPrompt();
+        int idx = camp_str.indexOf(this.prompt.getResult());
+        this.value = this.camps.get(idx);
+    }
+
+    @Override
+    public Camp getObject() {
+        return this.value;
     }
 }
