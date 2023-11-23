@@ -65,23 +65,6 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.enquiries = enquiries;
 	}
 
-	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
-		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
-		rtn.add(new Pair<String, String>("campId", this.campId.toString()));
-		rtn.add(new Pair<String, String>("campName", this.campName));
-		rtn.add(new Pair<String, String>("startDate", this.dates[0].toString()));
-		rtn.add(new Pair<String, String>("endDate", this.dates[1].toString()));
-		rtn.add(new Pair<String, String>("closingDate", this.closingDate.toString()));
-		rtn.add(new Pair<String, String>("userGroup", this.userGroup.toString()));
-		rtn.add(new Pair<String, String>("location", this.location));
-		rtn.add(new Pair<String, String>("totalSlots", this.totalSlots + ""));
-		rtn.add(new Pair<String, String>("committeeSlot", this.committeeSlots+""));
-		rtn.add(new Pair<String, String>("description", this.description));
-		rtn.add(new Pair<String, String>("visibility", ""+this.visibility));
-		rtn.add(new Pair<String, String>("createdBy", this.createdBy.getUserId()));
-		return rtn;
-	}
-
 	/**
 	 * Get method for campId
 	 * @return		Unique identifier of the camp
