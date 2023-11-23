@@ -2,16 +2,22 @@ package com.example.dataservice.admin;
 
 import com.example.dataservice.UserDBService;
 import com.example.datastore.IDataStoreEditable;
+import com.example.datastore.operator.AdminReplyToEnquiry;
 import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastore.operator.IDataStoreRetrivalOperation;
+import com.example.datastore.operator.StaffApproveSuggestion;
 import com.example.datastore.operator.StaffCampCreate;
 import com.example.datastore.operator.StaffCampDelete;
 import com.example.datastore.operator.StaffCampEdit;
 import com.example.datastore.operator.StaffCampRetrival;
 import com.example.datastructure.Camp;
+import com.example.datastructure.Enquiry;
+import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
+import com.example.datastructure.Student;
+import com.example.datastructure.Suggestion;
 
-public class StaffDBService extends UserDBService<Staff> implements IAdminCampDBService {
+public class StaffDBService extends UserDBService<Staff> implements IAdminCampDBService, IAdminEnquiryDBService, IAdminSuggestionDBService {
 
 
 	private Staff staff;
@@ -63,5 +69,15 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	@Override
 	public IDataStoreRetrivalOperation<Camp> DSRelevantCampRetrival() {
 		return new StaffCampRetrival(this.staff);
+	}
+
+	@Override
+	public IDataStoreEditOperation<Camp> DSEnquiryReply(Message reply, Enquiry enquiry) {
+		return new AdminReplyToEnquiry(this.staff, reply, enquiry);
+	}
+
+	@Override
+	public IDataStoreEditOperation<Camp> DSSuggestionApprove(Suggestion suggestion, IDataStoreEditable<Student> studenttDataStore) {
+		return new StaffApproveSuggestion(this.staff, suggestion, studenttDataStore);
 	}
 }
