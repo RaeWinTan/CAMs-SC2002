@@ -21,38 +21,13 @@ public class Camp implements IDataStoreObject<Camp>{
 	private String description= null;
 	private boolean visibility= false;
 	private Staff createdBy= null;
-	private ArrayList<CampMember> committees= null;
-	private ArrayList<CampMember> attendees= null;
-	private ArrayList<Enquiry> enquiries= null;
-	private ArrayList<Suggestion> suggestions= null; 
+	private ArrayList<CampMember> committees= new ArrayList<>();
+	private ArrayList<CampMember> attendees= new ArrayList<>();
+	private ArrayList<Enquiry> enquiries= new ArrayList<>();
+	private ArrayList<Suggestion> suggestions= new ArrayList<>(); 
 
-	/**
-	 * Constructor for Camp class.
-	 * @param campName 		Name of the camp.
-	 * @param dates 		Dates in which the camp is active.
-	 * @param closingDate	Last day for registration.
-	 * @param userGroup		Faculty in which the camp is open to.
-	 * @param location		Location of the camp.
-	 * @param totalSlots	Maximum number of slots for students to participate (including committees).
-	 * @param committeeSlot	Maximum number of slots for commitee members.
-	 * @param description	Description of the camp.
-	 * @param visibility	Flag for Student's access to view the camp.
-	 * @param createdBy		Staff who created the camp.
-	 */
-	public Camp(String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
+	public Camp(){
 		this.campId = UUID.randomUUID();
-		this.campName = campName;
-		this.dates = dates;
-		this.closingDate = closingDate;
-		this.userGroup = userGroup;
-		this.location = location;
-		this.totalSlots = totalSlots;
-		this.committeeSlots = committeeSlot;
-		this.description = description;
-		this.visibility = visibility;
-		this.createdBy = createdBy;
-		this.attendees = new ArrayList<CampMember>();
-		this.committees = new ArrayList<CampMember>();
 	}
 
 	public Camp(Camp camp){
