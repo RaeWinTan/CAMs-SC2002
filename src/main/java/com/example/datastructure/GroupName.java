@@ -1,10 +1,19 @@
 package com.example.datastructure;
 
 public enum GroupName {
-	NTU,
-	SCSE,
-	ADM,
-	EEE,
-	NMS,
-	SSS
+    //shared amonst all users
+    NTU("NTU"),
+    SCSE("SCSE"),
+	ADM("ADM"),
+	EEE("EEE"),
+	NMS("NMS"),
+	SSS("SSS");
+    
+    private String groupName;
+    GroupName(String groupName){
+        this.groupName = groupName;
+    }
+    public String toString(){
+        return this.groupName;
+    }
 }

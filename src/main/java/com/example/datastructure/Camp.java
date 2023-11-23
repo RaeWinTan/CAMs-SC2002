@@ -1,30 +1,30 @@
 package com.example.datastructure;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
 import com.example.utility.Pair;
 
 public class Camp implements IDataStoreObject<Camp>{
-	private UUID campId;
-	private String campName;
-	private Date[] dates;
-	private Date closingDate;
-	private GroupName userGroup;
-	private String location;
-	private int totalSlots;
-	private int committeeSlots;
-	private String description;
-	private boolean visibility;
-	private Staff createdBy;
-	private ArrayList<CampMember> committees;
-	private ArrayList<CampMember> attendees;
-	private ArrayList<Enquiry> enquiries;
-	private ArrayList<Suggestion> suggestions; 
+	private UUID campId = null;
+	private String campName= null;
+	private Date[] dates = null;
+	private Date closingDate= null;
+	private GroupName userGroup= null;
+	private String location= null;
+	private int totalSlots= -1;
+	private int committeeSlots= -1;
+	private String description= null;
+	private boolean visibility= false;
+	private Staff createdBy= null;
+	private ArrayList<CampMember> committees= null;
+	private ArrayList<CampMember> attendees= null;
+	private ArrayList<Enquiry> enquiries= null;
+	private ArrayList<Suggestion> suggestions= null; 
 
 	/**
 	 * Constructor for Camp class.
@@ -55,8 +55,12 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.committees = new ArrayList<CampMember>();
 	}
 
+	public Camp(Camp camp){
+		this.campId = camp.getCampId();
+	}
+
 	/**
-	 * Constructor for Camp class.
+	 * Constructor for Camp class, used to create a copy of the Camp.
 	 * @param campId		Unique identifier of the camp
 	 * @param campName 		Name of the camp.
 	 * @param dates 		Dates in which the camp is active.
@@ -306,15 +310,24 @@ public class Camp implements IDataStoreObject<Camp>{
 	}
 
 	public void setAll(Camp other){
-		this.setCampName(other.getCampName());
-		this.setDates(other.getDates());
-		this.setClosingDate(other.getClosingDate());
-		this.setUserGroup(other.userGroup);
-		this.setLocation(other.getLocation());
-		this.setTotalSlots(other.getTotalSlots());
-		this.setCommitteeSlot(other.committeeSlots);
-		this.setDescription(other.getDescription());
-		this.setVisibility(other.getVisibility());
+		if (other.getCampName()!=null)
+			this.setCampName(other.getCampName());
+		if (other.getDates()!=null)
+			this.setDates(other.getDates());
+		if (other.getClosingDate()!=null)
+			this.setClosingDate(other.getClosingDate());
+		if (other.getUserGroup()!=null)
+			this.setUserGroup(other.userGroup);
+		if (other.getLocation()!=null)
+			this.setLocation(other.getLocation());
+		if (other.getTotalSlots()>=0)
+			this.setTotalSlots(other.getTotalSlots());
+		if (other.getCommitteeSlot()>=0)
+			this.setCommitteeSlot(other.getCommitteeSlot());
+		if (other.getDescription()!=null)
+			this.setDescription(other.getDescription());
+		if (other.getVisibility())
+			this.setVisibility(other.getVisibility());
 	}
 
 	/**
@@ -338,6 +351,32 @@ public class Camp implements IDataStoreObject<Camp>{
 
 	public ArrayList<Suggestion> getSuggestions(){
 		return this.suggestions;
+	}
+
+	@Override
+	public String toString(){
+		String str = "";
+		DateFormat dateFormat = new SimpleDateFormat("ddmmyy");  
+		if (this.getCampName()!=null)
+			str += "Camp Name: " + this.getCampName();
+		if (this.getDates()!=null)
+			str += "Dates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]);
+		if (this.getClosingDate()!=null)
+			str += "Last day of registration: " + dateFormat.format(this.getClosingDate());
+		if (this.getUserGroup()!=null)
+			str += "User Group:" + this.userGroup.toString();
+		if (this.getLocation()!=null)
+			str += "Location: " + this.getLocation();
+		if (this.getTotalSlots()>=0)
+			str += "Total Slot: " + this.getTotalSlots();	
+		if (this.getCommitteeSlot()>=0)
+			str += "Committee Slot: " + this.getCommitteeSlot();	
+		if (this.getDescription()!=null)
+			str += "Description: " + this.getDescription();	
+		if (this.getVisibility())
+			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible");
+
+		return str;
 	}
 
 }
