@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-public class SubmitCampSuggestionPromptPage implements IPromptPage {
+public class SubmitCampSuggestionPromptPage implements IPromptPage<> {
 
     private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();

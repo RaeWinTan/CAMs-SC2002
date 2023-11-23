@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class EnquiryPromptOptionTable implements IPrompt {
-    private List<ArrayList<String>> columns;
+public class TablePromptOption implements IPrompt {
+    private ArrayList<ArrayList<String>> columns;
     private String question;
     private ArrayList<String> headers;
     private int choice;
@@ -13,7 +13,7 @@ public class EnquiryPromptOptionTable implements IPrompt {
     private int maximumRows;
     private final int maxColumnWidth = 40; //set maximum width of columns here
 
-    public EnquiryPromptOptionTable(String question, ArrayList<String> headers, List<ArrayList<String>> columns ) {
+    public TablePromptOption(String question, ArrayList<String> headers, ArrayList<ArrayList<String>> columns ) {
         this.question = question;
         this.headers = headers;
         this.columns = columns;

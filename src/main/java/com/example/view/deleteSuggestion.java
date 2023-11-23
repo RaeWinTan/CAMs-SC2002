@@ -3,31 +3,21 @@ package com.example.view;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.example.datastructure.Suggestion;
 import com.example.utility.Pair;
 
-public class deleteSuggestion implements IPromptPage {
+public class DeleteSuggestion implements IPromptPage<Suggestion> {
 
-    private ArrayList<Pair<String, String>> question_attribute_mapping = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<>();
+    private Suggestion deletedSuggestion;
 
-    public deleteSuggestion() {
-       
-        this.initialise_question_attribute_mapping();
+    public DeleteSuggestion() {
+        this.initPrompts();
+    }
 
+    private void initPrompts() {
         
-    }
-
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        return this.prompts;
-    }
-
-    
-    //public void addQuestion_attribute(String question, String attributeName) { return; }
-
-    private void initialise_question_attribute_mapping() {
-                question_attribute_mapping.add(new Pair<>("Choose which suggestion you'd like to delete: ", "suggestionChoice"));
-
+        this.prompts.add(new TablePrpo"Choose which suggestion you'd like to delete: ");
         question_attribute_mapping.add(new Pair<>("Would you like to delete this suggestion: ", "suggestionDelete"));
     }
 
@@ -48,5 +38,10 @@ public class deleteSuggestion implements IPromptPage {
                 prompts.add(new Prompt(questionPair.getFirst(), attribute));
             }
         }
+    }
+
+    @Override
+    public Suggestion getObject() {
+        return this.deletedSuggestion;
     }
 }
