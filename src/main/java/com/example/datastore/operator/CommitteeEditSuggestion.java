@@ -34,6 +34,8 @@ public class CommitteeEditSuggestion implements IDataStoreEditOperation<Camp>{
                             throw new InsufficientPermissionException("Student making suggestion does not match author in suggestion.");
 
                         // Update suggestion
+                        // Camp should also be updated in student
+                        // TODO: Test the above
                         suggestion.getCamp().setAll(this.suggestion.getCamp());
                         return;
                     }
