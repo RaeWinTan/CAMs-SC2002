@@ -77,7 +77,7 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	}
 
 	@Override
-	public IDataStoreEditOperation<Camp> DSSuggestionApprove(Suggestion suggestion, IDataStoreEditable<Student> studenttDataStore) {
-		return new StaffApproveSuggestion(this.staff, suggestion, studenttDataStore);
+	public IDataStoreEditOperation<Camp> DSSuggestionApprove(Suggestion suggestion, IDataStoreEditable<Student> studenttDataStore, IDataStoreEditable<Camp> campDataStore) {
+		return new StaffApproveSuggestion(this.staff, suggestion, studenttDataStore, campDataStore);
 	}
 }
