@@ -39,12 +39,12 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
         return new AttendeeCampRetrival(this.student, studentDataStore);
     }
     @Override
-    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStore) {
-        return new StudentJoinCampAsAttendee(this.student, camp, studentDataStore);
+    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe) {
+        return new StudentJoinCampAsAttendee(this.student, camp, studentDataStorE, studentDataStoRe);
     }
     @Override
-    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStore) {
-        return new StudentJoinCampAsCommittee(this.student, camp, studentDataStore);
+    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe) {
+        return new StudentJoinCampAsCommittee(this.student, camp, studentDataStorE, studentDataStoRe);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
     }
 
     @Override
-    public IDataStoreEditOperation<Camp> DSSuggestionCreate(Suggestion suggestion, IDataStoreEditable<Student> studentDataStore){
-        return new CommitteeMakeSuggestion(this.student, suggestion, studentDataStore);
+    public IDataStoreEditOperation<Camp> DSSuggestionCreate(Suggestion suggestion, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe){
+        return new CommitteeMakeSuggestion(this.student, suggestion, studentDataStorE, studentDataStoRe);
     }
 
     @Override 
