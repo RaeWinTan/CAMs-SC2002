@@ -7,5 +7,5 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 
 public interface IAdminSuggestionDBService {
-    IDataStoreEditOperation<Camp> DSSuggestionApprove(Suggestion suggestion, IDataStoreEditable<Student> studenttDataStore);
+    IDataStoreEditOperation<Camp> DSSuggestionApprove(Suggestion suggestion, IDataStoreEditable<Student> studenttDataStore, IDataStoreEditable<Camp> campDataStore);
 }

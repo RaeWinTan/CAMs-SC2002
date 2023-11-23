@@ -34,7 +34,6 @@ public enum Page {
     ViewCampsStaff("View all camps");
     CreateCamp("Create a camp");
     EditCamp("Edit an existing camp");
-    ViewEnquiries
 
     private String pageView;
     Page(String pageView){

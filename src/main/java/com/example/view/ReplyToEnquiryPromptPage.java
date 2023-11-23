@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
+import com.example.datastructure.User;
 import com.example.utility.Pair;
 
-public class ReplyToEnquiryPromptPage implements IPromptPage<String> {
+public class ReplyToEnquiryPromptPage implements IPromptPage<Message> {
 
     private ArrayList<String>questions = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private ArrayList<Camp> camps = new ArrayList<>();
-    private String value;
-    
-    public ReplyToEnquiryPromptPage(ArrayList<Camp> camps) {
+    private User author;
+    private Message value;
+    //should a message
+    public ReplyToEnquiryPromptPage(User author, ArrayList<Camp> camps) {
+        this.author = author;
         this.camps = camps;
         initialise_questions();
         init_prompts();
@@ -67,26 +70,25 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<String> {
             cs.add(this.camps.get(i).getCampName());
         }
         for(int i = 0; i < this.prompts.size(); i++){
-            if(i==0){
+            if (i==0){
                 this.prompts.get(i).startPrompt();
                 int idx = cs.indexOf(this.prompts.get(i).getResult());
                 campReferingTo = this.camps.get(idx);
-            }else if(i==1){
+            } else if(i==1){
                 enquiries = campReferingTo.getEnquiries();
-                for(int j = 0; j < enquiries.size(); j++){
-                    es.add(enquiries.get(j).get);
-                }
-                this.prompts.set(i, new PromptOption(this.questions.get(i), ));
+                this.prompts.set(i, new EnquiryPromptOptionTable(enquiries));
                 this.prompts.get(i).startPrompt();
-
-            }else{
-
+                int e = Integer.valueOf(this.prompts.get(i).getResult());
+                enquiryReferingTo = enquiries.get(e);
+            } else {
+                this.prompts.get(i).startPrompt();
+                this.value = new Message(this.prompts.get(i).getResult(), author);
             }
         }
     }
 
     @Override
-    public String getObject() {
+    public Message getObject() {
         // TODO Auto-generated method stub
         return this.value;
     }

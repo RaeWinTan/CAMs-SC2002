@@ -10,8 +10,8 @@ import com.example.exception.IllegalOperationException;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * Camp Datastore operator for creating a reply to an enquiry.
- * Upon executing, this searches for the appropriate enquiry and appends the Message obeject to it.
+ * Camp Datastore edit operator for creating a reply to an enquiry.
+ * @see IDataStoreEditOperation
  */
 public class AdminReplyToEnquiry implements IDataStoreEditOperation<Camp>{
 
@@ -20,9 +20,9 @@ public class AdminReplyToEnquiry implements IDataStoreEditOperation<Camp>{
     private Enquiry enquiry;
 
     /**
-     * Constructor for AdminReplyToEnquiry operator
-     * @param user      User executing this operation
-     * @param reply     Message representing the reply to an enquiry
+     * Constructor for AdminReplyToEnquiry operator.
+     * @param user      User executing this operation.
+     * @param reply     Message representing the reply to an enquiry.
      * @param enquiry   Copy of the enquiry being replied to.
      */
     public AdminReplyToEnquiry(User user, Message reply, Enquiry enquiry){
@@ -32,13 +32,11 @@ public class AdminReplyToEnquiry implements IDataStoreEditOperation<Camp>{
     }
 
     /**
-     * This method searches for the enquiry from Camp DataStore and appends a Message representing a reply to it.
+     * Search for the enquiry from Camp DataStore and appends a Message representing a reply to it.
      * @param data  ArrayList of Camps from Camp DataStore.
-     * @see IDataStoreEditOperation
      */
     @Override
     public void perform(ArrayList<Camp> data) {
-        // TODO: Check if user has permission (possibly creeate base classes for student (to check committee) and user (to cehck if camp was created by them))
         // check user matches reply author
         if (!reply.getAuthor().isEquals(this.user)){
             throw new IllegalOperationException("User replying does not match author of the message.");
@@ -47,11 +45,9 @@ public class AdminReplyToEnquiry implements IDataStoreEditOperation<Camp>{
         // get camp from datastore
         for (Camp camp : data) {
             if (camp.isEquals(enquiry.getCamp())){
-
                 // get enquiry from camp
                 for (Enquiry enquiry : camp.getEnquiries()) {
                     if (enquiry.isEquals(this.enquiry)){
-
                         // add reply woohoo
                         enquiry.getReplies().add(this.reply);
                         return;

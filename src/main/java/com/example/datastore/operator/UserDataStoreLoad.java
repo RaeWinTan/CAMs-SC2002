@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import com.example.dataloader.DataLoader;
 import com.example.datastructure.User;
 
+/**
+ * User DataStore edit operator to load User into User DataStore.
+ * @see IDataStoreEditOperation
+ */
 public class UserDataStoreLoad<T extends User> implements IDataStoreEditOperation<T> {
     private DataLoader<T> dataLoader;
 

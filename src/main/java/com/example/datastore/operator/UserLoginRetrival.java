@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 import com.example.datastructure.User;
 import com.example.exception.InvalidLoginCredentialException;
 
+/**
+ * User DataStore retrival operator for logging in.
+ * @see IDataStoreRetrivalOperation
+ */
 public class UserLoginRetrival<T extends User> implements IDataStoreRetrivalOperation<T>{
 
     private String userId;
@@ -22,8 +26,8 @@ public class UserLoginRetrival<T extends User> implements IDataStoreRetrivalOper
     }
 
     /**
-     * This method checks the login credentials and should return a User ArrayList of size 1,
-     * this arrayList should be populated by the User whose userId and password matches the information
+     * Checks the login credentials and should return a User ArrayList of size 1,
+     * the arrayList should be populated by the User whose userId and password matches the information
      * provided during initialisation.
      * @param data  ArrayList of Users from User DataStore.
      * @return A User ArrayList of size 1.

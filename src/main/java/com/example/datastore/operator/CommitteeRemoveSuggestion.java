@@ -6,16 +6,31 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.ObjectNotFoundException;
 
+/**
+ * NOTE: This class is only to be used in CommitteeDeleteSuggestion.
+ * Student DataStore edit Operator for removing a Suggestion from a Student.
+ * @see CommitteeDeleteSuggestion
+ * @see IDataStoreEditOperation
+ */
 public class CommitteeRemoveSuggestion implements IDataStoreEditOperation<Student> {
 
     private Student student;
     private Suggestion suggestion;
 
+    /**
+     * Constructor for CommitteeRemoveSuggestion.
+     * @param student       Student to remove suggestion from.
+     * @param suggestion    Suggestion being removed.
+     */
     public CommitteeRemoveSuggestion(Student student, Suggestion suggestion){
         this.student = student;
         this.suggestion = suggestion;
     }
 
+    /**
+     * Search for student and remove suggestion from it.
+     * @param data  ArrayList of Students from Student DataStore.
+     */
     @Override
     public void perform(ArrayList<Student> data) {
         // Get student
@@ -31,5 +46,4 @@ public class CommitteeRemoveSuggestion implements IDataStoreEditOperation<Studen
         }
         throw new ObjectNotFoundException("Student", "DataStore");
     }
-    
 }
