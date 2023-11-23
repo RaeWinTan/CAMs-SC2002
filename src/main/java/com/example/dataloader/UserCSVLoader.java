@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.example.datastructure.GroupName;
 import com.example.datastructure.User;
+import com.example.exception.UnexpectedValueException;
 
 
 
@@ -39,11 +40,7 @@ public abstract class UserCSVLoader<T extends User> implements DataLoader<T> {
 			case "SSS":
 				return GroupName.SSS;
 			default:
-				// TODO: Error handling
-				//throw new Exception("Invalid faculty: " + facultyStr);
-				// TEMPCODE:
-				return GroupName.NTU;
-				
+				throw new UnexpectedValueException("Faculty", strFaculty);
 		}
 	}
 
