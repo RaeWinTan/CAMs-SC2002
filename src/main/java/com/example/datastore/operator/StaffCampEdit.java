@@ -8,18 +8,31 @@ import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
+/**
+ * Camp DataStore edit operator for editing a camp.
+ * @see IDataStoreEditOperation
+ */
 public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
 
     private Staff staff;
     private Camp newCamp;
+
+    /**
+     * Constructor for StaffCampEdit.
+     * @param staff     Staff editing the camp.
+     * @param newCamp   Camp with new camp details.
+     */
     public StaffCampEdit(Staff staff, Camp newCamp){
         this.staff = staff;
         this.newCamp = newCamp;
     }
 
+    /**
+     * Search for camp and set it's values to that in newCamp.
+     * @param data  ArrayList of Camps from Camp DataStore.
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
-
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.newCamp)){

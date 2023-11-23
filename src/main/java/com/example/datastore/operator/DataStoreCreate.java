@@ -1,31 +1,33 @@
-package com.example.datastore.operator;
+//TODO: Delete if not being used.
 
-import java.util.ArrayList;
+// package com.example.datastore.operator;
 
-import com.example.datastore.IDataStoreObject;
-import com.example.exception.IllegalOperationException;
+// import java.util.ArrayList;
 
-public class DataStoreCreate<T extends IDataStoreObject<T>> implements IDataStoreEditOperation<T> {
+// import com.example.datastore.IDataStoreObject;
+// import com.example.exception.IllegalOperationException;
 
-	private T obj;
+// public class DataStoreCreate<T extends IDataStoreObject<T>> implements IDataStoreEditOperation<T> {
 
-	/**
-	 * Constructor for CampDataStoreCreate class.
-	 * @param obj: Camp to be created.
-	 */
-	public DataStoreCreate(T obj) {
-		this.obj = obj;
-	}
+// 	private T obj;
 
-	/**
-	 * This method iterates through data to check for duplicates.
-	 * If no duplicates, obj will be added to data.
-	 * @param data		ArrayList of T from DataStore.
-	 * @see IDataStoreEditOperation
-	 */
-	@Override
-	public void perform(ArrayList<T> data) {
-		if(data.stream().anyMatch(i->i.isEquals(this.obj))) throw new IllegalOperationException("Object already exists");
-		data.add(obj);
-	}
-}
+// 	/**
+// 	 * Constructor for CampDataStoreCreate class.
+// 	 * @param obj: Camp to be created.
+// 	 */
+// 	public DataStoreCreate(T obj) {
+// 		this.obj = obj;
+// 	}
+
+// 	/**
+// 	 * This method iterates through data to check for duplicates.
+// 	 * If no duplicates, obj will be added to data.
+// 	 * @param data		ArrayList of T from DataStore.
+// 	 * @see IDataStoreEditOperation
+// 	 */
+// 	@Override
+// 	public void perform(ArrayList<T> data) {
+// 		if(data.stream().anyMatch(i->i.isEquals(this.obj))) throw new IllegalOperationException("Object already exists");
+// 		data.add(obj);
+// 	}
+// }

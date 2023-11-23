@@ -8,26 +8,38 @@ import com.example.datastructure.Suggestion;
 import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
+/**
+ * Camp DataStore edit operation for deleting a suggestion.
+ * @see IDataStoreEditOperation
+ */
 public class CommitteeEditSuggestion implements IDataStoreEditOperation<Camp>{
 
-
     private Student student;
-    private Suggestion suggestion;
+    private Suggestion newSuggestion;
 
-    public CommitteeEditSuggestion(Student student, Suggestion suggestion){
+    /**
+     * Constructor for CommitteeEditSuggestion.
+     * @param student       Student executing this operation
+     * @param newSuggestion Suggestion with updated values
+     */
+    public CommitteeEditSuggestion(Student student, Suggestion newSuggestion){
         this.student = student;
-        this.suggestion = suggestion;
+        this.newSuggestion = newSuggestion;
     }
 
+    /**
+     * Search for Suggestion and update the Camp within it.
+     * @param data  ArrayList of Camps from Camp DataStore.
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         // Get camp
         for (Camp camp : data) {
-            if (camp.isEquals(suggestion.getCamp())){
+            if (camp.isEquals(newSuggestion.getCamp())){
 
                 // Get suggestion
                 for (Suggestion suggestion : camp.getSuggestions()) {
-                    if (suggestion.isEquals(this.suggestion)){
+                    if (suggestion.isEquals(this.newSuggestion)){
 
                         // Check credentials
                         if (!suggestion.getAuthor().isEquals(this.student))
@@ -36,14 +48,13 @@ public class CommitteeEditSuggestion implements IDataStoreEditOperation<Camp>{
                         // Update suggestion
                         // Camp should also be updated in student
                         // TODO: Test the above
-                        suggestion.getCamp().setAll(this.suggestion.getCamp());
+                        suggestion.getCamp().setAll(this.newSuggestion.getCamp());
                         return;
                     }
                 }
                 throw new ObjectNotFoundException("Suggestion", "Camp");
             }
         }
-
         throw new ObjectNotFoundException("Camp", "DataStore");
     }
     

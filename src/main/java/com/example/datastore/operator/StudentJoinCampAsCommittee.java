@@ -9,17 +9,34 @@ import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 import com.example.exception.ObjectNotFoundException;
 
+/**
+ * Camp DataStore edit operator for student to join a camp as an committee member.
+ * @see IDataStoreEditOperation
+ */
 public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp> {
 
     Student student;
     Camp camp;
     IDataStoreEditable<Student> studenDataStore;
+
+    /**
+     * Constructor for StudentJoinCampAsCommittee
+     * @param student           Student joining the Camp
+     * @param camp              Camp to be joined.
+     * @param studentDataStore  Student DataStore, required to update original Student object's leading list.
+     */
     public StudentJoinCampAsCommittee(Student student, Camp camp, IDataStoreEditable<Student> studentDataStore){
         this.student = student;
         this.camp = camp;
         this.studenDataStore = studentDataStore;
     }
 
+    /**
+     * Search for Camp and add Student to it's committee list.
+     * Call Student DataStore to add Camp to the student's leading list using StudentAddLeadingCamp.
+     * @param data  ArrayList of Camp from Camp DataStore.
+     * @see StudentAddLeadingCamp
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         // Check if camp has enough slots
