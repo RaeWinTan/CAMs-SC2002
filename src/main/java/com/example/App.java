@@ -21,10 +21,7 @@ import com.example.view.IPromptPage;
 import com.example.view.LoginPromptPage;
 import com.example.view.*;
 
-enum UserType{
-	STAFF,
-	STUDENT
-}
+
 
 public class App {
 

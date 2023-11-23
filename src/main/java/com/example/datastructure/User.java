@@ -19,6 +19,7 @@ public abstract class User { //implements IDataStoreObject<User>{
 	 * @param name			Name of the user.
 	 * @param faculty		Faculty the user is from.
 	 */
+	
 	public User(String userId, String name, GroupName faculty) {
 		this.userId= userId;
 		this.name = name;

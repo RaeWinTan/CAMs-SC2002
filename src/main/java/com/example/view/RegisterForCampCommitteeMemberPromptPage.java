@@ -2,32 +2,38 @@ package com.example.view;
 
 import java.util.ArrayList;
 
-import com.example.utility.Pair;
+import com.example.datastructure.Camp;
 
-public class RegisterForCampCommitteeMemberPromptPage implements IPromptPage {
 
-    private ArrayList<Pair<String, String>>question_attribute_mapping = new ArrayList<Pair<String, String>>();
-    private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
-    RegisterForCampCommitteeMemberPromptPage() {
-        initialise_question_attribute_mapping();
-        
-    }
-    //public void addQuestion_attribute(String question, String attributeName) {return;}
-
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        return this.prompts;
+public class RegisterForCampCommitteeMemberPromptPage implements IPromptPage<Camp> {
+    private ArrayList<Camp> camps;
+    private IPrompt prompt;
+    private Camp value;
+    public RegisterForCampCommitteeMemberPromptPage(ArrayList<Camp> camps) {//must intilize list of camps
+        this.camps = camps;
     }
 
-    private void initialise_question_attribute_mapping() {
-        question_attribute_mapping.add(new Pair<String,String>("Enter the name of the camp you would like " +
-                "to register for as a committee member: ",
-                "campCommitteeRegister"));
-    }
     @Override
     public void perform() {
-        Prompt tmp = new Prompt(question_attribute_mapping.get(0).getFirst(),
-                question_attribute_mapping.get(0).getSecond());
-        this.prompts.add(tmp);
+        ArrayList<String> cs = new ArrayList<String>();
+        for(int i = 0; i < this.camps.size(); i++){
+            cs.add(this.camps.get(i).getCampName());
+        }
+        this.prompt = new Prompt("INIT");
+        try {
+            this.prompt = new PromptOption("Enter the name of the camp you would like to register for as a committee member:", cs);
+            this.prompt.startPrompt();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int index = cs.indexOf(this.prompt.getResult());
+        this.value = this.camps.get(index);
+    }
+
+
+
+    @Override
+    public Camp getObject() {
+        return this.value;
     }
 }

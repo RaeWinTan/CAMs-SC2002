@@ -1,9 +1,8 @@
 package com.example.view;
 
-import com.example.utility.Pair;
 
-public interface IPrompt {
-    public Pair<String,String> getResult();
-
+public interface IPrompt{
+    public String getResult();
+    public void startPrompt();
     
 }

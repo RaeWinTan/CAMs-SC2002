@@ -1,7 +1,8 @@
 package com.example.view;
 
 import java.util.ArrayList;
-public interface IPromptPage extends IViewPage{
-    ArrayList<IPrompt> returnInputs();
+public interface IPromptPage<T> extends IViewPage<T>{
+    public void perform();
+    public T getObject();
     
 }
