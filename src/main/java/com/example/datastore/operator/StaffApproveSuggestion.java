@@ -19,6 +19,7 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
     Staff staff;
     Suggestion suggestion;
     IDataStoreEditable<Student> studentDataStore;
+    IDataStoreEditable<Camp> campDataStore;
 
     /**
      * Constructor for StaffApproveSuggestion
@@ -26,10 +27,11 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
      * @param suggestion        Suggestion to be approved
      * @param studentDataStore  Student DataStore, required for increaing student points upon approval.
      */
-    public StaffApproveSuggestion(Staff staff, Suggestion suggestion, IDataStoreEditable<Student> studentDataStore){
+    public StaffApproveSuggestion(Staff staff, Suggestion suggestion, IDataStoreEditable<Student> studentDataStore, IDataStoreEditable<Camp> campDataStore){
         this.staff = staff;
         this.suggestion = suggestion;
         this.studentDataStore = studentDataStore;
+        this.campDataStore = campDataStore;
     }
 
     /**
@@ -49,6 +51,9 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
                 // Get suggestion
                 for (Suggestion suggestion : camp.getSuggestions()){
                     if (suggestion.isEquals(this.suggestion)){
+                        // Attempt to edit camp
+                        this.campDataStore.manageData(new StaffCampEdit(this.staff, suggestion.getCamp()));
+                        
                         // Approve suggestion
                         suggestion.approve();
                         // Increase student points
