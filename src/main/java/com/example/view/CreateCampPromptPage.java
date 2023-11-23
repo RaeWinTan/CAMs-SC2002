@@ -9,11 +9,11 @@ import com.example.datastructure.GroupName;
 import com.example.utility.Pair;
 
 public class CreateCampPromptPage implements IPromptPage<Camp>{
-    
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private Camp newCamp;
     public CreateCampPromptPage() {
         this.newCamp = new Camp();//
+
         initPrompts();
     }
 

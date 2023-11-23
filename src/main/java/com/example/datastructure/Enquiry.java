@@ -9,6 +9,11 @@ import com.example.utility.Pair;
 public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
     private Camp to;
     private ArrayList<Message> replies;
+    //TODO javadoc
+    public Enquiry(){
+        
+
+    }
 
     /**
      * Constructor for Enquiry class.

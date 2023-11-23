@@ -8,13 +8,14 @@ import com.example.datastructure.Message;
 import com.example.datastructure.User;
 import com.example.utility.Pair;
 
-public class ReplyToEnquiryPromptPage implements IPromptPage<Message> {
+public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Message>> {
 
     private ArrayList<String>questions = new ArrayList<>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private ArrayList<Camp> camps = new ArrayList<>();
     private User author;
-    private Message value;
+    private Pair<Enquiry, Message> value;
+
     //should a message
     public ReplyToEnquiryPromptPage(User author, ArrayList<Camp> camps) {
         this.author = author;
@@ -24,7 +25,6 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Message> {
         
         
     }
-    //public void addQuestion_attribute(String question, String attributeName) {return;}
 
     private void initialise_questions() {
         questions.add("Which Camp do you want to see enquiries from? ");
@@ -61,8 +61,9 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Message> {
 
     @Override
     public void perform() {
-        Camp campReferingTo;
-        Enquiry enquiryReferingTo;
+        Camp campReferingTo = new Camp();
+        Enquiry enquiryReferingTo = new Enquiry();
+        Message messageReferingTo = new Message();
         ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
         ArrayList<String> es = new ArrayList<String>();//enquiry identifiers 
         ArrayList<String> cs = new ArrayList<String>();
@@ -76,20 +77,33 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Message> {
                 campReferingTo = this.camps.get(idx);
             } else if(i==1){
                 enquiries = campReferingTo.getEnquiries();
-                this.prompts.set(i, new EnquiryPromptOptionTable(enquiries));
+                ArrayList<String> headers = new ArrayList<>();
+                ArrayList<String> author_string = new ArrayList<>();
+                ArrayList<String> enquiry_string = new ArrayList<>();
+                ArrayList<ArrayList<String>> columns = new ArrayList<>(); 
+                headers.add("student name");
+                headers.add("enquiry");
+                for(int k = 0; k < enquiries.size(); k++){
+                    author_string.add(enquiries.get(k).getAuthor().getName());
+                    enquiry_string.add(enquiries.get(k).getText());                   
+                }
+                columns.add(author_string);
+                columns.add(enquiry_string);
+                this.prompts.set(i, new TablePromptOption(this.questions.get(i), headers, columns));
                 this.prompts.get(i).startPrompt();
                 int e = Integer.valueOf(this.prompts.get(i).getResult());
                 enquiryReferingTo = enquiries.get(e);
             } else {
                 this.prompts.get(i).startPrompt();
-                this.value = new Message(this.prompts.get(i).getResult(), author);
+                messageReferingTo = new Message(this.prompts.get(i).getResult(), author);
+                
             }
         }
+        this.value = new Pair<>(enquiryReferingTo, messageReferingTo);
     }
 
     @Override
-    public Message getObject() {
-        // TODO Auto-generated method stub
+    public Pair<Enquiry, Message> getObject() {
         return this.value;
     }
 }
