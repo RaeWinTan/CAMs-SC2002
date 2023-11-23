@@ -7,6 +7,7 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
+import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
 /**
@@ -18,6 +19,7 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
     Staff staff;
     Suggestion suggestion;
     IDataStoreEditable<Student> studentDataStore;
+    IDataStoreEditable<Camp> campDataStore;
 
     /**
      * Constructor for StaffApproveSuggestion
@@ -25,10 +27,11 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
      * @param suggestion        Suggestion to be approved
      * @param studentDataStore  Student DataStore, required for increaing student points upon approval.
      */
-    public StaffApproveSuggestion(Staff staff, Suggestion suggestion, IDataStoreEditable<Student> studentDataStore){
+    public StaffApproveSuggestion(Staff staff, Suggestion suggestion, IDataStoreEditable<Student> studentDataStore, IDataStoreEditable<Camp> campDataStore){
         this.staff = staff;
         this.suggestion = suggestion;
         this.studentDataStore = studentDataStore;
+        this.campDataStore = campDataStore;
     }
 
     /**
@@ -39,13 +42,18 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
      */
     @Override
     public void perform(ArrayList<Camp> data) {
-        // TODO: Check if staff has permission to approve suggestion
+        if (!this.suggestion.getCamp().getCreatedBy().isEquals(this.staff))
+            throw new InsufficientPermissionException("Staff cannot approve a Suggestion from a Camp they did not create.");
+
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.suggestion.getCamp())){
                 // Get suggestion
                 for (Suggestion suggestion : camp.getSuggestions()){
                     if (suggestion.isEquals(this.suggestion)){
+                        // Attempt to edit camp
+                        this.campDataStore.manageData(new StaffCampEdit(this.staff, suggestion.getCamp()));
+                        
                         // Approve suggestion
                         suggestion.approve();
                         // Increase student points

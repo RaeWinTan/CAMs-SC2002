@@ -1,62 +1,41 @@
 package com.example.datastructure;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
 import com.example.utility.Pair;
 
 public class Camp implements IDataStoreObject<Camp>{
-	private UUID campId;
-	private String campName;
-	private Date[] dates;
-	private Date closingDate;
-	private GroupName userGroup;
-	private String location;
-	private int totalSlots;
-	private int committeeSlots;
-	private String description;
-	private boolean visibility;
-	private Staff createdBy;
-	private ArrayList<CampMember> committees;
-	private ArrayList<CampMember> attendees;
-	private ArrayList<Enquiry> enquiries;
-	private ArrayList<Suggestion> suggestions; 
+	private UUID campId = null;
+	private String campName= null;
+	private Date[] dates = null;
+	private Date closingDate= null;
+	private GroupName userGroup= null;
+	private String location= null;
+	private int totalSlots= -1;
+	private int committeeSlots= -1;
+	private String description= null;
+	private boolean visibility= false;
+	private Staff createdBy= null;
+	private ArrayList<CampMember> committees= new ArrayList<>();
+	private ArrayList<CampMember> attendees= new ArrayList<>();
+	private ArrayList<Enquiry> enquiries= new ArrayList<>();
+	private ArrayList<Suggestion> suggestions= new ArrayList<>(); 
 
-	/**
-	 * Constructor for Camp class.
-	 * @param campName 		Name of the camp.
-	 * @param dates 		Dates in which the camp is active.
-	 * @param closingDate	Last day for registration.
-	 * @param userGroup		Faculty in which the camp is open to.
-	 * @param location		Location of the camp.
-	 * @param totalSlots	Maximum number of slots for students to participate (including committees).
-	 * @param committeeSlot	Maximum number of slots for commitee members.
-	 * @param description	Description of the camp.
-	 * @param visibility	Flag for Student's access to view the camp.
-	 * @param createdBy		Staff who created the camp.
-	 */
-	public Camp(String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy) {
+	public Camp(){
 		this.campId = UUID.randomUUID();
-		this.campName = campName;
-		this.dates = dates;
-		this.closingDate = closingDate;
-		this.userGroup = userGroup;
-		this.location = location;
-		this.totalSlots = totalSlots;
-		this.committeeSlots = committeeSlot;
-		this.description = description;
-		this.visibility = visibility;
-		this.createdBy = createdBy;
-		this.attendees = new ArrayList<CampMember>();
-		this.committees = new ArrayList<CampMember>();
+	}
+
+	public Camp(Camp camp){
+		this.campId = camp.getCampId();
 	}
 
 	/**
-	 * Constructor for Camp class.
+	 * Constructor for Camp class, used to create a copy of the Camp.
 	 * @param campId		Unique identifier of the camp
 	 * @param campName 		Name of the camp.
 	 * @param dates 		Dates in which the camp is active.
@@ -101,65 +80,6 @@ public class Camp implements IDataStoreObject<Camp>{
 		rtn.add(new Pair<String, String>("visibility", ""+this.visibility));
 		rtn.add(new Pair<String, String>("createdBy", this.createdBy.getUserId()));
 		return rtn;
-	}
-	public Camp(ArrayList<Pair<String,String>> attrMapping, Staff s){
-		for(Pair<String, String> i:attrMapping){
-			this.dates = new Date[2];
-			this.dates[0]=null;
-			this.dates[1] = null;
-			if(i.getFirst().equals("campName")){
-				this.campName = i.getSecond();
-			}
-			if(i.getFirst().equals("startDate")){
-				SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
-				//TODO later jstu hat 
-				this.dates[0] = new Date();
-			}
-			if(i.getFirst().equals("endDate")){
-				// SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
-				//TODO later jstu hat 
-				this.dates[1] = new Date();
-			}
-			if(i.getFirst().equals("closingDate")){
-				// SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-				//TODO later convert
-				this.closingDate = new Date();
-			}
-			if(i.getFirst().equals("userGroup")){
-				switch(i.getSecond()){
-					case "ADM":
-						this.userGroup = GroupName.ADM;
-						break;
-					case "EEE":
-						this.userGroup = GroupName.EEE;
-						break;
-					case "NMS":
-						this.userGroup = GroupName.NMS;
-						break;
-					case "SCSE":
-						this.userGroup = GroupName.SCSE;
-						break;
-					case "SSS":
-						this.userGroup = GroupName.SSS;
-						break;
-					case "NTU":
-						this.userGroup = GroupName.NTU;
-						break;
-					default:
-						// TODO: Error handling
-						//throw new Exception("Invalid faculty: " + facultyStr);
-						// TEMPCODE:
-						this.userGroup = GroupName.NTU;	
-				} 
-			}
-			if(i.getFirst().equals("location")) this.location = i.getSecond();
-			if(i.getFirst().equals("totalSlots")) this.totalSlots = Integer.valueOf(i.getSecond());
-			if(i.getFirst().equals("committeeSlot")) this.committeeSlots = Integer.valueOf(i.getSecond());
-			if(i.getFirst().equals("description")) this.description = i.getSecond();
-			if(i.getFirst().equals("visibility")) this.visibility = i.getSecond().equals("true") ? true : false;
-		}
-		this.createdBy = s;
-
 	}
 
 	/**
@@ -365,15 +285,24 @@ public class Camp implements IDataStoreObject<Camp>{
 	}
 
 	public void setAll(Camp other){
-		this.setCampName(other.getCampName());
-		this.setDates(other.getDates());
-		this.setClosingDate(other.getClosingDate());
-		this.setUserGroup(other.userGroup);
-		this.setLocation(other.getLocation());
-		this.setTotalSlots(other.getTotalSlots());
-		this.setCommitteeSlot(other.committeeSlots);
-		this.setDescription(other.getDescription());
-		this.setVisibility(other.getVisibility());
+		if (other.getCampName()!=null)
+			this.setCampName(other.getCampName());
+		if (other.getDates()!=null)
+			this.setDates(other.getDates());
+		if (other.getClosingDate()!=null)
+			this.setClosingDate(other.getClosingDate());
+		if (other.getUserGroup()!=null)
+			this.setUserGroup(other.userGroup);
+		if (other.getLocation()!=null)
+			this.setLocation(other.getLocation());
+		if (other.getTotalSlots()>=0)
+			this.setTotalSlots(other.getTotalSlots());
+		if (other.getCommitteeSlot()>=0)
+			this.setCommitteeSlot(other.getCommitteeSlot());
+		if (other.getDescription()!=null)
+			this.setDescription(other.getDescription());
+		if (other.getVisibility())
+			this.setVisibility(other.getVisibility());
 	}
 
 	/**
@@ -397,6 +326,32 @@ public class Camp implements IDataStoreObject<Camp>{
 
 	public ArrayList<Suggestion> getSuggestions(){
 		return this.suggestions;
+	}
+
+	@Override
+	public String toString(){
+		String str = "";
+		DateFormat dateFormat = new SimpleDateFormat("ddmmyy");  
+		if (this.getCampName()!=null)
+			str += "Camp Name: " + this.getCampName();
+		if (this.getDates()!=null)
+			str += "Dates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]);
+		if (this.getClosingDate()!=null)
+			str += "Last day of registration: " + dateFormat.format(this.getClosingDate());
+		if (this.getUserGroup()!=null)
+			str += "User Group:" + this.userGroup.toString();
+		if (this.getLocation()!=null)
+			str += "Location: " + this.getLocation();
+		if (this.getTotalSlots()>=0)
+			str += "Total Slot: " + this.getTotalSlots();	
+		if (this.getCommitteeSlot()>=0)
+			str += "Committee Slot: " + this.getCommitteeSlot();	
+		if (this.getDescription()!=null)
+			str += "Description: " + this.getDescription();	
+		if (this.getVisibility())
+			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible");
+
+		return str;
 	}
 
 }

@@ -14,7 +14,7 @@ public interface IStudentCampDBService {
 
     public IDataStoreRetrivalOperation<Camp> DSAteendeeCampRetrival(IDataStoreRetrivable<Student> studentDataStore);
 
-    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStore);
+    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe);
 
-    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStore);
+    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe);
 }

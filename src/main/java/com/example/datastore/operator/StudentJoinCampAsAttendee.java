@@ -1,8 +1,10 @@
 package com.example.datastore.operator;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.example.datastore.IDataStoreEditable;
+import com.example.datastore.IDataStoreRetrivable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
@@ -17,7 +19,8 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
 
     Student student;
     Camp camp;
-    IDataStoreEditable<Student> studenDataStore;
+    IDataStoreEditable<Student> studenDataStorE;
+    IDataStoreRetrivable<Student> studentDataStoRe;
 
     /**
      * Constructor for StudentJoiNCampAsAttendee
@@ -25,10 +28,11 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
      * @param camp              Camp to be joined.
      * @param studentDataStore  Student DataStore, required to update original Student object's attending list.
      */
-    public StudentJoinCampAsAttendee(Student student, Camp camp, IDataStoreEditable<Student> studentDataStore){
+    public StudentJoinCampAsAttendee(Student student, Camp camp, IDataStoreEditable<Student> studenDataStorE, IDataStoreRetrivable<Student> studentDataStoRe){
         this.student = student;
         this.camp = camp;
-        this.studenDataStore = studentDataStore;
+        this.studenDataStorE = studenDataStorE;
+        this.studentDataStoRe = studentDataStoRe;
     }
 
     /**
@@ -44,7 +48,22 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
             throw new IllegalOperationException("Camp has reached the maximum number of participants.");
         }
 
-        // TODO: Check for clash in dates
+        // Get latest copy of student 
+        this.student = studentDataStoRe.retrieveData(new DataStoreRetrieve<Student>(this.student)).get(0);
+        // Chcek for clash in dates
+        Date[] camp1Dates = this.camp.getDates();
+        for (CampMember campMember : this.student.getAttending()) {
+            Date[] camp2Dates = campMember.getCamp().getDates();
+            if (camp1Dates[1].before(camp2Dates[0]) || camp1Dates[0].before(camp2Dates[1]))
+                throw new IllegalOperationException("Camp date overlaps with another camp student is attending.");
+        }
+
+        for (CampMember campMember : this.student.getLeading()) {
+            Date[] camp2Dates = campMember.getCamp().getDates();
+            if (camp1Dates[1].before(camp2Dates[0]) || camp1Dates[0].before(camp2Dates[1]))
+                throw new IllegalOperationException("Camp date overlaps with another camp student is leading.");
+        }
+
 
         
         for (Camp camp : data) {
@@ -53,7 +72,7 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
                 camp.getAttendees().add(new CampMember(this.student, this.camp));
 
                 // Add camp to attending array in student
-                studenDataStore.manageData(new StudentAddAttendingCamp(this.student, this.camp));
+                this.studenDataStorE.manageData(new StudentAddAttendingCamp(this.student, this.camp));
                 return;
             }
         }

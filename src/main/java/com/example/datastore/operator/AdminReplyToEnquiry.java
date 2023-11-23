@@ -37,7 +37,6 @@ public class AdminReplyToEnquiry implements IDataStoreEditOperation<Camp>{
      */
     @Override
     public void perform(ArrayList<Camp> data) {
-        // TODO: Check if user has permission (possibly creeate base classes for student (to check committee) and user (to cehck if camp was created by them))
         // check user matches reply author
         if (!reply.getAuthor().isEquals(this.user)){
             throw new IllegalOperationException("User replying does not match author of the message.");

@@ -42,8 +42,9 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
                 
                 // special checks when camp has more than one participants
                 if (camp.getAttendees().size() + camp.getCommittees().size() > 0){
-                    if (!newCamp.getVisibility())
-                        throw new IllegalOperationException("Unable to disable camp when camp has participants.");
+                    // ostrich algorithming it
+                    // if (this.newCamp.getVisibility() != camp.getVisibility() && !this.newCamp.getVisibility())
+                    //     throw new IllegalOperationException("Unable to disable camp when camp has participants.");
                     if (this.newCamp.getUserGroup() != camp.getUserGroup())
                         throw new IllegalOperationException("Unable to change camp user group when camp has participants.");
                 }
