@@ -102,65 +102,6 @@ public class Camp implements IDataStoreObject<Camp>{
 		rtn.add(new Pair<String, String>("createdBy", this.createdBy.getUserId()));
 		return rtn;
 	}
-	public Camp(ArrayList<Pair<String,String>> attrMapping, Staff s){
-		for(Pair<String, String> i:attrMapping){
-			this.dates = new Date[2];
-			this.dates[0]=null;
-			this.dates[1] = null;
-			if(i.getFirst().equals("campName")){
-				this.campName = i.getSecond();
-			}
-			if(i.getFirst().equals("startDate")){
-				SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
-				//TODO later jstu hat 
-				this.dates[0] = new Date();
-			}
-			if(i.getFirst().equals("endDate")){
-				// SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
-				//TODO later jstu hat 
-				this.dates[1] = new Date();
-			}
-			if(i.getFirst().equals("closingDate")){
-				// SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-				//TODO later convert
-				this.closingDate = new Date();
-			}
-			if(i.getFirst().equals("userGroup")){
-				switch(i.getSecond()){
-					case "ADM":
-						this.userGroup = GroupName.ADM;
-						break;
-					case "EEE":
-						this.userGroup = GroupName.EEE;
-						break;
-					case "NMS":
-						this.userGroup = GroupName.NMS;
-						break;
-					case "SCSE":
-						this.userGroup = GroupName.SCSE;
-						break;
-					case "SSS":
-						this.userGroup = GroupName.SSS;
-						break;
-					case "NTU":
-						this.userGroup = GroupName.NTU;
-						break;
-					default:
-						// TODO: Error handling
-						//throw new Exception("Invalid faculty: " + facultyStr);
-						// TEMPCODE:
-						this.userGroup = GroupName.NTU;	
-				} 
-			}
-			if(i.getFirst().equals("location")) this.location = i.getSecond();
-			if(i.getFirst().equals("totalSlots")) this.totalSlots = Integer.valueOf(i.getSecond());
-			if(i.getFirst().equals("committeeSlot")) this.committeeSlots = Integer.valueOf(i.getSecond());
-			if(i.getFirst().equals("description")) this.description = i.getSecond();
-			if(i.getFirst().equals("visibility")) this.visibility = i.getSecond().equals("true") ? true : false;
-		}
-		this.createdBy = s;
-
-	}
 
 	/**
 	 * Get method for campId

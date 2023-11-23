@@ -7,6 +7,7 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
+import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
 /**
@@ -39,7 +40,9 @@ public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
      */
     @Override
     public void perform(ArrayList<Camp> data) {
-        // TODO: Check if staff has permission to approve suggestion
+        if (!this.suggestion.getCamp().getCreatedBy().isEquals(this.staff))
+            throw new InsufficientPermissionException("Staff cannot approve a Suggestion from a Camp they did not create.");
+
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.suggestion.getCamp())){

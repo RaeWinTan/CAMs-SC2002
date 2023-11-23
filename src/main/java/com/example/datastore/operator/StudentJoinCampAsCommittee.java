@@ -1,8 +1,10 @@
 package com.example.datastore.operator;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.example.datastore.IDataStoreEditable;
+import com.example.datastore.IDataStoreRetrivable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
@@ -17,7 +19,8 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
 
     Student student;
     Camp camp;
-    IDataStoreEditable<Student> studenDataStore;
+    IDataStoreEditable<Student> studenDataStorE;
+    IDataStoreRetrivable<Student> studentDataStoRe;
 
     /**
      * Constructor for StudentJoinCampAsCommittee
@@ -25,10 +28,11 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
      * @param camp              Camp to be joined.
      * @param studentDataStore  Student DataStore, required to update original Student object's leading list.
      */
-    public StudentJoinCampAsCommittee(Student student, Camp camp, IDataStoreEditable<Student> studentDataStore){
+    public StudentJoinCampAsCommittee(Student student, Camp camp, IDataStoreEditable<Student> studenDataStorE, IDataStoreRetrivable<Student> studentDataStoRe){
         this.student = student;
         this.camp = camp;
-        this.studenDataStore = studentDataStore;
+        this.studenDataStorE = studenDataStorE;
+        this.studentDataStoRe = studentDataStoRe;
     }
 
     /**
@@ -40,14 +44,24 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
     @Override
     public void perform(ArrayList<Camp> data) {
         // Check if camp has enough slots
-        if (this.camp.getRemaindingCommitteeSlots() <= 0){
+        if (this.camp.getRemaindingCommitteeSlots() <= 0)
             throw new IllegalOperationException("Camp has reached the maximum number of committee members.");
-        }
+        
+        // Get latest copy of student.
+        this.student = studentDataStoRe.retrieveData(new DataStoreRetrieve<Student>(this.student)).get(0);
 
         // Check if student is aleady a committee member of another camp
         if (!this.student.getLeading().isEmpty()){
             String otherCampName = this.student.getLeading().get(0).getCamp().getCampName();
             throw new IllegalOperationException("Student is already a committee of another camp - " + otherCampName);
+        }
+
+        // Chcek for clash in attending camp dates
+        Date[] camp1Dates = this.camp.getDates();
+        for (CampMember campMember : this.student.getAttending()) {
+            Date[] camp2Dates = campMember.getCamp().getDates();
+            if (camp1Dates[1].before(camp2Dates[0]) || camp1Dates[0].before(camp2Dates[1]))
+                throw new IllegalOperationException("Camp date overlaps with other camps student is participating in.");
         }
         
         for (Camp camp : data) {
@@ -56,7 +70,7 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
                 camp.getCommittees().add(new CampMember(this.student, this.camp));
 
                 // Add camp to leading array in student
-                studenDataStore.manageData(new StudentAddLeadingCamp(this.student, this.camp));
+                studenDataStorE.manageData(new StudentAddLeadingCamp(this.student, this.camp));
                 return;
             }
         }
