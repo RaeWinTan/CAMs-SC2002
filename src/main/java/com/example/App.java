@@ -81,16 +81,22 @@ public class App {
 		while(true){
 			login();
 			while(staff!=null||student!=null){//while it is logged in
-				IPromptPage dashboard;
+				IViewPage dashboard;
 				if(userType==UserType.STAFF){
 					dashboard = redirect("staffDashboard");
 				}else{
 					dashboard = redirect("studentDashboard");
 				}
 				dashboard.perform();
-				currentPage = dashboard.returnInputs().get(0).getResult().getSecond();
+				currentPage = ((IPromptPage) dashboard).returnInputs().get(0).getResult().getSecond();
 				if(currentPage.equals("logout")) break;
-				redirect(currentPage);
+				IViewPage newPage = redirect(currentPage);
+				if(newPage instanceof IPromptPage){
+						((IPromptPage)newPage).returnInputs();
+						//here must handel that 
+				}else{ //it is a display page
+
+				}
 			}
 			System.out.println("SUCCESSFUL LOGOUT");
 			staff = null;
@@ -124,63 +130,7 @@ public class App {
 		else if(pagename == "CreateCampPromptPage"){
 			return new CreateCampPromptPage();
 		}
-		else if(pagename == "EditCampPromptPage"){
-			return new EditCampPromptPage(new ArrayList<>());
-		}
-		else if(pagename == "registerCommmitteeCamp"){
-			return new RegisterForCampCommitteeMember();
-		}
-		else if(pagename == "editSuggestion"){
-			return new editSuggestion();
-		}
-		else if(pagename == "deleteSuggestion"){
-			return new deleteSuggestion;
-		}
-		else if(pagename == "registerAttendeeCamp"){
-			return new RegisterForCampPromptPage();
-		}
-		else if (pagename == "ReplyToEnquiryPromptPage"){
-			return new ReplyToEnquiryPromptPage();
-		}
-		else if (pagename == "enquireCamp"){
-			return new SubmitCampPromptEnquiry();
-		}
-		else if (pagename == "suggestionCamp"){
-			return new SubmitCampSuggestionPromptPage();
-		}
-		else if (pagename == "ViewCampsStaff"){
-			return new ViewCampsStaff();
-		}
-		else if(pagename == "viewAllRegisteredCamps"){
-			return new viewAllRegisteredCamps();
-		}
-		else if (pagename == "viewAvailableCamps"){
-			return new ViewCampsStudent();
-		}
-		else if (pagename == "ViewCommitteePerformance"){
-			return new ViewCommitteePerformance();
-		}
-		else if (pagename == "ViewCreatedCamps"){
-			return new ViewCreatedCamps();
-		}
-		else if(pagename == "viewRepliesToEnquiry"){
-			return new viewRepliesToEnquiry();
-		}
-		else if (pagename == "viewEnquiriesFromStudent"){
-			return new ViewEnquiryReport();
-		}
-		else if (pagename == "ViewListOfCommittee"){
-			return new ViewListOfCommittee();
-		}
-		else if (pagename == "generateReportAtteedeesForEachCamp"){
-			return new ViewListOfStudent();
-		}
-		else if (pagename == "viewSubmittedSuggestions"){
-			return new ViewOwnSuggestions();
-		}
-		else if (pagename ==  "ViewSuggestion"){
-			return new ViewSuggestion();
-		}
+		
 		else {
 		return new LoginPromptPage();}
 	} 
