@@ -9,18 +9,34 @@ import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
+/**
+ * Camp DataStore edit operator for deleting a camp.
+ * @see IDataStoreEditOperation
+ */
 public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
 
     Staff staff;
     Camp camp;
     IDataStoreEditable<Staff> staffDataStore;
 
+    /**
+     * Constructor for StaffCampDelete.
+     * @param staff             Staff executing the operator.
+     * @param camp              Camp to be deleted.
+     * @param staffDataStore    Staff DataStore, required to remove camp from original Staff object.
+     */
     public StaffCampDelete(Staff staff, Camp camp, IDataStoreEditable<Staff> staffDataStore){
         this.staff = staff;
         this.camp = camp;
         this.staffDataStore = staffDataStore;
     }
 
+    /**
+     * Remove Camp from DataStore.
+     * Call Staff DataStore to remove camp from staff using StaffRemoveCamp.
+     * @param data  ArrayList of Camps from Camp DataStore.
+     * @see StaffRemoveCamp
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         // Get camp

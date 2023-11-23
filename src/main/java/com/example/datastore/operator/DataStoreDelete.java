@@ -1,31 +1,33 @@
-package com.example.datastore.operator;
+//TODO: Delete if not being used.
 
-import java.util.ArrayList;
+// package com.example.datastore.operator;
 
-import com.example.datastore.IDataStoreObject;
-import com.example.exception.IllegalOperationException;
+// import java.util.ArrayList;
 
-public class DataStoreDelete<T extends IDataStoreObject<T>> implements IDataStoreEditOperation<T> {
+// import com.example.datastore.IDataStoreObject;
+// import com.example.exception.IllegalOperationException;
 
-	private T obj;
+// public class DataStoreDelete<T extends IDataStoreObject<T>> implements IDataStoreEditOperation<T> {
 
-	/**
-	 * Constructor for CampDataStoreDelete class.
-	 * @param obj: Camp to be deleted.
-	 */
-	public DataStoreDelete(T obj) {
-		this.obj = obj;
-	}
+// 	private T obj;
 
-	/**
-	 * This method iterates through data to search for obj.
-	 * If found, obj will be removed from data.
-	 * @param data		ArrayList of T from DataStore.
-	 * @see IDataStoreEditOperation
-	 */
-	@Override
-	public void perform(ArrayList<T> data) {
-		if(!data.removeIf(i->i.isEquals(this.obj)))
-			throw new IllegalOperationException("Object doesn't exists");
-	}
-}
+// 	/**
+// 	 * Constructor for CampDataStoreDelete class.
+// 	 * @param obj: Camp to be deleted.
+// 	 */
+// 	public DataStoreDelete(T obj) {
+// 		this.obj = obj;
+// 	}
+
+// 	/**
+// 	 * This method iterates through data to search for obj.
+// 	 * If found, obj will be removed from data.
+// 	 * @param data		ArrayList of T from DataStore.
+// 	 * @see IDataStoreEditOperation
+// 	 */
+// 	@Override
+// 	public void perform(ArrayList<T> data) {
+// 		if(!data.removeIf(i->i.isEquals(this.obj)))
+// 			throw new IllegalOperationException("Object doesn't exists");
+// 	}
+// }

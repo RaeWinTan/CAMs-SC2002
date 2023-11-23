@@ -9,17 +9,34 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.ObjectNotFoundException;
 
+/**
+ * Camp Datastore edit operator to approve a Suggestion.
+ * @see IDataStoreEditOperation
+ */
 public class StaffApproveSuggestion implements IDataStoreEditOperation<Camp>{
 
     Staff staff;
     Suggestion suggestion;
     IDataStoreEditable<Student> studentDataStore;
+
+    /**
+     * Constructor for StaffApproveSuggestion
+     * @param staff             Staff approving the suggestion
+     * @param suggestion        Suggestion to be approved
+     * @param studentDataStore  Student DataStore, required for increaing student points upon approval.
+     */
     public StaffApproveSuggestion(Staff staff, Suggestion suggestion, IDataStoreEditable<Student> studentDataStore){
         this.staff = staff;
         this.suggestion = suggestion;
         this.studentDataStore = studentDataStore;
     }
 
+    /**
+     * Search for Suggestion and approve it.
+     * Then call Student DataStore to increase the student's point using StudentIncreasePoint operator.
+     * @param data  ArrayList of Camp from Camp DataStore.
+     * @see StudentIncreasePoint
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         // TODO: Check if staff has permission to approve suggestion
