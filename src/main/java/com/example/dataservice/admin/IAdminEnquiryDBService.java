@@ -4,7 +4,8 @@ import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
+import com.example.utility.Pair;
 
 public interface IAdminEnquiryDBService {
-        IDataStoreEditOperation<Camp> DSEnquiryReply(Message reply, Enquiry enquiry);
+        IDataStoreEditOperation<Camp> DSEnquiryReply(Pair<Enquiry,Message> em);
 }

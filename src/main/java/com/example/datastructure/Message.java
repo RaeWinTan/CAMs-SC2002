@@ -9,9 +9,12 @@ public class Message {
     private UUID messageId;
     protected User author;
     protected String text;
-    //TODO javadoc
+    
+    /**
+     * Constructor for Message Class.
+     */
     public Message(){
-        
+        this.messageId = UUID.randomUUID();
     }
 
     /**
