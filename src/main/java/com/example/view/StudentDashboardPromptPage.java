@@ -8,7 +8,7 @@ import com.example.datastructure.Student;
 public class StudentDashboardPromptPage implements IPromptPage<Page>{
     private IPrompt prompt;
     private boolean isCommittee;
-    private ArrayList<Page> pages;
+    private ArrayList<Page> pages = new ArrayList<>();
     private Page value;
     public StudentDashboardPromptPage(Student student){//here must determine if committee or not
         initialise_pages();
@@ -22,16 +22,36 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
 
     private void initialise_pages(){
         this.pages.add(Page.ChangePassword);
+        this.pages.add(Page.WithdrawFromCamp);
+        this.pages.add(Page.RegisterAttendeeCamp);
+        
+        this.pages.add(Page.SubmitEnquiry);
+        this.pages.add(Page.EditEnquiry);
+        this.pages.add(Page.RegisterCommitteeCamp);
+        this.pages.add(Page.ViewAllRegisteredCamps);
+        this.pages.add(Page.ViewAvailableCampsStudent);
+         this.pages.add(Page.ViewEnquiry);
+        this.pages.add(Page.ViewRepliesToEnquiry);
+        
+        if(isCommittee){
+            this.pages.add(Page.SuggestionCamp);
+            this.pages.add(Page.ViewEnquiriesFromStudent);//same as view enquiry
+            this.pages.add(Page.ViewSubmittedSuggestions);//
+            this.pages.add(Page.EditSuggestion);
+            this.pages.add(Page.DeleteSuggestion);
+            this.pages.add(Page.GenerateStudentReport);
+        }
+        this.pages.add(Page.Logout);
         /*
         continue adding your pages in the above way here
         this.options.add("changePassword");
         this.options.add("viewAvailableCamps");
         this.options.add("viewAllRegisteredCamps");
         this.options.add("registerAttendeeCamp");
-        
+
         this.options.add("enquireCamp");
         this.options.add("viewRepliesToEnquiry");
-        
+
         this.options.add("withdrawFromCamp");
         this.options.add("registerCommitteeCamp");
         if(isCommittee) this.options.add("suggestionCamp");
@@ -42,9 +62,9 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
         if(isCommittee) this.options.add("generateReportAtteedeesForEachCamp");
         this.options.add("logout");
         */
-        
-        
-        
+
+
+
     }
 
 
@@ -59,5 +79,5 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
     public Page getObject() {
         return this.value;
     }
-    
+
 }
