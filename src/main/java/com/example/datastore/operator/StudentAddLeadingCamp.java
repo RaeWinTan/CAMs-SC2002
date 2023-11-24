@@ -36,7 +36,7 @@ public class StudentAddLeadingCamp implements IDataStoreEditOperation<Student> {
     public void perform(ArrayList<Student> data) {
         for (Student student : data) {
             if (student.isEquals(this.student)){
-                student.getLeading().add(new CampMember(this.student, this.camp));
+                student.getLeading().add(new CampMember(student, this.camp));
                 return;
             }
         }

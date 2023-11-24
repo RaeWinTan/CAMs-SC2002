@@ -69,10 +69,10 @@ public class StudentJoinCampAsAttendee implements IDataStoreEditOperation<Camp> 
         for (Camp camp : data) {
             if (camp.isEquals(this.camp)){
                 // Add student to attendee array in camp
-                camp.getAttendees().add(new CampMember(this.student, this.camp));
+                camp.getAttendees().add(new CampMember(this.student, camp));
 
                 // Add camp to attending array in student
-                this.studenDataStorE.manageData(new StudentAddAttendingCamp(this.student, this.camp));
+                this.studenDataStorE.manageData(new StudentAddAttendingCamp(this.student, camp));
                 return;
             }
         }
