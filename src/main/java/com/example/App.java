@@ -17,10 +17,12 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.GroupName;
+import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.InvalidLoginCredentialException;
+import com.example.utility.Pair;
 
 
 
@@ -208,13 +210,20 @@ public class App {
 		loginStudent("LE51", "password");
 		Camp toJoin = campDataStore.retrieveData(studentDBService.DSCampRetrival()).get(0);
 
+		// LE51 join as attendee
 		campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(toJoin, studentDataStore, studentDataStore));
-	
-	
 		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
-
 		System.out.println("\n\nCamps joined by LE51:\n");
 		for (CampMember cm : student.getAttending()) {
+			System.out.println(cm.getCamp().toString());
+		}
+
+		// YCHERN join as committee
+		loginStudent("YCHERN", "password");
+		campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(toJoin, studentDataStore, studentDataStore));
+		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
+		System.out.println("\n\nCamps led by YCHERN:\n");
+		for (CampMember cm : student.getLeading()) {
 			System.out.println(cm.getCamp().toString());
 		}
 	}
@@ -223,24 +232,47 @@ public class App {
 
 		// Make enquiry on camp
 		loginStudent("LE51", "password");
-		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
 		Enquiry enquiry = new Enquiry("This one what?",student,student.getAttending().get(0).getCamp());
 		campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
-
 		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
 		// Student view enquiry
-		for (Enquiry enq : student.getEnquireAbout()) {
-			System.out.println(enq.getText());
-		}
+		// for (Enquiry enq : student.getEnquireAbout()) {
+		// 	System.out.println(enq.getText());
+		// }
 		
-		// Staff view enquiry
+		// Staff view & reply to enquries
 		loginStaff("UPAM", "password");
-
 		for (Camp camp: staff.getCampsCreated()){
 			if (!camp.getEnquiries().isEmpty()){
 				System.out.println("Enquries for " + camp.getCampName());
 				for (Enquiry enq : camp.getEnquiries()) {
-					System.out.println(enq.getAuthor().getName() + ": " + enq.getText());
+					System.out.println("| " + enq.getAuthor().getName() + ": " + enq.getText());
+					campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(enquiry,new Message("ur mother", staff))));
+				}
+			}
+		}
+
+		// Committee view & reply to enquries
+		loginStudent("YCHERN", "password");
+		for (CampMember cm: student.getLeading()){
+			Camp camp = cm.getCamp();
+
+			if (!camp.getEnquiries().isEmpty()){
+				System.out.println("Enquries for " + camp.getCampName());
+				for (Enquiry enq : camp.getEnquiries()) {
+					System.out.println("| " + enq.getAuthor().getName() + ": " + enq.getText());
+					campDataStore.manageData(studentDBService.DSEnquiryReply(new Pair<Enquiry,Message>(enquiry,new Message("ur father", student))));
+				}
+			}
+		}
+
+		// Student view replies
+		loginStudent("LE51", "password");
+		for (Enquiry enq: student.getEnquireAbout()){
+			if (!enq.getReplies().isEmpty()){
+				System.out.println("You: " + enq.getText());
+				for (Message reply: enq.getReplies()){
+					System.out.println("| " + reply.getAuthor().getName() + ": " + reply.getText());
 				}
 			}
 		}
