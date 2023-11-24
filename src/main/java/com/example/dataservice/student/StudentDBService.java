@@ -11,6 +11,8 @@ import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastore.operator.IDataStoreRetrivalOperation;
 import com.example.datastore.operator.StudentCampRetrival;
 import com.example.datastore.operator.StudentEnquiryCreate;
+import com.example.datastore.operator.StudentEnquiryDelete;
+import com.example.datastore.operator.StudentEnquiryEdit;
 import com.example.datastore.operator.StudentJoinCampAsAttendee;
 import com.example.datastore.operator.StudentJoinCampAsCommittee;
 import com.example.datastructure.Camp;
@@ -43,6 +45,16 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
     @Override
     public IDataStoreEditOperation<Camp> DSEnquiryCreate(Enquiry enquiry, IDataStoreEditable<Student> studentDataStore) {
         return new StudentEnquiryCreate(this.student, enquiry, studentDataStore);
+    }
+
+    @Override
+    public IDataStoreEditOperation<Camp> DSEnquiryEdit(Enquiry enquiry) {
+        return new StudentEnquiryEdit(this.student, enquiry);
+    }
+
+    @Override
+    public IDataStoreEditOperation<Camp> DSEnquiryDelete(Enquiry enquiry, IDataStoreEditable<Student> studentDSEditable){
+        return new StudentEnquiryDelete(this.student, enquiry, studentDSEditable);
     }
 
     @Override
