@@ -10,9 +10,11 @@ import com.example.dataloader.StudentCSVLoader;
 import com.example.dataservice.admin.StaffDBService;
 import com.example.dataservice.student.StudentDBService;
 import com.example.datastore.DataStore;
+import com.example.datastore.operator.DataStoreRetrieve;
 import com.example.datastore.operator.UserDataStoreLoad;
 import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
+import com.example.datastructure.CampMember;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.GroupName;
 import com.example.datastructure.Staff;
@@ -44,11 +46,17 @@ public class App {
 		System.out.println("\n====Camp Create test====\n");
 		campCreateTest();
 
-		System.out.println("\n====Staff retrieve all Camp test====\n");
-		staffRetrieveAllCampTest();
+		// System.out.println("\n====Staff retrieve all Camp test====\n");
+		// staffRetrieveAllCampTest();
 
-		System.out.println("\n====Staff retrieve relevant Camps test====\n");
-		staffRetrieveCampTest();
+		// System.out.println("\n====Staff retrieve relevant Camps test====\n");
+		// staffRetrieveCampTest();
+
+		System.out.println("\n====Student retrieve Camps test====\n");
+		studentRetrieveCampTest();
+
+		System.out.println("\n===Student join Camp test====\n");
+		studentRegisterCampTest();
 	}
 
 	
@@ -82,7 +90,7 @@ public class App {
 
 		camp = new Camp();
 		camp.setCreatedBy(staff);
-		camp.setCampName("NTU Camp");
+		camp.setCampName("NTU Camp - Invisible");
 		camp.setDates(dates);
 		camp.setClosingDate(new Date());
 		camp.setTotalSlots(15);
@@ -95,7 +103,7 @@ public class App {
 
 		camp = new Camp();
 		camp.setCreatedBy(staff);
-		camp.setCampName("SCSE Camp");
+		camp.setCampName("SCSE Camp - Invisible");
 		camp.setDates(dates);
 		camp.setClosingDate(new Date());
 		camp.setTotalSlots(10);
@@ -106,11 +114,51 @@ public class App {
 		camp.setVisibility(false);	
 		campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
 
+		camp = new Camp();
+		camp.setCreatedBy(staff);
+		camp.setCampName("NTU Camp - Visible");
+		camp.setDates(dates);
+		camp.setClosingDate(new Date());
+		camp.setTotalSlots(10);
+		camp.setCommitteeSlot(5);
+		camp.setUserGroup(GroupName.NTU);
+		camp.setLocation("NTU");
+		camp.setDescription("Camp for NTU");
+		camp.setVisibility(true);	
+		campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
+
+		camp = new Camp();
+		camp.setCreatedBy(staff);
+		camp.setCampName("SCSE Camp - Visible");
+		camp.setDates(dates);
+		camp.setClosingDate(new Date());
+		camp.setTotalSlots(10);
+		camp.setCommitteeSlot(5);
+		camp.setUserGroup(GroupName.SCSE);
+		camp.setLocation("SCSE");
+		camp.setDescription("Camp for SCSE");
+		camp.setVisibility(true);	
+		campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
+
+		camp = new Camp();
+		camp.setCreatedBy(staff);
+		camp.setCampName("SSS Camp - Visible");
+		camp.setDates(dates);
+		camp.setClosingDate(new Date());
+		camp.setTotalSlots(10);
+		camp.setCommitteeSlot(5);
+		camp.setUserGroup(GroupName.SSS);
+		camp.setLocation("SSS");
+		camp.setDescription("Camp for SCSE");
+		camp.setVisibility(true);	
+		campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
+
+
 		loginStaff("ANWIT", "password");
 
 		camp = new Camp();
 		camp.setCreatedBy(staff);
-		camp.setCampName("SSS Camp");
+		camp.setCampName("SSS Camp - Invisible");
 		camp.setDates(dates);
 		camp.setClosingDate(new Date());
 		camp.setTotalSlots(20);
@@ -141,5 +189,30 @@ public class App {
 		for (Camp camp : campDataStore.retrieveData(staffDBService.DSRelevantCampRetrival())) {
 			System.out.println(camp.toString());
 		}
+	}
+
+	private static void studentRetrieveCampTest(){
+		loginStudent("LE51", "password");
+		System.out.println("\n\nCamp visible to LE51");
+		for (Camp camp : campDataStore.retrieveData(studentDBService.DSCampRetrival())) {
+			System.out.println(camp.toString());
+		}
+	}
+
+	private static void studentRegisterCampTest(){
+		loginStudent("LE51", "password");
+		Camp toJoin = campDataStore.retrieveData(studentDBService.DSCampRetrival()).get(0);
+
+		campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(toJoin, studentDataStore, studentDataStore));
+	
+	
+		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
+
+		System.out.println("\n\nCamps joined by LE51:\n");
+		for (CampMember cm : student.getAttending()) {
+			System.out.println(cm.getCamp().toString());
+		}
+
+	
 	}
 }
