@@ -7,11 +7,11 @@ import com.example.utility.Pair;
 public class Student extends User implements IDataStoreObject<Student>{
 
 	private int points;
-	private ArrayList<CampMember> leading;
-	private ArrayList<CampMember> attending;
-	private ArrayList<Message> repliedTo;
-	private ArrayList<Enquiry> enquireAbout;
-	private ArrayList<Suggestion> suggestions;
+	private ArrayList<CampMember> leading = new ArrayList<>();
+	private ArrayList<CampMember> attending = new ArrayList<>();
+	private ArrayList<Message> repliedTo = new ArrayList<>();
+	private ArrayList<Enquiry> enquireAbout = new ArrayList<>();
+	private ArrayList<Suggestion> suggestions = new ArrayList<>();
 
 	/**
 	 * Constructor for Student class, password will be set to default.
@@ -22,11 +22,6 @@ public class Student extends User implements IDataStoreObject<Student>{
 	public Student(String userId, String name, GroupName faculty) {
 		super(userId, name, faculty);
 		this.points = 0;
-		this.leading = new ArrayList<CampMember>();
-		this.attending = new ArrayList<CampMember>();
-		this.repliedTo = new ArrayList<>();
-		this.enquireAbout = new ArrayList<>();
-		this.suggestions = new ArrayList<>();
 	}
 
 	/**
