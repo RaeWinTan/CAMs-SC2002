@@ -4,14 +4,41 @@ import java.util.Scanner;
 
 public class Prompt implements IPrompt{
 
-    protected String question;
-    protected String value;
-    protected Scanner sc = new Scanner(System.in);
-    protected String regex = null;
-    protected boolean allowEmpty =false;
+    private String question;
+    private String value;
+    private Scanner sc = new Scanner(System.in);
+    private String regex = null;
+    private boolean allowEmpty =false;
+    public Scanner getSc(){
+        return sc;
+    }
+    public String getQuestion(){
+        return question;
+    }
+    public String getValue(){
+        return value;
+    }
+    
+    public String getRegex(){
+        return regex;
+    }
+    public boolean allowEmpty(){
+        return allowEmpty;
+    }
 
     public Prompt(String question) {
         this.question = question;
+    }
+    public Prompt(String question, boolean allowEmpty, String defaultValue){
+        this.question = question+" ("+defaultValue+")";
+        this.allowEmpty = allowEmpty;
+        
+    }
+    public Prompt(String question, String regex, boolean allowEmpty, String defaultValue){
+        this.question = question+" ("+defaultValue+")";
+        this.regex = regex;
+        this.allowEmpty = allowEmpty;
+        
     }
     public Prompt(String question, String regex){
         //
@@ -27,6 +54,7 @@ public class Prompt implements IPrompt{
         this.question = question;
         this.allowEmpty = allowEmpty;
     }
+    
     public void setValue(String newValue) {
         this.value = newValue;
     }
@@ -44,9 +72,8 @@ public class Prompt implements IPrompt{
 
             if (this.regex != null && !this.value.matches(this.regex)) {
                 System.out.println("Incorrect format! Please try again.");
-            } else {
-                break; // valid input or empty input allowed
-            }
+            } 
+            break;
         }
     }
 
