@@ -60,7 +60,7 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
         Date[] camp1Dates = this.camp.getDates();
         for (CampMember campMember : this.student.getAttending()) {
             Date[] camp2Dates = campMember.getCamp().getDates();
-            if (camp1Dates[1].before(camp2Dates[0]) || camp1Dates[0].before(camp2Dates[1]))
+            if (camp1Dates[0].before(camp2Dates[1]) && camp1Dates[1].before(camp2Dates[0]))
                 throw new IllegalOperationException("Camp date overlaps with other camps student is participating in.");
         }
         
