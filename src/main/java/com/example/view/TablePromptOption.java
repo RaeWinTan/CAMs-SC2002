@@ -20,7 +20,7 @@ public class TablePromptOption implements IPrompt {
         this.sc = new Scanner(System.in);
     }
 
-    public void startPrompt() {
+    public void display() {
         // calculate max width of columns here based off the content inputted
         List<Integer> columnWidths = new ArrayList<>();
         for (int j = 0; j < columns.size(); ++j) {
@@ -119,9 +119,9 @@ public class TablePromptOption implements IPrompt {
         System.out.println(lineSeparator);
     }
 
-    public void chooseOption(){
+    public void startPrompt(){
         //this is in case we want to
-        startPrompt();
+        display();
         System.out.println("Enter the number of your choice:");
         while (!sc.hasNextInt()) {
             System.out.println("That's not a number. Please enter a valid number.");
