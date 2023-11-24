@@ -14,6 +14,7 @@ import com.example.datastore.operator.StudentCampRetrival;
 import com.example.datastore.operator.StudentEnquiryCreate;
 import com.example.datastore.operator.StudentEnquiryDelete;
 import com.example.datastore.operator.StudentEnquiryEdit;
+import com.example.datastore.operator.StudentGenerateParticipantReport;
 import com.example.datastore.operator.StudentJoinCampAsAttendee;
 import com.example.datastore.operator.StudentJoinCampAsCommittee;
 import com.example.datastructure.Camp;
@@ -23,7 +24,7 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.utility.Pair;
 
-public class StudentDBService extends UserDBService<Student> implements IStudentCampDBService, IStudentEnquiryDBService, IStudentSuggestionDBService {
+public class StudentDBService extends UserDBService<Student> implements IStudentCampDBService, IStudentEnquiryDBService, IStudentSuggestionDBService, IStudentReportDBService {
 
     private Student student;
     
@@ -82,4 +83,9 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
     public IDataStoreEditOperation<Camp> DSSuggestionEdit(Suggestion newSuggestion){
         return new CommitteeEditSuggestion(this.student, newSuggestion);
     }
+
+    @Override
+	public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName, IDataStoreRetrivable<Student> studentDSRetrivable){
+		return new StudentGenerateParticipantReport(this.student, fileName);
+	}
 }

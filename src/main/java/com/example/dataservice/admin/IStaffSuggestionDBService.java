@@ -6,6 +6,6 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 
-public interface IAdminSuggestionDBService {
+public interface IStaffSuggestionDBService {
     IDataStoreEditOperation<Camp> DSSuggestionApprove(Suggestion suggestion, IDataStoreEditable<Student> studenttDataStore, IDataStoreEditable<Camp> campDataStore);
 }

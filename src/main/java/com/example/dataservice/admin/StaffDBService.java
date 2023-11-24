@@ -3,7 +3,7 @@ package com.example.dataservice.admin;
 import com.example.dataservice.UserDBService;
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastore.IDataStoreRetrivable;
-import com.example.datastore.operator.AdminGenerateParticipantReport;
+import com.example.datastore.operator.StaffGenerateParticipantReport;
 import com.example.datastore.operator.AdminReplyToEnquiry;
 import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastore.operator.IDataStoreRetrivalOperation;
@@ -22,7 +22,7 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.utility.Pair;
 
-public class StaffDBService extends UserDBService<Staff> implements IAdminCampDBService, IAdminEnquiryDBService, IAdminSuggestionDBService, IAdminReportDBService {
+public class StaffDBService extends UserDBService<Staff> implements IStaffCampDBService, IStaffEnquiryDBService, IStaffSuggestionDBService, IStaffReportDBService {
 
 
 	private Staff staff;
@@ -98,6 +98,6 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 
 	@Override
 	public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName){
-		return new AdminGenerateParticipantReport(staff, fileName);
+		return new StaffGenerateParticipantReport(staff, fileName);
 	}
 }
