@@ -36,7 +36,7 @@ public class StudentAddAttendingCamp implements IDataStoreEditOperation<Student>
     public void perform(ArrayList<Student> data) {
         for (Student student : data) {
             if (student.isEquals(this.student)){
-                student.getAttending().add(new CampMember(this.student, this.camp));
+                student.getAttending().add(new CampMember(student, this.camp));
                 return;
             }
         }
