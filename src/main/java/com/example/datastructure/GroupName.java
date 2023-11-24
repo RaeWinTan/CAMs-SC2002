@@ -6,7 +6,7 @@ public enum GroupName {
     SCSE("SCSE"),
 	ADM("ADM"),
 	EEE("EEE"),
-	NMS("NMS"),
+	NBS("NBS"),
 	SSS("SSS");
     
     private String groupName;

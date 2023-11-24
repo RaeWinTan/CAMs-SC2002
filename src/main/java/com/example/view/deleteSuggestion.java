@@ -1,47 +1,48 @@
 package com.example.view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import com.example.datastructure.Suggestion;
-import com.example.utility.Pair;
+
 
 public class DeleteSuggestion implements IPromptPage<Suggestion> {
 
-    private ArrayList<IPrompt> prompts = new ArrayList<>();
-    private Suggestion deletedSuggestion;
+    private IPrompt prompt;
+    private Suggestion value;
+    private ArrayList<Suggestion> suggestions;
 
-    public DeleteSuggestion() {
+    public DeleteSuggestion(ArrayList<Suggestion> suggestions) {
+        //the suggestions are filtered in the controler to only give suggestions not approved
+        this.suggestions = suggestions;
         this.initPrompts();
     }
 
     private void initPrompts() {
-        
-        this.prompts.add(new TablePrpo"Choose which suggestion you'd like to delete: ");
-        question_attribute_mapping.add(new Pair<>("Would you like to delete this suggestion: ", "suggestionDelete"));
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("oringial camp");
+        headers.add("suggestion");
+        ArrayList<String> ori_string = new ArrayList<>();
+        ArrayList<String> suggestion_string = new ArrayList<>();
+        for(int i = 0;i < this.suggestions.size();i++){
+            ori_string.add(this.suggestions.get(i).getOriginalCamp().toString());
+            suggestion_string.add(this.suggestions.get(i).getSuggestedCamp().toString());
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(ori_string);
+        columns.add(suggestion_string);
+        this.prompt = new TablePromptOption("choose a suggestion you want to delete", headers, columns);        
     }
 
     @Override
     public void perform() {
-        for (Pair<String, String> questionPair : question_attribute_mapping) {
-            String attribute = questionPair.getSecond();
-
-            if ("suggestionDelete".equals(attribute)) {
-                ArrayList<String> options = new ArrayList<>(Arrays.asList("Delete", "Keep"));
-                try {
-                    prompts.add(new PromptOption(questionPair.getFirst(), attribute, options));
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
-                    break;
-                }
-            } else {
-                prompts.add(new Prompt(questionPair.getFirst(), attribute));
-            }
-        }
+        this.prompt.startPrompt();
+        int idx = Integer.valueOf(this.prompt.getResult());
+        this.value = this.suggestions.get(idx);
     }
 
     @Override
     public Suggestion getObject() {
-        return this.deletedSuggestion;
+        return this.value;
     }
 }

@@ -1,17 +1,25 @@
 package com.example.datastructure;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
-import com.example.utility.Pair;
 
 public class Suggestion implements IDataStoreObject<Suggestion> {
     private UUID suggestionId;
     private Student author;
     private Camp newCamp;
     private boolean approved;
+    private Camp originalCamp;
 
+    
+    public Camp getSuggestedCamp(){
+        return this.newCamp;
+    }
+    public Camp getOriginalCamp(){
+        return originalCamp;
+    }
+
+    //suggestion need to store original camp
     /**
      * Constructor for Suggestion class.
      * @param author            Student who made the suggestion.
@@ -38,13 +46,6 @@ public class Suggestion implements IDataStoreObject<Suggestion> {
         this.approved = approved;
     }
 
-    public ArrayList<Pair<String, String>> toAttributeValueMapping(){
-		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
-		rtn.add(new Pair<String, String>("author", this.author.getName()));
-		rtn.add(new Pair<String, String>("camp", this.getCamp().getCampName()));
-		rtn.add(new Pair<String, String>("approved", ""+this.approved));
-		return rtn;
-	}
 
     /**
      * Get method for author.
