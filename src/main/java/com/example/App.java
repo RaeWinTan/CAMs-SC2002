@@ -62,6 +62,8 @@ public class App {
 		}catch(Exception e){
 
 		}
+		//for join camps for student, make sure contoller passes 
+		//in a list of camps that does not clash with any of their participating camps
 
 		newCamp.setCampName("Camp 1");
         newCamp.setDates(ds);
