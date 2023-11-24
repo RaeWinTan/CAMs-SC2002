@@ -1,6 +1,7 @@
 package com.example.datastructure;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +12,7 @@ import com.example.datastore.IDataStoreObject;
 public class Camp implements IDataStoreObject<Camp>{
 	private UUID campId = null;
 	private String campName= null;
-	private Date[] dates = null;
+	private Date[] dates;
 	private Date closingDate= null;
 	private GroupName userGroup= null;
 	private String location= null;
@@ -313,14 +314,14 @@ public class Camp implements IDataStoreObject<Camp>{
 	@Override
 	public String toString(){
 		String str = "";
-		DateFormat dateFormat = new SimpleDateFormat("ddmmyy");  
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		if (this.getCampName()!=null)
 			str += "Camp Name: " + this.getCampName() + "\n";
 		if (this.getDates()!=null)
-			str += "Dates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]+ "\n");
+			str += "Dates: " + sdf.format(this.dates[0]) + " - " + sdf.format(this.dates[1])+ "\n";
 		if (this.getClosingDate()!=null)
-			str += "Last day of registration: " + dateFormat.format(this.getClosingDate()+ "\n");
+			str += "Last day of registration: " + sdf.format(this.getClosingDate())+ "\n";
 		if (this.getUserGroup()!=null)
 			str += "User Group:" + this.userGroup.toString()+ "\n";
 		if (this.getLocation()!=null)

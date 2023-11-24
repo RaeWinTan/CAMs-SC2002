@@ -65,7 +65,7 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
                 for(int j = 0; j < GroupName.values().length;j++){
                     ops.add(GroupName.values()[j].toString());//TODO LATER MUST CHANGE ACCORDING TO ROBIN COD
                 }
-                System.out.println(ops.toString());
+           
                 try {
                     this.prompts.add(new PromptOption(questions.get(i), ops));
                 } catch (Exception e) {
@@ -94,7 +94,7 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
     public void perform() {
         int i = 0;
         while (i < prompts.size()) {
-            System.out.println("number: "+i);
+  
             //String q = questions.get(i);
             //IPrompt tmp;
             if(i==0) {
@@ -173,8 +173,8 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
             faculty = GroupName.ADM;}
         else if(CampFaculty.equalsIgnoreCase("EEE")){
             faculty = GroupName.EEE;}
-        else if(CampFaculty.equalsIgnoreCase("NMS")){
-            faculty = GroupName.NMS;}
+        else if(CampFaculty.equalsIgnoreCase("NBS")){
+            faculty = GroupName.NBS;}
 
         else{
             faculty = GroupName.SSS;}

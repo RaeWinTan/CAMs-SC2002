@@ -61,4 +61,11 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
         initPrompts();
         
     }
+
+
+    @Override
+    public Camp getObject() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getObject'");
+    }
 }

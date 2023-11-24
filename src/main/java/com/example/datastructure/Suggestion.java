@@ -10,9 +10,7 @@ public class Suggestion implements IDataStoreObject<Suggestion> {
     private Camp newCamp;
     private boolean approved;
     private Camp originalCamp;
-    //TODO : must store orignial camp as well so that in konw which camp i am messing with
-    //the original camp must be a reference to the real camp
-    //the the suggestedCamp is basically the new camp 
+
     
     public Camp getSuggestedCamp(){
         return this.newCamp;
