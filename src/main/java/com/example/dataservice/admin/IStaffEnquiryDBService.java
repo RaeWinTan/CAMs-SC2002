@@ -6,6 +6,6 @@ import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
 import com.example.utility.Pair;
 
-public interface IAdminEnquiryDBService {
+public interface IStaffEnquiryDBService {
         IDataStoreEditOperation<Camp> DSEnquiryReply(Pair<Enquiry,Message> em);
 }
