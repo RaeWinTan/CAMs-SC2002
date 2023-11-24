@@ -7,8 +7,8 @@ import com.example.utility.Pair;
 
 
 public class Staff extends User implements IDataStoreObject<Staff>{
-	private ArrayList<Message> repliedTo;
-	private ArrayList<Camp> campsCreated;
+	private ArrayList<Message> repliedTo = new ArrayList<>();
+	private ArrayList<Camp> campsCreated = new ArrayList<>();
 	/**
 	 * Constructor for Staff class, password will be set to default.
 	 * @param userId		Unique Identifier of the staff.
