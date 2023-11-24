@@ -3,10 +3,11 @@ package com.example.datastructure;
 public enum GroupName {
     //shared amonst all users
     NTU("NTU"),
-    SCSE("SCSE"),
 	ADM("ADM"),
 	EEE("EEE"),
+    NBS("NBS"),
 	NMS("NMS"),
+    SCSE("SCSE"),
 	SSS("SSS");
     
     private String groupName;
