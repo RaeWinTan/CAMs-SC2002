@@ -314,25 +314,25 @@ public class Camp implements IDataStoreObject<Camp>{
 	@Override
 	public String toString(){
 		String str = "";
-		DateFormat dateFormat = new SimpleDateFormat("ddmmyy");  
+		DateFormat dateFormat = new SimpleDateFormat("ddMMyy");  
 		if (this.getCampName()!=null)
-			str += "Camp Name: " + this.getCampName();
+			str += "\nCamp Name: " + this.getCampName();
 		if (this.getDates()!=null)
-			str += "Dates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]);
+			str += "\nDates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]);
 		if (this.getClosingDate()!=null)
-			str += "Last day of registration: " + dateFormat.format(this.getClosingDate());
+			str += "\nLast day of registration: " + dateFormat.format(this.getClosingDate());
 		if (this.getUserGroup()!=null)
-			str += "User Group:" + this.userGroup.toString();
+			str += "\nUser Group:" + this.userGroup.toString();
 		if (this.getLocation()!=null)
-			str += "Location: " + this.getLocation();
+			str += "\nLocation: " + this.getLocation();
 		if (this.getTotalSlots()>=0)
-			str += "Total Slot: " + this.getTotalSlots();	
+			str += "\nTotal Slot: " + this.getTotalSlots();	
 		if (this.getCommitteeSlot()>=0)
-			str += "Committee Slot: " + this.getCommitteeSlot();	
+			str += "\nCommittee Slot: " + this.getCommitteeSlot();	
 		if (this.getDescription()!=null)
-			str += "Description: " + this.getDescription();	
+			str += "\nDescription: " + this.getDescription();	
 		if (this.getVisibility())
-			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible");
+			str += "\nVisibility: " + (this.getVisibility()?"Visible":"Not visible");
 
 		return str;
 	}
