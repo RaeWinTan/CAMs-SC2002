@@ -19,7 +19,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	private int totalSlots= -1;
 	private int committeeSlots= -1;
 	private String description= null;
-	private boolean visibility= false;
+	private Boolean visibility= null;
 	private Staff createdBy= null;
 	private ArrayList<CampMember> committees= new ArrayList<>();
 	private ArrayList<CampMember> attendees= new ArrayList<>();
