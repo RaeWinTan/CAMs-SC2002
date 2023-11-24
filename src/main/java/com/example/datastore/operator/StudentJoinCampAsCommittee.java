@@ -67,10 +67,10 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
         for (Camp camp : data) {
             if (camp.isEquals(this.camp)){
                 // Add student to committee array in camp
-                camp.getCommittees().add(new CampMember(this.student, this.camp));
+                camp.getCommittees().add(new CampMember(this.student, camp));
 
                 // Add camp to leading array in student
-                studenDataStorE.manageData(new StudentAddLeadingCamp(this.student, this.camp));
+                studenDataStorE.manageData(new StudentAddLeadingCamp(this.student, camp));
                 return;
             }
         }

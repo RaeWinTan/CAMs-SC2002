@@ -9,7 +9,7 @@ import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * Camp DataStore edit operation for deleting a suggestion.
+ * Camp DataStore edit operation for editing a suggestion.
  * @see IDataStoreEditOperation
  */
 public class CommitteeEditSuggestion implements IDataStoreEditOperation<Camp>{
