@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
-import com.example.utility.Pair;
 
 public class Camp implements IDataStoreObject<Camp>{
 	private UUID campId = null;
@@ -315,25 +314,25 @@ public class Camp implements IDataStoreObject<Camp>{
 	public String toString(){
 		String str = "";
 		DateFormat dateFormat = new SimpleDateFormat("ddmmyy");  
+		
 		if (this.getCampName()!=null)
-			str += "Camp Name: " + this.getCampName();
+			str += "Camp Name: " + this.getCampName() + "\n";
 		if (this.getDates()!=null)
-			str += "Dates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]);
+			str += "Dates: " + dateFormat.format(this.getDates()[0]) + " - " + dateFormat.format(this.getDates()[1]+ "\n");
 		if (this.getClosingDate()!=null)
-			str += "Last day of registration: " + dateFormat.format(this.getClosingDate());
+			str += "Last day of registration: " + dateFormat.format(this.getClosingDate()+ "\n");
 		if (this.getUserGroup()!=null)
-			str += "User Group:" + this.userGroup.toString();
+			str += "User Group:" + this.userGroup.toString()+ "\n";
 		if (this.getLocation()!=null)
-			str += "Location: " + this.getLocation();
+			str += "Location: " + this.getLocation()+ "\n";
 		if (this.getTotalSlots()>=0)
-			str += "Total Slot: " + this.getTotalSlots();	
+			str += "Total Slot: " + this.getTotalSlots()+ "\n";	
 		if (this.getCommitteeSlot()>=0)
-			str += "Committee Slot: " + this.getCommitteeSlot();	
+			str += "Committee Slot: " + this.getCommitteeSlot()+ "\n";	
 		if (this.getDescription()!=null)
-			str += "Description: " + this.getDescription();	
+			str += "Description: " + this.getDescription()+ "\n";	
 		if (this.getVisibility())
-			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible");
-
+			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible")+ "\n";
 		return str;
 	}
 

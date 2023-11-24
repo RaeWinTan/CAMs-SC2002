@@ -1,118 +1,64 @@
 package com.example.view;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.example.datastructure.Camp;
 import com.example.utility.Pair;
 
-public class EditCampPromptPage implements IPromptPage {
+public class EditCampPromptPage implements IPromptPage<Camp> {
 
-    private ArrayList<Pair<String, String>> question_attribute_mapping = new ArrayList<>();
+
     private ArrayList<IPrompt> prompts = new ArrayList<>();
-    private ArrayList<ArrayList<Pair<String,String>>> camps;
+    private ArrayList<Camp> camps;
 
-    public EditCampPromptPage(ArrayList<ArrayList<Pair<String,String>>> camps ) throws Exception {
-        initialise_question_attribute_mapping();
+    public EditCampPromptPage(ArrayList<Camp> camps ) throws Exception {
         this.camps = camps;
-
-
-        
     }
+    
 
+    private void initPrompts() {
+        //show all camps 
+        Camp campToChange;
+        ArrayList<Pair<Integer, String>> questions = new ArrayList<>();
+        String d = " (just press enter if you don't want to edit this value)";
+        questions.add(new Pair<>(0,"Chose Camp you want to edit"+ d));
+        questions.add(new Pair<>(1,"start date" + d));
+        questions.add(new Pair<>(2,"end date" + d));
+        questions.add(new Pair<>(3,"Registration closing date" + d));
+        questions.add(new Pair<>(4,"Open to which Faculty" + d));
+        questions.add(new Pair<>(5,"Location" + d));
+        questions.add(new Pair<>(6,"total slots" + d));
+        questions.add(new Pair<>(7,"committee slots" + d));
+        questions.add(new Pair<>(8,"camp description" + d));
+        questions.add(new Pair<>(9, "Visibility"+d));
+        ArrayList<String> campnames = new ArrayList<>();
+        for(Camp c:this.camps){campnames.add(c.getCampName());}
+        IPrompt getCampPrompt = new Prompt("init");
+        try {getCampPrompt = new PromptOption(questions.get(0).getSecond(), campnames);} 
+        catch (Exception e) {e.printStackTrace();}
+        getCampPrompt.startPrompt();
+        int idx = campnames.indexOf(getCampPrompt.getResult());
+        campToChange = this.camps.get(idx);
+        for(int i = 1; i < questions.size();i++){
+            if(questions.get(i).getFirst() == 4){
+                if(campToChange.getAttendees().size()==0 && campToChange.getCommittees().size() == 0){
+                    
+                    for(int  j=0; j < ; j++)
+                    this.prompts.add(new PromptOption(questions.get(i).getSecond(), ));
+                }else continue;
+            }   
+            else if(questions.get(i).getFirst() == 9){
+                if(campToChange.getAttendees().size()==0 && campToChange.getCommittees().size() == 0){
 
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        return this.prompts;
-    }
-
-    private void initialise_question_attribute_mapping() {
-
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp name." +
-                " Press enter for no change: ", "newCampName"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp start date." +
-                " Press enter for no change: ", "startDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp end date. " +
-                "Press enter for no change: ", "endDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new closing date for" +
-                " registration. Press enter for no change: ", "closingDate"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new faculty the camp is open to" +
-                ". Press enter for no change: ",
-                "userGroup"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp location" +
-                ". Press enter for no change: ", "location"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new total slots" +
-                ". Press enter for no change: ", "totalSlots"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new committee slots" +
-                ". Press enter for no change: ",
-                "committeeSlots"));
-        question_attribute_mapping.add(new Pair<String, String>("Enter new camp description" +
-                ". Press enter for no change: ",
-                "description"));
+                }
+            }
+        }
     }
 
 
     @Override
     public void perform() {
-       ArrayList<String> campNames = new ArrayList<String>();
-        for (ArrayList<Pair<String,String>> campList: camps){
-            for(Pair<String,String> camp:campList){
-                if(camp.getFirst().equals("campName")) campNames.add(camp.getSecond());
-            }
-        }
-        IPrompt first;
-        try {
-            first = new PromptOption(question_attribute_mapping.get(0).getFirst(),
-                    question_attribute_mapping.get(0).getSecond(), campNames);
-        
-
-        this.prompts.add(first);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        int i = 0;
-        while (i < question_attribute_mapping.size()) {
-            Pair<String, String> questionPair = question_attribute_mapping.get(i);
-            String attribute = questionPair.getSecond();
-            Prompt tmp = new Prompt(questionPair.getFirst(), questionPair.getSecond());
-
-            if (tmp.getResult().getSecond().isEmpty()) {
-                // replace with blank space if empty
-                tmp.setValue(" ");
-                //dd/mm/yyyy
-            } else if ("campEdit_startDate".equals(attribute) &&
-                    tmp.getResult().getSecond().matches("[a-zA-Z]+")) {
-                System.out.println("Incorrect date format! Please use DD/MM/YYYY");
-                continue;
-            } else if ("campEdit_endDate".equals(attribute) &&
-                    tmp.getResult().getSecond().matches("[a-zA-Z]+")) {
-                System.out.println("Incorrect date format! Please use DD/MM/YYYY");
-                continue;
-            } else if ("campEdit_registrationEndDate".equals(attribute) &&
-                    tmp.getResult().getSecond().matches("[a-zA-Z]+")) {
-                System.out.println("Incorrect date format! Please use DD/MM/YYYY");
-                continue;
-            } else if ("campEdit_totalSlots".equals(attribute) &&
-                    !tmp.getResult().getSecond().matches("[0-9]+")) {
-                System.out.println("Please only enter a valid number value");
-                continue;
-            } else if ("campEdit_committeeSlots".equals(attribute)) {
-                String input = tmp.getResult().getSecond();
-
-                if (input.matches("[0-9]+")) {
-                    int number = Integer.parseInt(input);
-
-                    if (number < 1 || number > 10) {
-                        System.out.println("Number must be between 1 and 10");
-                        continue;
-                    }
-                } else {
-                    System.out.println("Please only enter a valid number value");
-                    continue;
-                }
-            }
-
-            prompts.add(tmp);
-            i++;
-        }
+        initPrompts();
         
     }
 }
