@@ -44,6 +44,7 @@ public class StudentEnquiryCreate implements IDataStoreEditOperation<Camp> {
                 // add enquiry to student
                 studentDataStore.manageData(new StudentAddEnquiry(this.student, this.enquiry));
                 // add enquiry to camp
+                camp.getEnquiries().add(this.enquiry);
                 return;
             }
         }
