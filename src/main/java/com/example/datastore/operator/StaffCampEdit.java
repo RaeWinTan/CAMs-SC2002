@@ -2,10 +2,12 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
+import com.example.datastore.ObjectChecker.CampChecker;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
+import com.example.exception.ObjectClash;
 import com.example.exception.ObjectNotFoundException;
 
 /**
@@ -33,18 +35,22 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
      */
     @Override
     public void perform(ArrayList<Camp> data) {
+        //must check for name clash
+        for(Camp c:data){
+            if(this.newCamp.getCampName().equals(c.getCampName())) throw new ObjectClash("Camp", this.newCamp.getCampName());
+        }
+        //check that the data camp attributes make sense
+        new CampChecker(newCamp);
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.newCamp)){
                 // check staff has permission to edit this camp
                 if (!camp.getCreatedBy().isEquals(this.staff))
                     throw new InsufficientPermissionException("Staff editing the camp does not match createdBy in camp.");
-                
                 // special checks when camp has more than one participants
                 if (camp.getAttendees().size() + camp.getCommittees().size() > 0){
-                    // ostrich algorithming it
-                    // if (this.newCamp.getVisibility() != camp.getVisibility() && !this.newCamp.getVisibility())
-                    //     throw new IllegalOperationException("Unable to disable camp when camp has participants.");
+                    if (this.newCamp.getVisibility() != camp.getVisibility() && !this.newCamp.getVisibility())
+                         throw new IllegalOperationException("Unable to disable camp when camp has participants.");
                     if (this.newCamp.getUserGroup() != camp.getUserGroup())
                         throw new IllegalOperationException("Unable to change camp user group when camp has participants.");
                 }

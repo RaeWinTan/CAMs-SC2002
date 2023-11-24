@@ -16,10 +16,10 @@ public class Camp implements IDataStoreObject<Camp>{
 	private Date closingDate= null;
 	private GroupName userGroup= null;
 	private String location= null;
-	private int totalSlots= -1;
-	private int committeeSlots= -1;
+	private Integer totalSlots= null;
+	private Integer committeeSlots= null;
 	private String description= null;
-	private boolean visibility= false;
+	private Boolean visibility= null;
 	private Staff createdBy= null;
 	private ArrayList<CampMember> committees= new ArrayList<>();
 	private ArrayList<CampMember> attendees= new ArrayList<>();
@@ -235,7 +235,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 */
 	public void setTotalSlots(int totalSlots) {
 		if (totalSlots < this.committeeSlots){
-			throw new IllegalArgumentException("Number of committee members shall not exceed number of attendees");
+			throw new IllegalArgumentException("Number of committee members shall not exceed total number of participants");
 		}
 		if (totalSlots < this.attendees.size() + this.committees.size()){
 			throw new IllegalArgumentException("Number of participants exceeds the new total slot value.");
