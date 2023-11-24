@@ -52,11 +52,16 @@ public class App {
 		// System.out.println("\n====Staff retrieve relevant Camps test====\n");
 		// staffRetrieveCampTest();
 
-		System.out.println("\n====Student retrieve Camps test====\n");
-		studentRetrieveCampTest();
+		// System.out.println("\n====Student retrieve Camps test====\n");
+		// studentRetrieveCampTest();
 
-		System.out.println("\n===Student join Camp test====\n");
+		System.out.println("\n====Student join Camp test====\n");
 		studentRegisterCampTest();
+
+		System.out.println("\n====Enquiry test====\n");
+		enquiryTest();
+
+
 	}
 
 	
@@ -212,7 +217,32 @@ public class App {
 		for (CampMember cm : student.getAttending()) {
 			System.out.println(cm.getCamp().toString());
 		}
+	}
 
-	
+	private static void enquiryTest(){
+
+		// Make enquiry on camp
+		loginStudent("LE51", "password");
+		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
+		Enquiry enquiry = new Enquiry("This one what?",student,student.getAttending().get(0).getCamp());
+		campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
+
+		student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(student)).get(0);
+		// Student view enquiry
+		for (Enquiry enq : student.getEnquireAbout()) {
+			System.out.println(enq.getText());
+		}
+		
+		// Staff view enquiry
+		loginStaff("UPAM", "password");
+
+		for (Camp camp: staff.getCampsCreated()){
+			if (!camp.getEnquiries().isEmpty()){
+				System.out.println("Enquries for " + camp.getCampName());
+				for (Enquiry enq : camp.getEnquiries()) {
+					System.out.println(enq.getAuthor().getName() + ": " + enq.getText());
+				}
+			}
+		}
 	}
 }
