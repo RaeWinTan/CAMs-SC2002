@@ -2,33 +2,45 @@ package com.example.view;
 
 import java.util.ArrayList;
 
+import com.example.exception.PromptOptionException;
+
 public class PromptOption extends Prompt {
     private ArrayList<String> options;
+    
 
-    public PromptOption(String question, ArrayList<String> options) throws Exception {
+    public PromptOption(String question, ArrayList<String> options) {
         super(question); 
         this.options = options;
-        if (this.options == null || options.size() == 0) throw new Exception("There is an error");
+        if (this.options == null || options.size() == 0) throw new PromptOptionException("The is not options for prompt message of " + question);
+    }
+    public PromptOption(String question, boolean allowEmpty, String defaultValue, ArrayList<String> options){
+        super(question,allowEmpty, defaultValue);
+        this.options = options;
+        
     }
     public void startPrompt(){
-        System.out.println(this.question);
+        System.out.println(this.getQuestion());
         int ans;
         System.out.println("Choose one of the options:");
-        for (int i = 0; i < this.options.size(); i++) { System.out.println(i  + ". " + this.options.get(i));}
-        while (!this.sc.hasNextInt()) {
-            System.out.println("That's not a number. Please enter a valid option.");
-            this.sc.next();
-        }
-        ans = this.sc.nextInt();
-        while(ans < 0 || ans >=this.options.size()){
-            System.out.println("Options does not exists. Try Again!");
-            while (!this.sc.hasNextInt()) {
-                System.out.println("That's not a number. Please enter a valid option number.");
-                this.sc.next();
+        while(true){
+            for (int i = 0; i < this.options.size(); i++) { System.out.println(i  + ". " + this.options.get(i));}
+            setValue(getSc().nextLine());//should be set here
+            if(!allowEmpty() && getValue().trim().isEmpty()){
+                System.out.println("Input cannot be empty. Please try again.");
+                continue;
             }
-            ans = this.sc.nextInt(); 
-        }    
-        this.value = options.get(ans);
+            if(!getValue().matches(RegexType.INTEGER.toString())){
+                System.out.println("Require an number as input");
+                continue;
+            }
+            ans = Integer.getInteger(getValue());
+            if(ans<0 || ans >= this.options.size()){
+                System.out.println("Require number between 0 & "+ (this.options.size()-1));
+                continue;
+            }
+            setValue(this.options.get(ans));
+            break;
+        } 
     }
 
 

@@ -27,7 +27,7 @@ public abstract class UserCSVLoader<T extends User> implements DataLoader<T> {
 		return this.cellStringFormat;
 	}
 
-	protected GroupName getFacultyFromString(String strFaculty){
+	public static GroupName getFacultyFromString(String strFaculty){
 		switch(strFaculty){
 			case "ADM":
 				return GroupName.ADM;

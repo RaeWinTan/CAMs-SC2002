@@ -2,6 +2,7 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
+import com.example.datastore.ObjectChecker.CampChecker;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.exception.IllegalOperationException;
@@ -35,10 +36,11 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
     @Override
     public void perform(ArrayList<Camp> data) {
         //must check for name clash
-        //must check if campIsLegit
         for(Camp c:data){
             if(this.newCamp.getCampName().equals(c.getCampName())) throw new ObjectClash("Camp", this.newCamp.getCampName());
         }
+        //check that the data camp attributes make sense
+        new CampChecker(newCamp);
         // Get camp
         for (Camp camp : data) {
             if (camp.isEquals(this.newCamp)){
