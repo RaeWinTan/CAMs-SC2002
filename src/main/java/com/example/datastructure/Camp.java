@@ -191,6 +191,13 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param dates		Dates in which the camp is active.
 	 */
 	public void setDates(Date[] dates) {
+		if (dates[1].before(dates[0]))
+			throw new IllegalArgumentException("End date cannot be earlier than start date.");
+		if (closingDate != null){
+			if (dates[0].before(closingDate))
+				throw new IllegalArgumentException("Closing date cannot be after camp start date.");
+		}
+		
 		this.dates = dates.clone();
 	}
 
@@ -199,6 +206,10 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param closingDate		Last day for registration.
 	 */
 	public void setClosingDate(Date closingDate) {
+		if (dates[0] != null){
+			if (dates[0].before(closingDate))
+				throw new IllegalArgumentException("Closing date cannot be after camp start date.");
+		}
 		this.closingDate = closingDate;
 	}
 
