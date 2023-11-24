@@ -1,24 +1,26 @@
 package com.example;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
 import com.example.datastore.DataStore;
+import com.example.datastore.operator.StaffCampCreate;
+import com.example.datastore.operator.StaffCampRetrival;
 import com.example.datastore.operator.UserDataStoreLoad;
 import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
-
+import com.example.datastructure.GroupName;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.exception.InvalidLoginCredentialException;
-import com.example.view.AcceptRejectSuggestionPromptPage;
-import com.example.view.IPromptPage;
-import com.example.view.LoginPromptPage;
+import com.example.exception.ObjectClash;
 import com.example.view.*;
 
 
@@ -42,8 +44,57 @@ public class App {
 
 	public static void main(String arg[]) {
 		initialise();
-		workFlow();
+		/*IPromptPage<UserCredentials> loginPage = new LoginPromptPage();
+		loginPage.perform();
+		UserCredentials uc = loginPage.getObject();*/
+		Staff staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("OURIN", "password")).get(0);
+	
+		//IPromptPage<Camp> createCamp = new CreateCampPromptPage();
+		//createCamp.perform();
+		//System.out.println(createCamp.getObject().toString());
+		Camp newCamp = new Camp();
+		Date[] ds = new Date[2];
+		ds[0] = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try{
+			sdf.setLenient(false);
+			ds[1] = sdf.parse("21/01/2023");
+		}catch(Exception e){
+
+		}
+
+		newCamp.setCampName("Camp 1");
+        newCamp.setDates(ds);
+        newCamp.setClosingDate(new Date());
+        newCamp.setTotalSlots(1);
+        newCamp.setCommitteeSlot(2);
+        newCamp.setLocation("as;ldfjkasd");
+        newCamp.setDescription("a;lsdjkfa;lfd");
+        newCamp.setUserGroup(GroupName.ADM);
+        newCamp.setVisibility(true);
+		newCamp.setCreatedBy(staff);
+		campDataStore.manageData(new StaffCampCreate(staff, newCamp, staffDataStore));
+		newCamp = new Camp();
+		newCamp.setCampName("Camp 1");
+        newCamp.setDates(ds);
+        newCamp.setClosingDate(new Date());
+        newCamp.setTotalSlots(10);
+        newCamp.setCommitteeSlot(2);
+        newCamp.setLocation("as;ldfjkasd");
+        newCamp.setDescription("a;lsdjkfa;lfd");
+        newCamp.setUserGroup(GroupName.ADM);
+        newCamp.setVisibility(true);
+		newCamp.setCreatedBy(staff);
+		try{
+			campDataStore.manageData(new StaffCampCreate(staff, newCamp, staffDataStore));		
+		}catch(ObjectClash e){
+			System.out.println(e.getMessage());
+		}
+		for(Camp c: campDataStore.retrieveData(new StaffCampRetrival())){
+			System.out.println(c.toString());
+		}
 	}
+	/* 
 	public static void login(){
 		String username = "";
 		String password = "";
@@ -106,41 +157,15 @@ public class App {
 	}
 
 	public static IViewPage redirect(String pagename){
-		//check for those page name that has an array set for them, got to create here
 		
-		currentPage = pagename;
-		//must do down casting either for display or prompt
-		if(pagename=="login"){
-			return new LoginPromptPage();
-		}else if(pagename == "studentDashboard"){
-			return new StudentDashboardPromptPage(isCommittee);
-		}
-		else if(pagename == "AcceptRejectSuggestionPromptPage"){
-			return new AcceptRejectSuggestionPromptPage();
-		}
-		else if(pagename == "withdrawFromCamp"){
-			return new CampWithdrawalPromptPage();
-		}
-		else if(pagename == "changePassword"){
-			return new ChangePasswordPromptPage();
-		}
-		else if(pagename == "CreateCampPromptPage"){
-			return new CreateCampPromptPage();
-		}
-		
-		else {
-		return new LoginPromptPage();}
 	} 
-
+	*/
 
 	private static void initialise(){
 		// Initialise Datastores.
 		staffDataStore = new DataStore<Staff>();
 		studentDataStore = new DataStore<Student>();
 		campDataStore = new DataStore<Camp>();
-		enquiryDataStore = new DataStore<Enquiry>();
-		suggestionDataStore = new DataStore<Suggestion>();
-		
 		// Populate userDataStore with Staff and Student objects.
 		staffDataStore.manageData(new UserDataStoreLoad<Staff>(new StaffCSVLoader("./src/.data/staff.csv")));
 		studentDataStore.manageData(new UserDataStoreLoad<Student>(new StudentCSVLoader("./src/.data/student.csv")));

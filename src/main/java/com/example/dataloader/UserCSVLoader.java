@@ -39,6 +39,8 @@ public abstract class UserCSVLoader<T extends User> implements DataLoader<T> {
 				return GroupName.SCSE;
 			case "SSS":
 				return GroupName.SSS;
+			
+
 			default:
 				throw new UnexpectedValueException("Faculty", strFaculty);
 		}

@@ -1,7 +1,7 @@
 package com.example.view;
 
 import java.util.ArrayList;
-
+/* 
 public class StaffDashboardPromptPage implements IPromptPage{
 
     @Override
@@ -17,3 +17,4 @@ public class StaffDashboardPromptPage implements IPromptPage{
     }
     
 }
+ */

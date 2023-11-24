@@ -6,6 +6,7 @@ import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.exception.IllegalOperationException;
+import com.example.exception.ObjectClash;
 
 /**
  * Camp DataStore edit operator for creating a new camp
@@ -41,6 +42,11 @@ public class StaffCampCreate implements IDataStoreEditOperation<Camp> {
         if (!this.camp.getCreatedBy().isEquals(this.staff)){
             throw new IllegalOperationException("Staff creating camp does not match createdBy in camp");
         }
+        for(Camp d:data){//make sure got not clash in camp name
+            if(d.getCampName() == this.camp.getCampName()) throw new ObjectClash("Camp", camp.getCampName());
+        }
+
+        
         // Add camp to staff
         staffDataStore.manageData(new StaffAddCamp(this.staff, this.camp));
 
