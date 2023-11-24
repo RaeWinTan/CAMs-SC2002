@@ -10,10 +10,6 @@ import com.example.datastructure.Student;
 public interface IStudentCampDBService {
     public IDataStoreRetrivalOperation<Camp> DSCampRetrival();
 
-    public IDataStoreRetrivalOperation<Camp> DSCommiteeCampRetrival(IDataStoreRetrivable<Student> studentDataStore);
-
-    public IDataStoreRetrivalOperation<Camp> DSAteendeeCampRetrival(IDataStoreRetrivable<Student> studentDataStore);
-
     public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe);
 
     public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe);

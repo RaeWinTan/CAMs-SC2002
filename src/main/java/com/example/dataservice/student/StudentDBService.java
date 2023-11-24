@@ -3,8 +3,6 @@ package com.example.dataservice.student;
 import com.example.dataservice.UserDBService;
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastore.IDataStoreRetrivable;
-import com.example.datastore.operator.AttendeeCampRetrival;
-import com.example.datastore.operator.CommitteeCampRetrival;
 import com.example.datastore.operator.CommitteeDeleteSuggestion;
 import com.example.datastore.operator.CommitteeEditSuggestion;
 import com.example.datastore.operator.CommitteeMakeSuggestion;
@@ -30,14 +28,6 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
 	public IDataStoreRetrivalOperation<Camp> DSCampRetrival() {
 		return new StudentCampRetrival(this.student);
 	}
-    @Override
-    public IDataStoreRetrivalOperation<Camp> DSCommiteeCampRetrival(IDataStoreRetrivable<Student> studentDataStore) {
-        return new CommitteeCampRetrival(this.student, studentDataStore);
-    }
-    @Override
-    public IDataStoreRetrivalOperation<Camp> DSAteendeeCampRetrival(IDataStoreRetrivable<Student> studentDataStore) {
-        return new AttendeeCampRetrival(this.student, studentDataStore);
-    }
     @Override
     public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe) {
         return new StudentJoinCampAsAttendee(this.student, camp, studentDataStorE, studentDataStoRe);

@@ -16,6 +16,7 @@ import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
+import com.example.utility.Pair;
 
 public class StaffDBService extends UserDBService<Staff> implements IAdminCampDBService, IAdminEnquiryDBService, IAdminSuggestionDBService {
 
@@ -72,8 +73,8 @@ public class StaffDBService extends UserDBService<Staff> implements IAdminCampDB
 	}
 
 	@Override
-	public IDataStoreEditOperation<Camp> DSEnquiryReply(Message reply, Enquiry enquiry) {
-		return new AdminReplyToEnquiry(this.staff, reply, enquiry);
+	public IDataStoreEditOperation<Camp> DSEnquiryReply(Pair<Enquiry,Message> em) {
+		return new AdminReplyToEnquiry(this.staff, em.getSecond(), em.getFirst());
 	}
 
 	@Override

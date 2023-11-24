@@ -1,7 +1,10 @@
 package com.example.view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import com.example.UserType;
 import com.example.datastructure.Camp;
@@ -9,120 +12,189 @@ import com.example.datastructure.GroupName;
 import com.example.utility.Pair;
 
 public class CreateCampPromptPage implements IPromptPage<Camp>{
+    private String CampName;
+    private String CampStartDate;
+    private Date startDate;
+    private Date endDate;
+    private Date closingDate; //this is the camp reg closing date
+    private String CampEndDate;
+    private String CampRegCloseDate;
+    private String CampFaculty;
+    private String CampLocation;
+    private String CampTotalSlots;
+    private int totalSlots;
+    private String CampCommmitteeSlots;
+    private int committeeSlots;
+    private String CampDescription;
+    private String CampVisibility;
+
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
+    private ArrayList<String> questions = new ArrayList<String>();
     private Camp newCamp;
     public CreateCampPromptPage() {
         this.newCamp = new Camp();//
-
         initPrompts();
     }
 
 
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
-  
+
 
     private void initPrompts() {
-        ArrayList<String> questions = new ArrayList<>();
-        questions.add("Enter camp name ");
-        questions.add("Enter camp start date ");
-        questions.add("Enter camp end date ");
-        questions.add("Enter closing date for registration ");
-        questions.add("Enter faculty the camp is open to ");
-        questions.add("Enter camp location ");
-        questions.add("Enter total slots ");
-        questions.add("Enter committee slots ");
-        questions.add("Enter camp description ");
-        questions.add("Set Camp Visibility ");
+        String dateRegex = "\\d{2}/\\d{2}/\\d{4}"; // Regex for date format DD/MM/YYYY
+        String integerRegex = "\\d+"; // Regex for integer values
+        this.questions.add("Enter camp name ");
+        this.questions.add("Enter camp start date ");
+        this.questions.add("Enter camp end date ");
+        this.questions.add("Enter closing date for registration ");
+        this.questions.add("Enter faculty the camp is open to ");
+        this.questions.add("Enter camp location ");
+        this.questions.add("Enter total slots ");
+        this.questions.add("Enter committee slots ");
+        this.questions.add("Enter camp description ");
+        this.questions.add("Set Camp Visibility ");
         for(int i = 0; i < questions.size(); i++){
-            if(i == 4){
+            if (i == 1 || i == 2 || i == 3) {
+                this.prompts.add(new Prompt(questions.get(i), dateRegex));
+            } else if (i == 6 || i == 7) {
+                this.prompts.add(new Prompt(questions.get(i), integerRegex));
+            }
+            else if(i == 4){
                 ArrayList<String> ops = new ArrayList<>();
-                for(i = 0; i < GroupName.values().length;i++){
-                    ops.add(GroupName.values()[i].toString());//TODO LATER MUST CHANGE ACCORDING TO ROBIN CODE
+                for(int j = 0; j < GroupName.values().length;j++){
+                    ops.add(GroupName.values()[j].toString());//TODO LATER MUST CHANGE ACCORDING TO ROBIN COD
                 }
+                System.out.println(ops.toString());
                 try {
                     this.prompts.add(new PromptOption(questions.get(i), ops));
                 } catch (Exception e) {
                     e.printStackTrace();
-      
+
                 }
             }else if(i==9){
                 ArrayList<String> ops = new ArrayList<>();
-                ops.add("true");
-                ops.add("false");
+                ops.add("On");
+                ops.add("Off");
                 try{
                     this.prompts.add(new PromptOption(questions.get(i), ops));
                 }catch (Exception e){
                     e.printStackTrace();
-                   
+
                 }
             }else{
                 this.prompts.add(new Prompt(questions.get(i)));
             }
         }
-        
+
     }
 
 
-    @Override
+
     public void perform() {
         int i = 0;
-        while (i < question_attribute_mapping.size()) {
-            Pair<String, String> questionPair = question_attribute_mapping.get(i);
-            String attribute = questionPair.getSecond();
-
-            if ("campCreate_visibility".equals(attribute)) {
-                ArrayList<String> options = new ArrayList<>(Arrays.asList("On", "Off"));
-                try {
-                    prompts.add(new PromptOption(questionPair.getFirst(), attribute, options));
-                    i++;
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
-            } else {
-                Prompt tmp = new Prompt(questionPair.getFirst(), attribute);
-                if ("campCreate_startDate".equals(attribute) && tmp.getResult().getSecond().matches("[a-zA-Z]+")){
-                    System.out.println("Incorrect date format! Please use DD/MM/YYYY");
-                }
-                else if("campCreate_endDate".equals(attribute) && tmp.getResult().getSecond().matches("[a-zA-Z]+")){
-                    System.out.println("Incorrect date format! Please use DD/MM/YYYY");
-                }
-                else if("campCreate_registrationEndDate".equals(attribute) && tmp.getResult().getSecond().matches("[a-zA-Z]+")){
-                    System.out.println("Incorrect date format! Please use DD/MM/YYYY");
-                }
-                else if("campCreate_totalSlots".equals(attribute) && !tmp.getResult().getSecond().matches("[0-9]+")){
-                    System.out.println("Please only enter a valid number value");
-                }
-                else if ("campCreate_committeeSlots".equals(attribute)) {
-                    String input = tmp.getResult().getSecond();
-                    if (input.matches("[0-9]+")) {
-                        int number = Integer.parseInt(input);
-
-                        if (number < 1 || number > 10) {
-                            System.out.println("Number must be between 1 and 10");
-                        } else {
-                            this.prompts.add(tmp);
-                            i++;
-                        }
-                    } else {
-                        System.out.println("Please only enter a valid number value");
-                    }
-                }
-                else {
-                    this.prompts.add(tmp);
-                    i++;
-                }
+        while (i < prompts.size()) {
+            System.out.println("number: "+i);
+            //String q = questions.get(i);
+            //IPrompt tmp;
+            if(i==0) {
+                this.prompts.get(i).startPrompt();
+                CampName = this.prompts.get(i).getResult();
+            }else if(i==1){
+                this.prompts.get(i).startPrompt();
+                CampStartDate = this.prompts.get(i).getResult();
             }
-            //i++; // Increment at the end of the loop
-        }
-        
-    }
+
+            else if(i==2){
+                this.prompts.get(i).startPrompt();
+                CampEndDate = this.prompts.get(i).getResult();
+            }
+
+            else if(i==3){
+                this.prompts.get(i).startPrompt();
+                CampRegCloseDate = this.prompts.get(i).getResult();}
+
+            else if(i==4){
+                System.out.println("STSRT 4");
+                this.prompts.get(i).startPrompt();
+                System.out.println("END 4");
+                CampFaculty = this.prompts.get(i).getResult();}
+
+            else if(i==5){
+                this.prompts.get(i).startPrompt();
+                CampLocation = this.prompts.get(i).getResult();}
+
+            else if(i==6){
+                this.prompts.get(i).startPrompt();
+                CampTotalSlots = this.prompts.get(i).getResult();}
+
+            else if(i==7){
+                this.prompts.get(i).startPrompt();
+                CampCommmitteeSlots = this.prompts.get(i).getResult();}
+
+            else if(i==8){
+                this.prompts.get(i).startPrompt();
+                CampDescription = this.prompts.get(i).getResult();}
+
+            else if(i==9){
+                this.prompts.get(i).startPrompt();
+                CampVisibility = this.prompts.get(i).getResult();}
+            i++;
+        }}
 
 
-    @Override
+
     public Camp getObject() {
-        // TODO Auto-generated method stub
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            startDate = formatter.parse(CampStartDate);
+            endDate = formatter.parse(CampEndDate);
+            closingDate = formatter.parse(CampRegCloseDate);
+        } catch (ParseException e) {
+            e.printStackTrace(); // This is the basic way to handle the exception.
+        }
+        Date[] dates = new Date[2];
+        dates[0] = startDate;
+        dates[1] = endDate;
+
+        try{
+            totalSlots = Integer.parseInt(CampTotalSlots);
+            committeeSlots = Integer.parseInt(CampCommmitteeSlots);
+        }
+        catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
+        GroupName faculty;
+        if(CampFaculty.equalsIgnoreCase("NTU")){
+            faculty = GroupName.NTU;}
+        else if(CampFaculty.equalsIgnoreCase("SCSE")){
+            faculty = GroupName.SCSE;}
+        else if(CampFaculty.equalsIgnoreCase("ADM")){
+            faculty = GroupName.ADM;}
+        else if(CampFaculty.equalsIgnoreCase("EEE")){
+            faculty = GroupName.EEE;}
+        else if(CampFaculty.equalsIgnoreCase("NMS")){
+            faculty = GroupName.NMS;}
+
+        else{
+            faculty = GroupName.SSS;}
+
+        boolean visibility = false;
+        if(CampVisibility.equals("On")){
+            visibility = true;
+        }else{
+            visibility = false;
+        }
+        this.newCamp.setCampName(CampName);
+        this.newCamp.setDates(dates);
+        this.newCamp.setClosingDate(closingDate);
+        this.newCamp.setTotalSlots(totalSlots);
+        this.newCamp.setCommitteeSlot(committeeSlots);
+        this.newCamp.setLocation(CampLocation);
+        this.newCamp.setDescription(CampDescription);
+        this.newCamp.setUserGroup(faculty);
+        this.newCamp.setVisibility(visibility);
+
         return this.newCamp;
-    }
-}
+    }}
 
