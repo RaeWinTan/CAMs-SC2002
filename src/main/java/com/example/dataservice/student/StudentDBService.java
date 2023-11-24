@@ -4,6 +4,7 @@ import com.example.dataservice.UserDBService;
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastore.IDataStoreRetrivable;
 import com.example.datastore.operator.AdminReplyToEnquiry;
+import com.example.datastore.operator.AttendeeCampQuit;
 import com.example.datastore.operator.CommitteeDeleteSuggestion;
 import com.example.datastore.operator.CommitteeEditSuggestion;
 import com.example.datastore.operator.CommitteeMakeSuggestion;
@@ -40,6 +41,11 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
     @Override
     public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe) {
         return new StudentJoinCampAsCommittee(this.student, camp, studentDataStorE, studentDataStoRe);
+    }
+
+    @Override
+    public IDataStoreEditOperation<Camp> DSQuitCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDSEditable){
+        return new AttendeeCampQuit(this.student, camp, studentDSEditable);
     }
 
     @Override
