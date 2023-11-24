@@ -33,8 +33,8 @@ public abstract class UserCSVLoader<T extends User> implements DataLoader<T> {
 				return GroupName.ADM;
 			case "EEE":
 				return GroupName.EEE;
-			case "NMS":
-				return GroupName.NMS;
+			case "NBS":
+				return GroupName.NBS;
 			case "SCSE":
 				return GroupName.SCSE;
 			case "SSS":

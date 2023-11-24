@@ -3,12 +3,12 @@ package com.example.datastructure;
 public enum GroupName {
     //shared amonst all users
     NTU("NTU"),
+    ADM("ADM"),
+    EEE("EEE"),
+    NBS("NBS"),
     SCSE("SCSE"),
-	ADM("ADM"),
-	EEE("EEE"),
-	NMS("NMS"),
 	SSS("SSS");
-    
+	
     private String groupName;
     GroupName(String groupName){
         this.groupName = groupName;
