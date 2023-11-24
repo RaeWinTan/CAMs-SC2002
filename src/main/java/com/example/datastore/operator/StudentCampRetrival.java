@@ -30,7 +30,7 @@ public class StudentCampRetrival implements IDataStoreRetrivalOperation<Camp>{
     public ArrayList<Camp> perform(ArrayList<Camp> data) {
         ArrayList<Camp> relevantCamps = new ArrayList<Camp>();
 
-        for (Camp camp : relevantCamps) {
+        for (Camp camp : data) {
             if (camp.getVisibility() && (camp.getUserGroup() == GroupName.NTU || camp.getUserGroup()==this.student.getFaculty())){
                 relevantCamps.add(camp);
             }
