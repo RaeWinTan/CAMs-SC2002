@@ -106,72 +106,7 @@ public class App {
 			}
 		}
 	}
-	/* 
-	public static void login(){
-		String username = "";
-		String password = "";
-		String userType = "";
-		while (staff==null && student==null) {
-			IPromptPage loginPage = redirect("login");
-			loginPage.perform();
-			for(int i = 0; i < loginPage.returnInputs().size();i++){
-				if(loginPage.returnInputs().get(i).getResult().getFirst() == "username"){
-					username = loginPage.returnInputs().get(i).getResult().getSecond();
-				}
-				if(loginPage.returnInputs().get(i).getResult().getFirst() == "password"){
-					password = loginPage.returnInputs().get(i).getResult().getSecond();
-				}
-				if(loginPage.returnInputs().get(i).getResult().getFirst() == "userType"){
-					userType = loginPage.returnInputs().get(i).getResult().getSecond();
-				}
-			}
-			try {
-				if (userType.equals("Staff")){
-					staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>(username, password)).get(0);
-				} else{
-					student = studentDataStore.retrieveData(new UserLoginRetrival<Student>(username, password)).get(0);			
-				}
-			}
-			catch (InvalidLoginCredentialException e){
-				System.out.println(e.getMessage());
-			}
-		}
-	}
-	public static void workFlow(){
-		while(true){
-			login();
-			while(staff!=null||student!=null){//while it is logged in
-				IViewPage dashboard;
-				if(userType==UserType.STAFF){
-					dashboard = redirect("staffDashboard");
-				}else{
-					dashboard = redirect("studentDashboard");
-				}
-				dashboard.perform();
-				currentPage = ((IPromptPage) dashboard).returnInputs().get(0).getResult().getSecond();
-				if(currentPage.equals("logout")) break;
-				IViewPage newPage = redirect(currentPage);
-				if(newPage instanceof IPromptPage){
-						((IPromptPage)newPage).returnInputs();
-						//here must handel that 
-				}else{ //it is a display page
-
-				}
-			}
-			System.out.println("SUCCESSFUL LOGOUT");
-			staff = null;
-			student = null;
-			
-		}
-		
-
-		
-	}
-
-	public static IViewPage redirect(String pagename){
-		
-	} 
-	*/
+	
 
 	private static void initialise(){
 		// Initialise Datastores.
