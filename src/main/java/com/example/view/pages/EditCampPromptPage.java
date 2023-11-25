@@ -21,7 +21,7 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
     private ArrayList<Camp> camps;
     private Camp value;
 
-    public EditCampPromptPage(ArrayList<Camp> camps ) throws Exception {
+    public EditCampPromptPage(ArrayList<Camp> camps ) {
         this.camps = camps;
     }
     
