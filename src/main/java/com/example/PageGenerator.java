@@ -291,7 +291,7 @@ public class PageGenerator {
             camp_details.add(cm.getCamp().getDescription());
             roles.add("Attendee");
         }
-        for(CampMember cm:student.getAttending()){
+        for(CampMember cm:student.getLeading()){
             camp_names.add(cm.getCamp().getCampName());
             camp_details.add(cm.getCamp().getDescription());
             roles.add("Committee Member");
