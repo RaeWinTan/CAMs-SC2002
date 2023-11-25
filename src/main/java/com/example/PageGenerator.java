@@ -455,6 +455,8 @@ public class PageGenerator {
         student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STUDENT", "password")).get(0);
         studentDBService = new StudentDBService(student);
         
+        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp, studentDataStore));
+
         Enquiry enquiry = new Enquiry("This one what?", student, tempCamp);
         campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
         Enquiry tempEnq = enquiry.copyOf();

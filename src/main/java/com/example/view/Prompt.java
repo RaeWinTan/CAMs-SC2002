@@ -139,7 +139,7 @@ public class Prompt implements IPrompt{
                 System.out.println("Input cannot be empty. Please try again.");
                 continue;
             }
-
+            if(allowEmpty && this.value.trim().isEmpty()) break;
             if (this.regex != null && !this.value.matches(this.regex)) {
                 System.out.println("Incorrect format! Please try again.");
             }
