@@ -37,7 +37,7 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
     public void perform(ArrayList<Camp> data) {
         //must check for name clash
         for(Camp c:data){
-            if(this.newCamp.getCampName().equals(c.getCampName())) throw new ObjectClash("Camp", this.newCamp.getCampName());
+            if(this.newCamp.getCampName().equals(c.getCampName()) && !this.newCamp.isEquals(c)) throw new ObjectClash("Camp", this.newCamp.getCampName());
         }
         //check that the data camp attributes make sense
         new CampChecker(newCamp);
@@ -54,7 +54,6 @@ public class StaffCampEdit implements IDataStoreEditOperation<Camp>{
                     if (this.newCamp.getUserGroup() != camp.getUserGroup())
                         throw new IllegalOperationException("Unable to change camp user group when camp has participants.");
                 }
-
                 camp.setAll(newCamp);
                 return;
             }

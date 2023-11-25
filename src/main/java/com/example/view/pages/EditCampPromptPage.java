@@ -2,7 +2,7 @@ package com.example.view.pages;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+
 
 import com.example.dataloader.UserCSVLoader;
 import com.example.datastructure.Camp;
@@ -99,7 +99,11 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
                 
                  
             }else if(i==4){
-                tmp = new PromptOption(questions.get(i).getSecond(), true, campToChange.getUserGroup().name(), campnames);
+                ArrayList<String> faculty = new ArrayList<>();
+                for (GroupName grpname : GroupName.values())
+                    faculty.add(grpname.toString());
+                
+                tmp = new PromptOption(questions.get(i).getSecond(), true, campToChange.getUserGroup().name(), faculty);
                 tmp.startPrompt();
                 if(tmp.getResult().isEmpty()) continue;
                 campToChange.setUserGroup(UserCSVLoader.getFacultyFromString(tmp.getResult()));
