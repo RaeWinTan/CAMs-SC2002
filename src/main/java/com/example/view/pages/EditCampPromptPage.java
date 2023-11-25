@@ -31,7 +31,6 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
 
     /**Constructor for the class
      * @param camps which is the array list of camps the staff user has created
-     * @exception Exception 
      */
     public EditCampPromptPage(ArrayList<Camp> camps ) {
         this.camps = camps;
