@@ -16,13 +16,13 @@ public enum Page {
     StudentDashBoard("studentdashboard"),
     ViewAvailableCampsStudent("View camps open to your faculty"),//d
     WithdrawFromCamp("Withdraw from a camp"),//d
-    RegisterAttendeeCamp("Register for a camp as an attendee"),//
-    RegisterCommitteeCamp("Register for a camp as a committee"),//
-    SubmitEnquiry("Submit an enquiry"),//
-    ViewEnquiry("View enquiries that you submitted previously"),//
-    EditEnquiry("Edit enquiries that you submitted previously"),//
-    ViewAllRegisteredCamps("View all the camps you have registered for"),//
-    ViewRepliesToEnquiry("View replies to enquiries you have submitted"),//
+    RegisterAttendeeCamp("Register for a camp as an attendee"),//d
+    RegisterCommitteeCamp("Register for a camp as a committee"),//d
+    SubmitEnquiry("Submit an enquiry"),//dd
+    ViewEnquiry("View enquiries that you submitted previously"),//d
+    EditEnquiry("Edit enquiries that you submitted previously"),//d
+    ViewAllRegisteredCamps("View all the camps you have registered for"),//d
+    ViewRepliesToEnquiry("View replies to enquiries you have submitted"),//d
 
     //for camp commmittee member only
     SuggestionCamp("Make a suggestion"),//

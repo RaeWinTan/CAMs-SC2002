@@ -17,7 +17,10 @@ import com.example.datastore.operator.DataStoreRetrieve;
 import com.example.datastore.operator.UserDataStoreLoad;
 import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
+import com.example.datastructure.CampMember;
+import com.example.datastructure.Enquiry;
 import com.example.datastructure.GroupName;
+import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.User;
@@ -26,8 +29,10 @@ import com.example.view.IPromptPage;
 import com.example.view.IViewPage;
 
 import com.example.view.TablePromptOption;
+import com.example.view.pages.CampEnquiryPromptEnquiry;
 import com.example.view.pages.CampWithdrawalPromptPage;
 import com.example.view.pages.CreateCampPromptPage;
+import com.example.view.pages.EditEnquiryPromptPage;
 import com.example.view.pages.LoginPromptPage;
 import com.example.view.pages.RegisterForCampPromptPage;
 import com.example.view.pages.StaffDashboardPromptPage;
@@ -92,7 +97,8 @@ public class PageGenerator {
     }
 
     // student only
-    public static Page StudentDashBoard(Student student){
+    public static Page StudentDashBoard(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
         IPromptPage<Page> dashboard = new StudentDashboardPromptPage(student);
         dashboard.perform();
 		return dashboard.getObject();
@@ -131,7 +137,141 @@ public class PageGenerator {
         campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(p.getObject(), studentDataStore));
     }
 
+    public static void StudentRegisterAsCommittee(Student s){
+        ArrayList<Camp> availCamp = campDataStore.retrieveData(studentDBService.DSCampRetrival());
+        IPromptPage<Camp> p = new RegisterForCampPromptPage(availCamp);
+        p.perform();
+        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(p.getObject(), studentDataStore));
+    }
 
+    public static void StudentSubmitEnquiry(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        ArrayList<Camp> attendingCamp = new ArrayList<>();
+        for (CampMember cm : student.getAttending()) {
+            attendingCamp.add(cm.getCamp());
+        }
+        IPromptPage<Enquiry> p = new CampEnquiryPromptEnquiry(student, attendingCamp);
+        p.perform();
+        campDataStore.manageData(studentDBService.DSEnquiryCreate(p.getObject(), studentDataStore));
+    }
+
+    public static void ViewEnquiryStudent(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        ArrayList<Enquiry> enquiry = student.getEnquireAbout();
+
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("Camp");
+        headers.add("Enquiry");
+        ArrayList<String> camp_names = new ArrayList<>();
+        ArrayList<String> enquiry_text = new ArrayList<>();
+        for(Enquiry e:enquiry){
+            camp_names.add(e.getCamp().getCampName());
+            enquiry_text.add(e.getText());
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camp_names);
+        columns.add(enquiry_text);
+        IViewPage p = new TablePromptOption("Enquries made by you", headers,columns);
+        p.perform();
+    }
+
+
+    public static void StudentEditEnquiry(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        ArrayList<Enquiry> enquiry = student.getEnquireAbout();
+        IPromptPage<Enquiry> p = new EditEnquiryPromptPage(enquiry);
+        p.perform();
+        campDataStore.manageData(studentDBService.DSEnquiryEdit(p.getObject()));
+    }
+
+    public static void ViewAllRegisteredCampsStudent(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("camp name");
+        headers.add("description");
+        headers.add("role");
+        ArrayList<String> camp_names = new ArrayList<>();
+        ArrayList<String> camp_details = new ArrayList<>();
+        ArrayList<String> roles = new ArrayList<>();
+        for(CampMember cm:student.getAttending()){
+            camp_names.add(cm.getCamp().getCampName());
+            camp_details.add(cm.getCamp().getDescription());
+            roles.add("Attendee");
+        }
+        for(CampMember cm:student.getAttending()){
+            camp_names.add(cm.getCamp().getCampName());
+            camp_details.add(cm.getCamp().getDescription());
+            roles.add("Committee Member");
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camp_names);
+        columns.add(camp_details);
+        columns.add(roles);
+        IViewPage p = new TablePromptOption("Camps attended by you", headers,columns);
+        p.perform();
+    }
+
+    public static void ViewRepliesToEnquiryStudent(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        ArrayList<Enquiry> enquiries = student.getEnquireAbout();
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("Camp");
+        headers.add("Enquiry");
+        headers.add("Reply");
+        ArrayList<String> camp_names = new ArrayList<>();
+        ArrayList<String> enquiresText = new ArrayList<>();
+        ArrayList<String> repliesText = new ArrayList<>();
+        for(Enquiry enquiry : enquiries){
+            if (enquiry.getReplies().isEmpty()){
+                camp_names.add(enquiry.getCamp().getCampName());
+                enquiresText.add(enquiry.getText());
+                repliesText.add("No reply :(");
+                continue;
+            }
+            for (Message reply : enquiry.getReplies()) {
+                camp_names.add(enquiry.getCamp().getCampName());
+                enquiresText.add(enquiry.getText());
+                repliesText.add(reply.getAuthor() + ": " + reply.getText());
+            }
+        }
+
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camp_names);
+        columns.add(enquiresText);
+        columns.add(repliesText);
+        IViewPage p = new TablePromptOption("Replies to your enquries", headers,columns);
+        p.perform();
+    }
+
+    public static void CommitteeMakeSuggestion(Student s){
+        
+    }
+
+    public static void ViewEnquiryCommittee(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("Camp");
+        headers.add("Author");
+        headers.add("Enquiry");
+        ArrayList<String> camp_names = new ArrayList<>();
+        ArrayList<String> author = new ArrayList<>();
+        ArrayList<String> enquiry_text = new ArrayList<>();
+        for(CampMember cm : student.getLeading()){
+            for (Enquiry enquiry : cm.getCamp().getEnquiries()){
+                camp_names.add(cm.getCamp().getCampName());
+                author.add(enquiry.getAuthor().getName());
+                enquiry_text.add(enquiry.getText());
+            }
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camp_names);
+        columns.add(author);
+        columns.add(enquiry_text);
+        IViewPage p = new TablePromptOption("Enquries for camps you are leading", headers,columns);
+        p.perform();
+    }
 
     // Controller
 
