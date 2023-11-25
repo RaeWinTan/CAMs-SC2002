@@ -18,10 +18,41 @@ public class App {
 			PageGenerator.StaffCreateCamp(staff);
 		}else if (currentPage==Page.ViewCampsStaff){
 			PageGenerator.ViewCampsStaff();
+		}else if(currentPage==Page.EditCamp){
+			PageGenerator.StaffEditCamp(staff);
+		}else if(currentPage==Page.ViewEnquiries){
+			PageGenerator.ViewEnquiriesStaff(staff);
+		}else if (currentPage==Page.ReplyEnquiry){
+			PageGenerator.StaffReplyEnquiry(staff);
+		}else if(currentPage==Page.ViewSuggestions){
+			PageGenerator.ViewSuggestionsStaff(staff);
+		}else if(currentPage==Page.AcceptSuggestion){
+			PageGenerator.StaffAcceptSuggestion(staff);
 		}
 	}
 	public static void studentRedirection(Page currentPage, Student student){
-
+		if (currentPage==Page.ViewAvailableCampsStudent)
+			PageGenerator.ViewCampStudent(student);
+		else if (currentPage==Page.WithdrawFromCamp)
+			PageGenerator.StudentWithdrawFromCamp(student);
+		else if (currentPage==Page.RegisterAttendeeCamp)
+			PageGenerator.StudentRegisterAsAttendee(student);
+		else if (currentPage==Page.RegisterCommitteeCamp)
+			PageGenerator.StudentRegisterAsCommittee(student);
+		else if (currentPage==Page.SubmitEnquiry)
+			PageGenerator.StudentSubmitEnquiry(student);
+		else if (currentPage==Page.ViewEnquiries)
+			PageGenerator.ViewEnquiryStudent(student);
+		else if (currentPage==Page.EditEnquiry)
+			PageGenerator.StudentEditEnquiry(student);
+		else if (currentPage==Page.ViewAllRegisteredCamps)
+			PageGenerator.ViewAllRegisteredCampsStudent(student);
+		else if (currentPage==Page.SuggestionCamp)
+			PageGenerator.CommitteeMakeSuggestion(student);
+		// else if (currentPage==Page.ViewEnquiriesFromStudent)
+		// 	PageGenerator.ViewEnquiryCommittee(student);
+		// else if (currentPage==Page.ViewSubmittedSuggestions)
+		// 	PageGenerator.
 	}
 
 	public static void workFlow(){

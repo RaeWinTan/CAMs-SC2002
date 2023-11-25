@@ -9,15 +9,6 @@ public class Suggestion implements IDataStoreObject<Suggestion> {
     private Student author;
     private Camp newCamp;
     private boolean approved;
-    private Camp originalCamp;
-
-    
-    public Camp getSuggestedCamp(){
-        return this.newCamp;
-    }
-    public Camp getOriginalCamp(){
-        return originalCamp;
-    }
 
     //suggestion need to store original camp
     /**
