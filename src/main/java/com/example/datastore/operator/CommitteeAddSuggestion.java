@@ -38,6 +38,7 @@ public class CommitteeAddSuggestion implements IDataStoreEditOperation<Student>{
             if (student.isEquals(this.student)){
                 // Add suggestion to student
                 student.getSuggestions().add(this.suggestion);
+
                 return;
             }
         }

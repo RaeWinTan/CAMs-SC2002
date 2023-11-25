@@ -29,6 +29,8 @@ public abstract class UserCSVLoader<T extends User> implements DataLoader<T> {
 
 	public static GroupName getFacultyFromString(String strFaculty){
 		switch(strFaculty){
+			case "NTU":
+				return GroupName.NTU;
 			case "ADM":
 				return GroupName.ADM;
 			case "EEE":

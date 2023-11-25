@@ -206,6 +206,7 @@ public class PageGenerator {
     // student only
     public static Page StudentDashBoard(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        System.out.println(student.getLeading().size());
         IPromptPage<Page> dashboard = new StudentDashboardPromptPage(student);
         dashboard.perform();
 		return dashboard.getObject();
@@ -394,6 +395,9 @@ public class PageGenerator {
 
     public static void ViewSuggestionCommittee(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+
+
+
         ArrayList<String> headers = new ArrayList<>();
         headers.add("Camp");
         headers.add("Suggestion");
@@ -404,12 +408,12 @@ public class PageGenerator {
         for(Suggestion suggestion : student.getSuggestions()){
             for (CampMember cm: student.getLeading()){
                 if (cm.getCamp().isEquals(suggestion.getCamp())){
-                    camps.add(cm.getCamp().getCampName());
+                    camps.add(cm.getCamp().toString());
                     break;
                 }
             }
-            suggestions.add(suggestion.toString());
-            approveds.add(suggestion.getApproved()?"Y":"N");
+            suggestions.add(suggestion.getCamp().toString());
+            approveds.add(suggestion.getApproved() + "");
         }
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(camps);
@@ -448,6 +452,7 @@ public class PageGenerator {
         Staff staff;
         Camp camp;
         Camp tempCamp;
+        Camp tempCamp2;
 
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ANWIT", "password")).get(0);
         staffDBService = new StaffDBService(staff);
@@ -492,6 +497,7 @@ public class PageGenerator {
         camp.setDescription("Camp for SCSE");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
+        tempCamp2 = camp.copyOf();
 
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ARVI", "password")).get(0);
         staffDBService = new StaffDBService(staff);
@@ -521,9 +527,16 @@ public class PageGenerator {
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ANWIT", "password")).get(0);
         staffDBService = new StaffDBService(staff);
         Message reply = new Message("This one ur mother", staff);
-
-        
         campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq,reply)));
-    
+
+
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STUDENT", "password")).get(0);
+        studentDBService = new StudentDBService(student);
+
+        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp2, studentDataStore));
+
+        Suggestion suggestion = new Suggestion(student,tempCamp2.copyOf());
+        suggestion.getCamp().setDescription("i set in tps htsotiah pao ha ph ap hap p");
+        campDataStore.manageData(studentDBService.DSSuggestionCreate(suggestion,studentDataStore));
     }
 }

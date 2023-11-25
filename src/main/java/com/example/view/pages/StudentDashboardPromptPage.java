@@ -23,8 +23,9 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
       * since they have more functionalities on their dashboard 
       */
     public StudentDashboardPromptPage(Student student){//here must determine if committee or not
-        initialise_pages();
+        
         this.isCommittee = student.getLeading().size() > 0;
+        initialise_pages();
         ArrayList<String> os = new ArrayList<String>();
         for(int i = 0; i < this.pages.size(); i++) os.add(this.pages.get(i).getPageView());
         this.prompt = new PromptOption("What actions you want to do?",os);

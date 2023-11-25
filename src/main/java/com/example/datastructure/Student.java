@@ -30,13 +30,14 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 * @param faculty		Faculty the student is from.
 	 * @param password		Password of the student.
 	 */
-	private Student(String userId, String name, GroupName faculty, String password, int points, ArrayList<CampMember> leading, ArrayList<CampMember> attending, ArrayList<Message> repliedTo, ArrayList<Enquiry> enquireAbout) {
+	private Student(String userId, String name, GroupName faculty, String password, int points, ArrayList<CampMember> leading, ArrayList<CampMember> attending, ArrayList<Message> repliedTo, ArrayList<Enquiry> enquireAbout, ArrayList<Suggestion> suggestions) {
 		super(userId, name, faculty, password);
 		this.points = points;
 		this.leading = leading;
 		this.attending = attending;
 		this.repliedTo = repliedTo;
 		this.enquireAbout = enquireAbout;
+		this.suggestions = suggestions;
 	}
 
 	public int getPoints(){
@@ -72,7 +73,7 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 */
 	@Override
 	public Student copyOf() {
-		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), (ArrayList<CampMember>)this.getLeading().clone(), (ArrayList<CampMember>)this.getAttending().clone(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Enquiry> )this.enquireAbout.clone());
+		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), (ArrayList<CampMember>)this.getLeading().clone(), (ArrayList<CampMember>)this.getAttending().clone(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Enquiry> )this.enquireAbout.clone(), (ArrayList<Suggestion> )this.suggestions.clone());
 	}
 	
 	/**

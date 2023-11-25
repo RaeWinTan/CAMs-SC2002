@@ -50,7 +50,7 @@ public class AcceptRejectSuggestionPromptPage implements IPromptPage<Suggestion>
         ArrayList<String> suggestion_string = new ArrayList<>();
         ArrayList<ArrayList<String>> objs = new ArrayList<ArrayList<String>>();
         for(int k = 0; k < suggestions.size(); k++){
-            camp_string.add(suggestions.get(k).getCamp().getCampName());
+            camp_string.add(suggestions.get(k).getCamp().toString());
             author_string.add(suggestions.get(k).getAuthor().getUserId());
             suggestion_string.add(suggestions.get(k).getCamp().toString());            
         }

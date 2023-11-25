@@ -94,22 +94,22 @@ public class CreateSuggestionPromptPage implements IPromptPage<Suggestion>{
                 }
                 
                 else if(i==6){
-                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(), true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(), true, campToChange.getTotalSlots() + "");
                     tmp.startPrompt();
                     if (tmp.getResult().isEmpty()) continue;
                     campToChange.setTotalSlots(Integer.valueOf(tmp.getResult()));
                 }
                 else if(i==7){
-                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(),true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(),true, campToChange.getCommitteeSlot() + "");
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
                     campToChange.setCommitteeSlot(Integer.valueOf(tmp.getResult()));
                 }
                 else if(i==8){
-                    tmp = new Prompt(questions.get(i).getSecond(), true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), true, campToChange.getDescription());
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    campToChange.setLocation(tmp.getResult());
+                    campToChange.setDescription(tmp.getResult());
                 }
                 else {
                     ArrayList<String> ops = new ArrayList<>();

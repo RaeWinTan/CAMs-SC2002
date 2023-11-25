@@ -311,23 +311,23 @@ public class Camp implements IDataStoreObject<Camp>{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		if (this.getCampName()!=null)
-			str += "Camp Name: " + this.getCampName() + "\n";
+			str += "Camp Name: " + this.getCampName() ;
 		if (this.getDates()!=null)
-			str += "Dates: " + sdf.format(this.dates[0]) + " - " + sdf.format(this.dates[1])+ "\n";
+			str += "Dates: " + sdf.format(this.dates[0]) + " - " + sdf.format(this.dates[1]);
 		if (this.getClosingDate()!=null)
-			str += "Last day of registration: " + sdf.format(this.getClosingDate())+ "\n";
+			str += "Last day of registration: " + sdf.format(this.getClosingDate());
 		if (this.getUserGroup()!=null)
-			str += "User Group:" + this.userGroup.toString()+ "\n";
+			str += "User Group:" + this.userGroup.toString();
 		if (this.getLocation()!=null)
-			str += "Location: " + this.getLocation()+ "\n";
+			str += "Location: " + this.getLocation();
 		if (this.getTotalSlots()>=0)
-			str += "Total Slot: " + this.getTotalSlots()+ "\n";	
+			str += "Total Slot: " + this.getTotalSlots();	
 		if (this.getCommitteeSlot()>=0)
-			str += "Committee Slot: " + this.getCommitteeSlot()+ "\n";	
+			str += "Committee Slot: " + this.getCommitteeSlot();	
 		if (this.getDescription()!=null)
-			str += "Description: " + this.getDescription()+ "\n";	
+			str += "Description: " + this.getDescription();	
 		if (this.getVisibility())
-			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible")+ "\n";
+			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible");
 		return str;
 	}
 

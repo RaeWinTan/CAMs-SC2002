@@ -89,6 +89,7 @@ public class App {
 					if(currentPage.equals(Page.StaffDashBoard)){
 						currentPage = PageGenerator.StaffDashBoard();
 					}else if (currentPage.equals(Page.StudentDashBoard)){
+						
 						currentPage = PageGenerator.StudentDashBoard(student);
 					}else if (currentPage.equals(Page.ChangePassword)){
 						if (u instanceof Student){
