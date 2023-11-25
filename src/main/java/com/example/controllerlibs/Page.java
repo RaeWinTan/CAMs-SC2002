@@ -14,8 +14,8 @@ public enum Page {
 
     //for students
     StudentDashBoard("studentdashboard"),
-    ViewAvailableCampsStudent("View camps open to your faculty"),//
-    WithdrawFromCamp("Withdraw from a camp"),//
+    ViewAvailableCampsStudent("View camps open to your faculty"),//d
+    WithdrawFromCamp("Withdraw from a camp"),//d
     RegisterAttendeeCamp("Register for a camp as an attendee"),//
     RegisterCommitteeCamp("Register for a camp as a committee"),//
     SubmitEnquiry("Submit an enquiry"),//
