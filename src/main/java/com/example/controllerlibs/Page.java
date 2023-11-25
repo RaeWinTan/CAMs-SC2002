@@ -8,13 +8,13 @@ package com.example.controllerlibs;
 //https://howtodoinjava.com/java/enum/java-enum-string-example/
 public enum Page {
     //shared amonst all users
-    Login("Login Page"),
-    ChangePassword("Change password"),
-    Logout("Logout"),
+    Login("Login Page"), //d
+    ChangePassword("Change password"), //d
+    Logout("Logout"),  //d
     ViewEnquiries("View enquiries from students"),//staffDone
     ReplyEnquiry("Reply to enquiries from students"),//staffDone
     //for students
-    StudentDashBoard("Student Dashboard"),
+    StudentDashBoard("Student Dashboard"), //d
     ViewAvailableCampsStudent("View camps open to your faculty"),//d
     WithdrawFromCamp("Withdraw from a camp"),//d
     RegisterAttendeeCamp("Register for a camp as an attendee"),//d
@@ -27,7 +27,7 @@ public enum Page {
 
     //for camp commmittee member only
     SuggestionCamp("Make a suggestion"),//
-    ViewSubmittedSuggestions("View all suggestions you have submitted"),//
+    ViewSubmittedSuggestions("View all suggestions you have submitted"),//d
     EditSuggestion("Edit suggestions you have submitted"),//
     DeleteSuggestion("Delete suggestions you have submitted"),//
 

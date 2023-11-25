@@ -53,11 +53,11 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
         //show all camps 
         Camp campToChange;
         ArrayList<Pair<Integer, String>> questions = new ArrayList<>();
-        String d = " (just press enter if you don't want to edit this value)";
-        questions.add(new Pair<>(0,"Chose Camp you want to edit"+ d));
-        questions.add(new Pair<>(1,"start date" + d));
-        questions.add(new Pair<>(2,"end date" + d));
-        questions.add(new Pair<>(3,"Registration closing date" + d));
+        String d = " (enter to skip)";
+        questions.add(new Pair<>(0,"Choose Camp you want to edit"));
+        questions.add(new Pair<>(1,"start date (dd/mm/yyyy)" + d));
+        questions.add(new Pair<>(2,"end date (dd/mm/yyyy)" + d));
+        questions.add(new Pair<>(3,"Registration closing date (dd/mm/yyyy)" + d));
         questions.add(new Pair<>(4,"Open to which Faculty" + d));
         questions.add(new Pair<>(5,"Location" + d));
         questions.add(new Pair<>(6,"total slots" + d));
@@ -115,27 +115,27 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
                 }
                 
                 else if(i==6){
-                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(), true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(), true, campToChange.getTotalSlots().toString());
                     tmp.startPrompt();
                     if (tmp.getResult().isEmpty()) continue;
                     campToChange.setTotalSlots(Integer.valueOf(tmp.getResult()));
                 }
                 else if(i==7){
-                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(),true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(),true, campToChange.getCommitteeSlot().toString());
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
                     campToChange.setCommitteeSlot(Integer.valueOf(tmp.getResult()));
                 }
                 else if(i==8){
-                    tmp = new Prompt(questions.get(i).getSecond(), true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), true, campToChange.getDescription());
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    campToChange.setLocation(tmp.getResult());
+                    campToChange.setDescription(tmp.getResult());
                 }
                 else {
                     ArrayList<String> ops = new ArrayList<>();
-                    ops.add("true");
                     ops.add("false");
+                    ops.add("true");
                     tmp = new PromptOption(questions.get(i).getSecond(), true, campToChange.getVisibility()+"", ops);
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;

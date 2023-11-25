@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
+import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
 
@@ -41,13 +42,16 @@ public class CommitteeEditSuggestion implements IDataStoreEditOperation<Camp>{
                 for (Suggestion suggestion : camp.getSuggestions()) {
                     if (suggestion.isEquals(this.newSuggestion)){
 
+                        if (suggestion.getApproved()){
+                            throw new IllegalOperationException("Cannot edit suggestion after it has been approved.");
+                        }
+
                         // Check credentials
                         if (!suggestion.getAuthor().isEquals(this.student))
                             throw new InsufficientPermissionException("Student making suggestion does not match author in suggestion.");
 
                         // Update suggestion
                         // Camp should also be updated in student
-                        // TODO: Test the above
                         suggestion.getCamp().setAll(this.newSuggestion.getCamp());
                         return;
                     }
