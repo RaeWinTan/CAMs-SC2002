@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Student;
+import com.example.exception.IllegalOperationException;
 import com.example.exception.ObjectNotFoundException;
 
 /**
@@ -37,6 +38,8 @@ public class StudentEnquiryEdit implements IDataStoreEditOperation<Camp>{
                 // Get enquiry
                 for (Enquiry enquiry : camp.getEnquiries()){
                     if (enquiry.isEquals(this.newEnquiry)){
+                        if (!enquiry.getReplies().isEmpty())
+                            throw new IllegalOperationException("Cannot modify enquiries with replies.");
                         // Update enquiry
                         enquiry.setText(this.newEnquiry.getText());
                         return;
