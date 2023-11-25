@@ -321,7 +321,7 @@ public class PageGenerator {
             for (Message reply : enquiry.getReplies()) {
                 camp_names.add(enquiry.getCamp().getCampName());
                 enquiresText.add(enquiry.getText());
-                repliesText.add(reply.getAuthor() + ": " + reply.getText());
+                repliesText.add(reply.getAuthor().getName() + ": " + reply.getText());
             }
         }
 
@@ -455,7 +455,16 @@ public class PageGenerator {
         student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STUDENT", "password")).get(0);
         studentDBService = new StudentDBService(student);
         
-        //Enquiry enquiry = new Enquiry("")
+        Enquiry enquiry = new Enquiry("This one what?", student, tempCamp);
+        campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
+        Enquiry tempEnq = enquiry.copyOf();
+
+        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ANWIT", "password")).get(0);
+        staffDBService = new StaffDBService(staff);
+        Message reply = new Message("This one ur mother", staff);
+
+        
+        campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq,reply)));
     
     }
 }
