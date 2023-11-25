@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,9 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.PromptOption;
 
 public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
 
@@ -27,12 +30,8 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
     private void initPrompt() {
         
         for(Camp c:this.camps) camp_str.add(c.getCampName());
-        try {
-            this.prompt = new PromptOption("Enter the name of the camp you would like to withdraw from", camp_str);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.prompt = new PromptOption("Enter the name of the camp you would like to withdraw from", camp_str);
+        
     }
 
     @Override

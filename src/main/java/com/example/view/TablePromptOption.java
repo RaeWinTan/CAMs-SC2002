@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.example.exception.PromptOptionException;
+
 public class TablePromptOption implements IPrompt,IViewPage {
     private ArrayList<ArrayList<String>> columns;
     private String question;
@@ -17,6 +19,8 @@ public class TablePromptOption implements IPrompt,IViewPage {
         this.question = question;
         this.headers = headers;
         this.columns = columns;
+        
+        if(columns.get(0).size()==0) throw new PromptOptionException("There are no data to be displayed");
         this.sc = new Scanner(System.in);
     }
     @Override

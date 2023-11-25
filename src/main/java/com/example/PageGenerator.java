@@ -21,15 +21,17 @@ import com.example.datastructure.GroupName;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.User;
-import com.example.view.CampWithdrawalPromptPage;
-import com.example.view.CreateCampPromptPage;
+
 import com.example.view.IPromptPage;
 import com.example.view.IViewPage;
-import com.example.view.LoginPromptPage;
-import com.example.view.RegisterForCampPromptPage;
-import com.example.view.StaffDashboardPromptPage;
-import com.example.view.StudentDashboardPromptPage;
+
 import com.example.view.TablePromptOption;
+import com.example.view.pages.CampWithdrawalPromptPage;
+import com.example.view.pages.CreateCampPromptPage;
+import com.example.view.pages.LoginPromptPage;
+import com.example.view.pages.RegisterForCampPromptPage;
+import com.example.view.pages.StaffDashboardPromptPage;
+import com.example.view.pages.StudentDashboardPromptPage;
 
 public class PageGenerator {
     public static DataStore<Staff> staffDataStore;

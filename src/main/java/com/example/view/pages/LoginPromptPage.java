@@ -1,8 +1,12 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
 import com.example.controllerlibs.UserCredentials;
 import com.example.controllerlibs.UserType;
 import com.example.datastructure.User;
@@ -32,12 +36,8 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
                 ArrayList<String> options = new ArrayList<String>();
                 options.add("Staff");
                 options.add("Student");
-                try {
-                    prompts.add(new PromptOption(this.questions.get(i), options));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                prompts.add(new PromptOption(this.questions.get(i), options));
+                
             } 
         } 
     }
@@ -59,13 +59,9 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
                 ArrayList<String> options = new ArrayList<String>();
                 options.add("Staff");
                 options.add("Student");
-                try {
-                    tmp = new PromptOption(q, options);
-                    tmp.startPrompt();
-                    userType = tmp.getResult();
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
+                tmp = new PromptOption(q, options);
+                tmp.startPrompt();
+                userType = tmp.getResult();
             }
             i++;
         }

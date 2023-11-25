@@ -1,8 +1,11 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 import com.example.controllerlibs.Page;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.PromptOption;
 
 
 public class StaffDashboardPromptPage implements IPromptPage<Page>{
@@ -16,9 +19,7 @@ public class StaffDashboardPromptPage implements IPromptPage<Page>{
         for(int i = 0; i < this.pages.size(); i++) {
             os.add(this.pages.get(i).getPageView());
         }
-        try {
-            this.prompt = new PromptOption("What actions you want to do?",os);
-        } catch (Exception e) {e.printStackTrace();}
+        this.prompt = new PromptOption("What actions you want to do?",os);
     }
 
     private void initialise_pages(){

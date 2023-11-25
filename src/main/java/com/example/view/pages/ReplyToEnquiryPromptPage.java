@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,11 @@ import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
 import com.example.datastructure.User;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
+import com.example.view.TablePromptOption;
 
 public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Message>> {
 
@@ -40,19 +45,9 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
         Camp c;
         for(int i = 0; i < questions.size(); i++){
             if(i==0){
-                try {
-                    this.prompts.add(new PromptOption(questions.get(i), cs));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                this.prompts.add(new PromptOption(questions.get(i), cs)); 
             }else if(i==1){
-                try {
-                    this.prompts.add(new PromptOption(questions.get(i), cs));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                this.prompts.add(new PromptOption(questions.get(i), cs)); 
             }else{
                 this.prompts.add(new Prompt(questions.get(i)));
             }

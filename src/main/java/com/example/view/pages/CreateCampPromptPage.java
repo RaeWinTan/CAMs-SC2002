@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,10 @@ import com.example.controllerlibs.UserType;
 import com.example.datastructure.Camp;
 import com.example.datastructure.GroupName;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
 
 public class CreateCampPromptPage implements IPromptPage<Camp>{
     private String CampName;
@@ -65,23 +69,14 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
                 for(int j = 0; j < GroupName.values().length;j++){
                     ops.add(GroupName.values()[j].toString());//TODO LATER MUST CHANGE ACCORDING TO ROBIN COD
                 }
-           
-                try {
-                    this.prompts.add(new PromptOption(questions.get(i), ops));
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                }
+                this.prompts.add(new PromptOption(questions.get(i), ops));
+                
             }else if(i==9){
                 ArrayList<String> ops = new ArrayList<>();
                 ops.add("On");
                 ops.add("Off");
-                try{
-                    this.prompts.add(new PromptOption(questions.get(i), ops));
-                }catch (Exception e){
-                    e.printStackTrace();
-
-                }
+                this.prompts.add(new PromptOption(questions.get(i), ops));
+                
             }else{
                 this.prompts.add(new Prompt(questions.get(i)));
             }
@@ -156,14 +151,9 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
         Date[] dates = new Date[2];
         dates[0] = startDate;
         dates[1] = endDate;
-
-        try{
-            totalSlots = Integer.parseInt(CampTotalSlots);
-            committeeSlots = Integer.parseInt(CampCommmitteeSlots);
-        }
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }
+        totalSlots = Integer.valueOf(CampTotalSlots);
+        committeeSlots = Integer.valueOf(CampCommmitteeSlots);
+        
         GroupName faculty;
         if(CampFaculty.equalsIgnoreCase("NTU")){
             faculty = GroupName.NTU;}

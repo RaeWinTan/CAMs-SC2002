@@ -11,7 +11,7 @@ public class PromptOption extends Prompt {
     public PromptOption(String question, ArrayList<String> options) {
         super(question); 
         this.options = options;
-        if (this.options == null || options.size() == 0) throw new PromptOptionException("The is not options for prompt message of " + question);
+        if (this.options == null || options.size() == 0) throw new PromptOptionException("There is no options for you to chose from");
     }
     public PromptOption(String question, boolean allowEmpty, String defaultValue, ArrayList<String> options){
         super(question,allowEmpty, defaultValue);
@@ -40,7 +40,6 @@ public class PromptOption extends Prompt {
                 continue;
             }
             setValue(this.options.get(ans));
-            System.out.println("value his here ;"+getValue());
             break;
         } 
     }

@@ -1,8 +1,11 @@
-package com.example.view;
+package com.example.view.pages;
 
 
 
 import com.example.datastructure.User;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
 
 
 public class ChangePasswordPromptPage implements IPromptPage<User>{

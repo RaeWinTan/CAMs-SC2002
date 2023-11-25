@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,10 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Student;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
 
 public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
     private Student student;
@@ -23,9 +27,7 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
         for(int i = 0; i < 0; i++) cs.add(camps.get(i).getCampName());
         for(int i = 0; i < this.prompts.size();i++){
             if(i == 0){
-                try { 
-                    this.prompts.add(new PromptOption(this.questions.get(i),cs));
-                } catch (Exception e) {e.printStackTrace();}
+               this.prompts.add(new PromptOption(this.questions.get(i),cs));
             }else { 
                 this.prompts.add(new Prompt(this.questions.get(i)));
                 
