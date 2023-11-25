@@ -1,10 +1,14 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.TablePromptOption;
 
 public class EditEnquiryPromptPage implements IPromptPage<Enquiry>{
     private ArrayList<Enquiry> enquiries;

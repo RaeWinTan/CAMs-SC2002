@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,10 @@ import com.example.controllerlibs.UserType;
 import com.example.datastructure.Camp;
 import com.example.datastructure.GroupName;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
 
 public class CreateCampPromptPage implements IPromptPage<Camp>{
     private String CampName;

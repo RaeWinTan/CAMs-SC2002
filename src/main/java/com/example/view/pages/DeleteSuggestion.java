@@ -1,9 +1,12 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 
 import com.example.datastructure.Suggestion;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.TablePromptOption;
 
 
 public class DeleteSuggestion implements IPromptPage<Suggestion> {

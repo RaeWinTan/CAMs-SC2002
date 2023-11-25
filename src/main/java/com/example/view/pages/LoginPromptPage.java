@@ -1,8 +1,12 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
 import com.example.controllerlibs.UserCredentials;
 import com.example.controllerlibs.UserType;
 import com.example.datastructure.User;

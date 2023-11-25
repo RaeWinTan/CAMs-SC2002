@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.pages;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +8,11 @@ import com.example.dataloader.UserCSVLoader;
 import com.example.datastructure.Camp;
 import com.example.datastructure.GroupName;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.Prompt;
+import com.example.view.PromptOption;
+import com.example.view.RegexType;
 
 public class EditCampPromptPage implements IPromptPage<Camp> {
 

@@ -1,8 +1,11 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 import com.example.controllerlibs.Page;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.PromptOption;
 
 
 public class StaffDashboardPromptPage implements IPromptPage<Page>{

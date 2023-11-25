@@ -1,9 +1,12 @@
-package com.example.view;
+package com.example.view.pages;
 
 import java.util.ArrayList;
 
 import com.example.controllerlibs.Page;
 import com.example.datastructure.Student;
+import com.example.view.IPrompt;
+import com.example.view.IPromptPage;
+import com.example.view.PromptOption;
 
 public class StudentDashboardPromptPage implements IPromptPage<Page>{
     private IPrompt prompt;
