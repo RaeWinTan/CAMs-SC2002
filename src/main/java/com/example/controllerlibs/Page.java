@@ -26,7 +26,7 @@ public enum Page {
     ViewRepliesToEnquiry("View replies to enquiries you have submitted"),//d
 
     //for camp commmittee member only
-    SuggestionCamp("Make a suggestion"),//
+    CreateSuggestion("Create a suggestion"),//
     ViewSubmittedSuggestions("View all suggestions you have submitted"),//d
     EditSuggestion("Edit suggestions you have submitted"),//
     DeleteSuggestion("Delete suggestions you have submitted"),//

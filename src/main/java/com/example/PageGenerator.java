@@ -37,7 +37,10 @@ import com.example.view.pages.CampEnquiryPromptPage;
 import com.example.view.pages.CampWithdrawalPromptPage;
 import com.example.view.pages.ChangePasswordPromptPage;
 import com.example.view.pages.CreateCampPromptPage;
+import com.example.view.pages.CreateSuggestionPromptPage;
+import com.example.view.pages.DeleteSuggestionPromptPage;
 import com.example.view.pages.EditEnquiryPromptPage;
+import com.example.view.pages.EditSuggestionPromptPage;
 import com.example.view.pages.AcceptRejectSuggestionPromptPage;
 import com.example.view.pages.EditCampPromptPage;
 
@@ -346,7 +349,22 @@ public class PageGenerator {
 
     // Committee
     public static void CommitteeMakeSuggestion(Student s){
-        
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        IPromptPage<Suggestion> p = new CreateSuggestionPromptPage(student);
+        p.perform();
+        campDataStore.manageData(studentDBService.DSSuggestionCreate(p.getObject(), studentDataStore));
+    }
+    public static void CommitteeEditSuggestion(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        IPromptPage<Suggestion> p = new EditSuggestionPromptPage(student);
+        p.perform();
+        campDataStore.manageData(studentDBService.DSSuggestionEdit(p.getObject()));
+    }
+    public static void DeleteSuggestion(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        IPromptPage<Suggestion> p = new DeleteSuggestionPromptPage(student);
+        p.perform();
+        campDataStore.manageData(studentDBService.DSSuggestioNDelete(p.getObject(), studentDataStore));
     }
 
     public static void ViewEnquiryCommittee(Student s){

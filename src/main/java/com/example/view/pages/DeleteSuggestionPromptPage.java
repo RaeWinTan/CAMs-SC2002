@@ -16,7 +16,7 @@ import com.example.view.TablePromptOption;
  * suggestions that they have previously submitted 
  * but have not been accepted yet
  */
-public class DeleteSuggestion implements IPromptPage<Suggestion> {
+public class DeleteSuggestionPromptPage implements IPromptPage<Suggestion> {
 
     private IPrompt prompt;
     private Suggestion value;
@@ -27,7 +27,7 @@ public class DeleteSuggestion implements IPromptPage<Suggestion> {
      * @param suggestions which is an array list of suggestions submitted 
      * by the member
      */
-    public DeleteSuggestion(Student student) {
+    public DeleteSuggestionPromptPage(Student student) {
         this.student = student;
         initPrompts();
     }

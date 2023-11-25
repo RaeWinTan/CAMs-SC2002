@@ -49,12 +49,18 @@ public class App {
 			PageGenerator.ViewAllRegisteredCampsStudent(student);
 		else if (currentPage==Page.ViewRepliesToEnquiry)
 			PageGenerator.ViewRepliesToEnquiryStudent(student);
-		else if (currentPage==Page.SuggestionCamp)
-			PageGenerator.CommitteeMakeSuggestion(student);
+		
 		else if (currentPage==Page.ViewEnquiries)
 			PageGenerator.ViewEnquiryCommittee(student);
 		else if (currentPage==Page.ViewSubmittedSuggestions)
 			PageGenerator.ViewSuggestionCommittee(student);
+		else if(currentPage==Page.EditSuggestion){
+			PageGenerator.CommitteeEditSuggestion(student);
+		}else if(currentPage==Page.DeleteSuggestion){
+			PageGenerator.DeleteSuggestion(student);
+		}
+		else if (currentPage==Page.CreateSuggestion)
+			PageGenerator.CommitteeMakeSuggestion(student);
 	}
 
 	public static void workFlow(){
