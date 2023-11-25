@@ -45,19 +45,9 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
         Camp c;
         for(int i = 0; i < questions.size(); i++){
             if(i==0){
-                try {
-                    this.prompts.add(new PromptOption(questions.get(i), cs));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                this.prompts.add(new PromptOption(questions.get(i), cs)); 
             }else if(i==1){
-                try {
-                    this.prompts.add(new PromptOption(questions.get(i), cs));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                this.prompts.add(new PromptOption(questions.get(i), cs)); 
             }else{
                 this.prompts.add(new Prompt(questions.get(i)));
             }

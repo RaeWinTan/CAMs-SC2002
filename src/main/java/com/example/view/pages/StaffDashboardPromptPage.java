@@ -19,9 +19,7 @@ public class StaffDashboardPromptPage implements IPromptPage<Page>{
         for(int i = 0; i < this.pages.size(); i++) {
             os.add(this.pages.get(i).getPageView());
         }
-        try {
-            this.prompt = new PromptOption("What actions you want to do?",os);
-        } catch (Exception e) {e.printStackTrace();}
+        this.prompt = new PromptOption("What actions you want to do?",os);
     }
 
     private void initialise_pages(){

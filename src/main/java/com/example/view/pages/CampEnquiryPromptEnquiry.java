@@ -27,9 +27,7 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
         for(int i = 0; i < 0; i++) cs.add(camps.get(i).getCampName());
         for(int i = 0; i < this.prompts.size();i++){
             if(i == 0){
-                try { 
-                    this.prompts.add(new PromptOption(this.questions.get(i),cs));
-                } catch (Exception e) {e.printStackTrace();}
+               this.prompts.add(new PromptOption(this.questions.get(i),cs));
             }else { 
                 this.prompts.add(new Prompt(this.questions.get(i)));
                 

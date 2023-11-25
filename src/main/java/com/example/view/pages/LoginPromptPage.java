@@ -36,12 +36,8 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
                 ArrayList<String> options = new ArrayList<String>();
                 options.add("Staff");
                 options.add("Student");
-                try {
-                    prompts.add(new PromptOption(this.questions.get(i), options));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                prompts.add(new PromptOption(this.questions.get(i), options));
+                
             } 
         } 
     }
@@ -63,13 +59,9 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
                 ArrayList<String> options = new ArrayList<String>();
                 options.add("Staff");
                 options.add("Student");
-                try {
-                    tmp = new PromptOption(q, options);
-                    tmp.startPrompt();
-                    userType = tmp.getResult();
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
+                tmp = new PromptOption(q, options);
+                tmp.startPrompt();
+                userType = tmp.getResult();
             }
             i++;
         }

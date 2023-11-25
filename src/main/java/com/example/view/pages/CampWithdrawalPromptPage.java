@@ -30,12 +30,8 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
     private void initPrompt() {
         
         for(Camp c:this.camps) camp_str.add(c.getCampName());
-        try {
-            this.prompt = new PromptOption("Enter the name of the camp you would like to withdraw from", camp_str);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.prompt = new PromptOption("Enter the name of the camp you would like to withdraw from", camp_str);
+        
     }
 
     @Override
