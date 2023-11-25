@@ -9,7 +9,7 @@ import com.example.datastructure.Student;
 import com.example.utility.Pair;
 
 public interface IStudentEnquiryDBService {
-        public IDataStoreEditOperation<Camp> DSEnquiryCreate(Enquiry enquiry, IDataStoreEditable<Student> studentDataStore);
+        public IDataStoreEditOperation<Camp> DSEnquiryCreate(Enquiry enquiry, IDataStoreEditable<Student> studentDSEditable);
         public IDataStoreEditOperation<Camp> DSEnquiryEdit(Enquiry newEnquiry);
         public IDataStoreEditOperation<Camp> DSEnquiryDelete(Enquiry newEnquiry, IDataStoreEditable<Student> studentDSEditable);
         public IDataStoreEditOperation<Camp> DSEnquiryReply(Pair<Enquiry,Message> em);
