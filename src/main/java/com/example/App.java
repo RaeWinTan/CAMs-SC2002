@@ -18,6 +18,16 @@ public class App {
 			PageGenerator.StaffCreateCamp(staff);
 		}else if (currentPage==Page.ViewCampsStaff){
 			PageGenerator.ViewCampsStaff();
+		}else if(currentPage==Page.EditCamp){
+			PageGenerator.StaffEditCamp(staff);
+		}else if(currentPage==Page.ViewEnquiries){
+			PageGenerator.ViewEnquiriesStaff(staff);
+		}else if (currentPage==Page.ReplyEnquiry){
+			PageGenerator.StaffReplyEnquiry(staff);
+		}else if(currentPage==Page.ViewSuggestions){
+			PageGenerator.ViewSuggestionsStaff(staff);
+		}else if(currentPage==Page.AcceptSuggestion){
+			PageGenerator.StaffAcceptSuggestion(staff);
 		}
 	}
 	public static void studentRedirection(Page currentPage, Student student){

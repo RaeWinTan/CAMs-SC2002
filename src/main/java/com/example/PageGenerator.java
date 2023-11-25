@@ -14,6 +14,7 @@ import com.example.dataservice.admin.StaffDBService;
 import com.example.dataservice.student.StudentDBService;
 import com.example.datastore.DataStore;
 import com.example.datastore.operator.DataStoreRetrieve;
+import com.example.datastore.operator.StaffCampEdit;
 import com.example.datastore.operator.UserDataStoreLoad;
 import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
@@ -23,18 +24,24 @@ import com.example.datastructure.GroupName;
 import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
+import com.example.datastructure.Suggestion;
 import com.example.datastructure.User;
-
+import com.example.utility.Pair;
 import com.example.view.IPromptPage;
 import com.example.view.IViewPage;
 
 import com.example.view.TablePromptOption;
+
 import com.example.view.pages.CampEnquiryPromptEnquiry;
 import com.example.view.pages.CampWithdrawalPromptPage;
 import com.example.view.pages.CreateCampPromptPage;
 import com.example.view.pages.EditEnquiryPromptPage;
+import com.example.view.pages.AcceptRejectSuggestionPromptPage;
+import com.example.view.pages.EditCampPromptPage;
+
 import com.example.view.pages.LoginPromptPage;
 import com.example.view.pages.RegisterForCampPromptPage;
+import com.example.view.pages.ReplyToEnquiryPromptPage;
 import com.example.view.pages.StaffDashboardPromptPage;
 import com.example.view.pages.StudentDashboardPromptPage;
 
@@ -94,6 +101,91 @@ public class PageGenerator {
         columns.add(camp_details);
         IViewPage p = new TablePromptOption("List of Camps", headers,columns);
         p.perform();
+    }
+    public static void StaffEditCamp(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        ArrayList<Camp> camps = staff.getCampsCreated();
+        IPromptPage<Camp> p = new EditCampPromptPage(camps);
+        p.perform();
+        Camp c = p.getObject();
+        campDataStore.manageData(new StaffCampEdit(staff, c));
+    }
+    public static void ViewEnquiriesStaff(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        ArrayList<String> camps = new ArrayList<>();
+        ArrayList<String> students = new ArrayList<>();
+        ArrayList<String> texts = new ArrayList<>();
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        for(Camp c:staff.getCampsCreated()){
+            for(Enquiry e :c.getEnquiries()){
+                camps.add(c.getCampName());
+                students.add(e.getAuthor().getName());
+                texts.add(e.getText());
+            }
+        }
+        columns.add(camps);
+        columns.add(students);
+        columns.add(texts);
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("camp");
+        headers.add("student");
+        headers.add("text");
+        IViewPage display = new TablePromptOption("Enquiries from Students", headers, columns);
+        display.perform();
+    }
+
+    public static void StaffReplyEnquiry(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        IPromptPage<Pair<Enquiry,Message>> p = new ReplyToEnquiryPromptPage(staff, staff.getCampsCreated());
+        p.perform();
+        staffDBService.DSEnquiryReply(p.getObject());
+    }
+    public static void ViewSuggestionsStaff(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("camp");
+        headers.add("student");
+        headers.add("suggestion");
+        ArrayList<String> camps = new ArrayList<>();
+        ArrayList<String> students = new ArrayList<>();
+        ArrayList<String> suggestions = new ArrayList<>();
+        for(Camp c:staff.getCampsCreated()){
+            for(Suggestion sug :c.getSuggestions()){
+                camps.add(c.getCampName());
+                students.add(sug.getAuthor().getName());
+                suggestions.add(sug.getCamp().toString());
+            }
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camps);
+        columns.add(students);
+        columns.add(suggestions);
+        IViewPage p = new TablePromptOption("Camp Suggestions Committee members", headers, columns);
+        p.perform();
+    }
+    public static void StaffAcceptSuggestion(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("camp");
+        headers.add("student");
+        headers.add("suggestion");
+        ArrayList<String> camps = new ArrayList<>();
+        ArrayList<String> students = new ArrayList<>();
+        ArrayList<String> suggestions = new ArrayList<>();
+        for(Camp c:staff.getCampsCreated()){
+            for(Suggestion sug :c.getSuggestions()){
+                camps.add(c.getCampName());
+                students.add(sug.getAuthor().getName());
+                suggestions.add(sug.getCamp().toString());
+            }
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camps);
+        columns.add(students);
+        columns.add(suggestions);
+        IPromptPage<Suggestion> p = new AcceptRejectSuggestionPromptPage(staff);
+        p.perform();
+        staffDBService.DSSuggestionApprove(p.getObject(), studentDataStore, campDataStore);
     }
 
     // student only

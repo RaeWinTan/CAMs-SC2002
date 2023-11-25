@@ -11,9 +11,10 @@ public enum Page {
     Login("Login Page"),
     ChangePassword("Change password"),
     Logout("Logout"),
-
+    ViewEnquiries("View enquiries from students"),//staffDone
+    ReplyEnquiry("Reply to enquiries from students"),//staffDone
     //for students
-    StudentDashBoard("studentdashboard"),
+    StudentDashBoard("Student Dashboard"),
     ViewAvailableCampsStudent("View camps open to your faculty"),//d
     WithdrawFromCamp("Withdraw from a camp"),//d
     RegisterAttendeeCamp("Register for a camp as an attendee"),//d
@@ -26,7 +27,6 @@ public enum Page {
 
     //for camp commmittee member only
     SuggestionCamp("Make a suggestion"),//
-    ViewEnquiriesFromStudent("View enquiries from students"),//
     ViewSubmittedSuggestions("View all suggestions you have submitted"),//
     EditSuggestion("Edit suggestions you have submitted"),//
     DeleteSuggestion("Delete suggestions you have submitted"),//
@@ -35,14 +35,12 @@ public enum Page {
     GenerateStudentReport("Generate camp report with list of students attending each camp"),
 
     //for staff only
-    StaffDashBoard("staffdashboard"),
+    StaffDashBoard("Staff Dashboard"),
     ViewCampsStaff("View all camps"),
     CreateCamp("Create a camp"),
-    EditCamp("Edit an existing camp"),//
-    ViewEnquiries("View enquiries from students"),//
-    ReplyEnquiry("Reply to enquiries from students"),//
-    ViewSuggestions("View suggestions from camp committee members"),//
-    AcceptRejectSuggestions("Choose suggestions to accept"),//
+    EditCamp("Edit an existing camp"),//d
+    ViewSuggestions("View suggestions from camp committee members"),//d
+    AcceptSuggestion("Choose suggestions to accept"),//d
     GeneratePerformanceReport("Generate a performance report of camp commmittee members");
 
 

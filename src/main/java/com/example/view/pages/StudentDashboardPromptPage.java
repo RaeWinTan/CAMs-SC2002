@@ -36,7 +36,7 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
         
         if(isCommittee){
             this.pages.add(Page.SuggestionCamp);
-            this.pages.add(Page.ViewEnquiriesFromStudent);//same as view enquiry
+            this.pages.add(Page.ViewEnquiries);//same as view enquiry
             this.pages.add(Page.ViewSubmittedSuggestions);//
             this.pages.add(Page.EditSuggestion);
             this.pages.add(Page.DeleteSuggestion);
