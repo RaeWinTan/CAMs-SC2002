@@ -27,7 +27,7 @@ public class StaffCampCreate implements IDataStoreEditOperation<Camp> {
      */
     public StaffCampCreate(Staff staff, Camp camp, IDataStoreEditable<Staff> staffDataStore){
         this.staff = staff;
-        this.camp = camp;
+        this.camp = camp;//i think we should do clone here cuz the camp reference is still in the controler
         this.staffDataStore = staffDataStore;
     }
 

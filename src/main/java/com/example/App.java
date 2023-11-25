@@ -18,7 +18,7 @@ import com.example.datastructure.Camp;
 
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
-
+import com.example.datastructure.User;
 import com.example.exception.InvalidLoginCredentialException;
 
 import com.example.view.*;
@@ -27,97 +27,62 @@ import com.example.view.*;
 
 public class App {
 
-	public static DataStore<Staff> staffDataStore;
-	public static DataStore<Student> studentDataStore;
-	public static DataStore<Camp> campDataStore;
-	
-	public static StaffDBService staffDBService;
-	public static StudentDBService studentDBService;
 
 	
 
 	public static void main(String arg[]) {
-		initialise();
+		PageGenerator.init();
 		workFlow();
-		
+	}
+
+	public static void staffRedirection(Page currentPage, Staff staff){
+		if(currentPage==Page.CreateCamp){
+			PageGenerator.StaffCreateCamp(staff);
+		}else if (currentPage==Page.ViewCampsStaff){
+			PageGenerator.ViewCampsStaff();
+		}
+	}
+	public static void studentRedirection(Page currentPage, Student student){
+
 	}
 
 	public static void workFlow(){
-		Staff staff = null;
-		Student student = null;
-		while(staff==null && student == null){
-			IPromptPage<UserCredentials> loginPage = new LoginPromptPage();
-			loginPage.perform();
-			UserCredentials uc = loginPage.getObject();
-			try{
-				if(uc.getUserType()==UserType.STAFF){
-					staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>(uc.getUserId(), uc.getPassword())).get(0);
-					staffDBService = new StaffDBService(staff);
-				}else{
-					student = studentDataStore.retrieveData(new UserLoginRetrival<Student>(uc.getUserId(), uc.getPassword())).get(0);
-					studentDBService = new StudentDBService(student);
-				}
-			} catch (InvalidLoginCredentialException e){
-				System.out.println(e.getMessage());
-				continue;
+		Page currentPage = Page.Login;
+		while(currentPage.equals(Page.Login)){
+			Staff staff = null;
+			Student student = null;
+			User u = PageGenerator.Login();
+			if(u instanceof Staff){
+				staff = (Staff) u;
+				currentPage = Page.StaffDashBoard;
+			} else{
+				student = (Student) u;
+				currentPage = Page.StudentDashBoard;
 			}
-			while(staff!=null || student!=null){
-				Page currentPage;
-				IPromptPage<Page> dashboard;
-				if(staff!=null){
-					dashboard = new StaffDashboardPromptPage();
-					currentPage = Page.StaffDashBoard;
-				}
-				else{
-					dashboard = new StudentDashboardPromptPage(student);
-					currentPage = Page.StudentDashBoard;
-				}
-				dashboard.perform();
-				currentPage = dashboard.getObject();
-				
-					if(currentPage==Page.CreateCamp){
-						IPromptPage<Camp> p = new CreateCampPromptPage();
-						p.perform();
-						Camp newCamp = p.getObject();
-						newCamp.setCreatedBy(staff);
-						campDataStore.manageData(staffDBService.DSCreateCamp(p.getObject(), staffDataStore));
-					}else if (currentPage==Page.ViewCampsStaff){
-						//here i should just give the 
-						ArrayList<Camp> camps = campDataStore.retrieveData(staffDBService.DSCampRetrival());
-						ArrayList<String> headers = new ArrayList<>();
-						headers.add("camp name");
-						headers.add("description");
-						ArrayList<String> camp_names = new ArrayList<>();
-						ArrayList<String> camp_details = new ArrayList<>();
-						for(Camp c:camps){
-							camp_names.add(c.getCampName());
-							camp_details.add(c.getDescription());
+			while(!currentPage.equals(Page.Login)){//while the person is logged in
+				if(currentPage.equals(Page.StaffDashBoard)){
+					currentPage = PageGenerator.StaffDashBoard();
+				}else if (currentPage.equals(Page.StudentDashBoard)){
+					currentPage = PageGenerator.StudentDashBoard(student);
+				}else{
+					if(currentPage.equals(Page.Logout)){
+						currentPage = Page.Login;
+					}else{
+						if(u instanceof Staff){
+							staffRedirection(currentPage, staff);
+							currentPage = Page.StaffDashBoard;
+						}else{
+							studentRedirection(currentPage, student);
+							currentPage = Page.StudentDashBoard;
 						}
-						ArrayList<ArrayList<String>> columns = new ArrayList<>();
-						columns.add(camp_names);
-						columns.add(camp_details);
-						IViewPage p = new TablePromptOption("List of Camps", headers,columns);
-						p.perform();
 						
 					}
-				
+					
+				}
 				
 			}
 		}
 	}
 	
-
-	private static void initialise(){
-		// Initialise Datastores.
-		staffDataStore = new DataStore<Staff>();
-		studentDataStore = new DataStore<Student>();
-		campDataStore = new DataStore<Camp>();
-		// Populate userDataStore with Staff and Student objects.
-		staffDataStore.manageData(new UserDataStoreLoad<Staff>(new StaffCSVLoader("./src/.data/staff.csv")));
-		studentDataStore.manageData(new UserDataStoreLoad<Student>(new StudentCSVLoader("./src/.data/student.csv")));
-
-		
-		
-	}
 }
 

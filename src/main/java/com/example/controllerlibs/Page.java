@@ -8,6 +8,7 @@ package com.example.controllerlibs;
 //https://howtodoinjava.com/java/enum/java-enum-string-example/
 public enum Page {
     //shared amonst all users
+    Login("Login Page"),
     ChangePassword("Change password"),
     Logout("Logout"),
 
