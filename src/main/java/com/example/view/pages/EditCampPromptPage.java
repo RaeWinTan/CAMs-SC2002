@@ -55,7 +55,7 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
         Camp campToChange;
         ArrayList<Pair<Integer, String>> questions = new ArrayList<>();
         String d = " (enter to skip)";
-        questions.add(new Pair<>(0,"Chose Camp you want to edit"+ d));
+        questions.add(new Pair<>(0,"Choose Camp you want to edit"));
         questions.add(new Pair<>(1,"start date" + d));
         questions.add(new Pair<>(2,"end date" + d));
         questions.add(new Pair<>(3,"Registration closing date" + d));
