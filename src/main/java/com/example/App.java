@@ -41,7 +41,7 @@ public class App {
 			PageGenerator.StudentRegisterAsCommittee(student);
 		else if (currentPage==Page.SubmitEnquiry)
 			PageGenerator.StudentSubmitEnquiry(student);
-		else if (currentPage==Page.ViewEnquiries)
+		else if (currentPage==Page.ViewEnquiry)
 			PageGenerator.ViewEnquiryStudent(student);
 		else if (currentPage==Page.EditEnquiry)
 			PageGenerator.StudentEditEnquiry(student);
@@ -53,8 +53,8 @@ public class App {
 			PageGenerator.CommitteeMakeSuggestion(student);
 		else if (currentPage==Page.ViewEnquiries)
 			PageGenerator.ViewEnquiryCommittee(student);
-		// else if (currentPage==Page.ViewSubmittedSuggestions)
-		// 	PageGenerator.
+		else if (currentPage==Page.ViewSubmittedSuggestions)
+			PageGenerator.ViewSuggestionCommittee(student);
 	}
 
 	public static void workFlow(){

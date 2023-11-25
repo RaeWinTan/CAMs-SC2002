@@ -344,6 +344,7 @@ public class PageGenerator {
         p.perform();
     }
 
+    // Committee
     public static void CommitteeMakeSuggestion(Student s){
         
     }
@@ -370,6 +371,33 @@ public class PageGenerator {
         columns.add(author);
         columns.add(enquiry_text);
         IViewPage p = new TablePromptOption("Enquries for camps you are leading", headers,columns);
+        p.perform();
+    }
+
+    public static void ViewSuggestionCommittee(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("Camp");
+        headers.add("Suggestion");
+        headers.add("Approved");
+        ArrayList<String> camps = new ArrayList<>();
+        ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<String> approveds = new ArrayList<>();
+        for(Suggestion suggestion : student.getSuggestions()){
+            for (CampMember cm: student.getLeading()){
+                if (cm.getCamp().isEquals(suggestion.getCamp())){
+                    camps.add(cm.getCamp().getCampName());
+                    break;
+                }
+            }
+            suggestions.add(suggestion.toString());
+            approveds.add(suggestion.getApproved()?"Y":"N");
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camps);
+        columns.add(suggestions);
+        columns.add(approveds);
+        IViewPage p = new TablePromptOption("Camp Suggestions by you", headers, columns);
         p.perform();
     }
 
