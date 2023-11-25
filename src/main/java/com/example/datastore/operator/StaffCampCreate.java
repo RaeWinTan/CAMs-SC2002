@@ -44,7 +44,7 @@ public class StaffCampCreate implements IDataStoreEditOperation<Camp> {
             throw new IllegalOperationException("Staff creating camp does not match createdBy in camp");
         }
         for(Camp d:data){//make sure no clash in camp name
-            if(d.getCampName() == this.camp.getCampName()) throw new ObjectClash("Camp", camp.getCampName());
+            if(d.getCampName().equals( this.camp.getCampName())) throw new ObjectClash("Camp", camp.getCampName());
         }
         //make sure the attributes are logical
         new CampChecker(this.camp);
