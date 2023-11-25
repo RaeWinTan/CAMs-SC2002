@@ -8,13 +8,24 @@ import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
 import com.example.view.TablePromptOption;
 
-
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for accepting or rejecting suggestions. 
+ * It displays suggestions from the camp committee members and the 
+ * staff user can select one to accept it
+ */
 public class AcceptRejectSuggestionPromptPage implements IPromptPage<Suggestion> {
     private Staff staff;
     private ArrayList<Suggestion> suggestions = new ArrayList<>();
     private IPrompt prompt;
     private String question;
     private Suggestion value;
+
+    /**
+     * Constructor for the class
+     *
+     * @param staff which is the staff user who is accepting the suggestions
+     */
     public AcceptRejectSuggestionPromptPage(Staff staff) {
         this.staff = staff;
         this.initQuestions();
@@ -22,7 +33,11 @@ public class AcceptRejectSuggestionPromptPage implements IPromptPage<Suggestion>
 
 
     
-
+    /**
+     * Initializes the questions to be asked in this prompt.
+     * This includes displaying all the options to be chosen
+     * and setting up the prompt for selection.
+     */
     private void initQuestions() {
         this.question = "Which suggestion do you want to accept";
         for(int j = 0; j < staff.getCampsCreated().size();j++) suggestions.addAll(staff.getCampsCreated().get(j).getSuggestions());
@@ -45,6 +60,9 @@ public class AcceptRejectSuggestionPromptPage implements IPromptPage<Suggestion>
         this.prompt = new TablePromptOption(this.question, headers, objs);
     }
 
+    /**Begin the prompting process
+     * and stores the input the user provides
+     */
     @Override
     public void perform() {
         this.prompt.startPrompt();
@@ -54,7 +72,9 @@ public class AcceptRejectSuggestionPromptPage implements IPromptPage<Suggestion>
     }
 
 
-
+    /**Getter method to return the result
+     * @return value as a Suggestion object
+     */
     @Override
     public Suggestion getObject() {
         return this.value;

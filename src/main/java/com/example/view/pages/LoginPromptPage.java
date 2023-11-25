@@ -11,12 +11,20 @@ import com.example.controllerlibs.UserCredentials;
 import com.example.controllerlibs.UserType;
 import com.example.datastructure.User;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page common to all users
+ *  displayed to them when entering the system.
+ * It requires them to enter their credentials.
+ */
 public class LoginPromptPage implements IPromptPage<UserCredentials>{
     private String userId;
     private String password;
     private String userType;
     private ArrayList<String> questions = new ArrayList<String>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
+
+    /**Constructor for the class */
     public LoginPromptPage() {
         this.initialise_questions();   
         this.initialise_prompts();
@@ -24,11 +32,16 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
 
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
+    /**Initialise the questions for the prompts*/
     private void initialise_questions(){
         questions.add("Please enter your UserID: ");
         questions.add("Please enter your password: ");
         questions.add("Please enter your User Type");   
     }
+
+    /**Adds the questions to the list of prompts to be asked to the user
+     * and also adds options for the question regarding the user type
+     */
     private void initialise_prompts(){
         for(int i = 0; i < this.questions.size(); i++){
             if(i!=2)prompts.add(new Prompt(this.questions.get(i)));
@@ -42,7 +55,9 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
         } 
     }
 
-    
+    /**Begins prompting.
+     * Stores the inputs.
+     */
     public void perform() {
         // TODO Auto-generated method stub
         int i = 0;
@@ -66,6 +81,10 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
             i++;
         }
     }
+
+    /**Getter method to return result
+     * @return new UserCredentials object with the user inputs set
+     */
     public UserCredentials getObject(){
         UserType tmp;
         if(userType.equals("Staff")){

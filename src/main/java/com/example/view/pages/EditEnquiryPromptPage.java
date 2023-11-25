@@ -10,13 +10,27 @@ import com.example.view.IPromptPage;
 import com.example.view.Prompt;
 import com.example.view.TablePromptOption;
 
+/**This class implements IPromptPage.
+ * It is a prompt page for students to edit the enquiries that they
+ * have previously submitted.
+ */
 public class EditEnquiryPromptPage implements IPromptPage<Enquiry>{
     private ArrayList<Enquiry> enquiries;
     private Enquiry value;
+
+    /**Constructor for the class
+     * @param enquiries which is the array list of enquiries submitted by the student
+     */
     public EditEnquiryPromptPage(ArrayList<Enquiry> enquiries){
         //must make sure it its a enquiry with not replies
         this.enquiries = enquiries;
     }
+
+     /**Initialises the questions to be asked in this prompt. It also passes in the
+     * relevant data to populate the table of suggestions and camps
+     * and then it asks the user to choose which suggestion they would
+     * like to delete
+     */
     public void initPrompt(){
         Enquiry enquiryToEdit;
         ArrayList<Pair<Integer, String>> questions = new ArrayList<>();
@@ -43,11 +57,16 @@ public class EditEnquiryPromptPage implements IPromptPage<Enquiry>{
         enquiryToEdit.setText(editText.getResult());
         this.value = enquiryToEdit;
     }
+    /**Begin the prompting process
+     */
     @Override
     public void perform() {
         initPrompt();
     }
 
+    /**Getter method to return the result
+     * @return value as an Enquiry object
+     */
     @Override
     public Enquiry getObject() {
         return value; 

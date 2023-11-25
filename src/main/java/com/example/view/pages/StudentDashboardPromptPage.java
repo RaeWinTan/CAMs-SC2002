@@ -8,11 +8,20 @@ import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
 import com.example.view.PromptOption;
 
+/**This class implements IPromptPage
+ * It has all the pages that represent the functionalities offered by the
+ * Staff Dashboard
+ */
 public class StudentDashboardPromptPage implements IPromptPage<Page>{
     private IPrompt prompt;
     private boolean isCommittee;
     private ArrayList<Page> pages = new ArrayList<>();
     private Page value;
+
+     /**Constructor for the class
+      * @param student to determine whether the user is a committee member or not
+      * since they have more functionalities on their dashboard 
+      */
     public StudentDashboardPromptPage(Student student){//here must determine if committee or not
         initialise_pages();
         this.isCommittee = student.getLeading().size() > 0;
@@ -21,6 +30,10 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
         this.prompt = new PromptOption("What actions you want to do?",os);
     }
 
+     /**Here the relevant pages for the dashboard are initialised and added to the array 
+     * list of pages.
+     * Committee members have more pages available
+     */
     private void initialise_pages(){
         this.pages.add(Page.ChangePassword);
         this.pages.add(Page.WithdrawFromCamp);
@@ -46,6 +59,7 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
     }
 
 
+    /**Here the prompting begins */
     @Override
     public void perform() {
         this.prompt.startPrompt();
@@ -53,6 +67,9 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
         this.value = this.pages.get(i);
     }
 
+    /**Getter method to return result
+     * @return value as a Page object
+     */
     @Override
     public Page getObject() {
         return this.value;

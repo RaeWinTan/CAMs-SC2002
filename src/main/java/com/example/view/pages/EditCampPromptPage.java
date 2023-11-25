@@ -14,6 +14,14 @@ import com.example.view.Prompt;
 import com.example.view.PromptOption;
 import com.example.view.RegexType;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for staff members to create a new camp
+ * and consists of one compulsory question to 
+ * indicate which camp they are editing and
+ * then a series of optional questions to fill
+ * in the details for the new camp that they are creating
+ */
 public class EditCampPromptPage implements IPromptPage<Camp> {
 
 
@@ -21,11 +29,26 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
     private ArrayList<Camp> camps;
     private Camp value;
 
+    /**Constructor for the class
+     * @param camps which is the array list of camps the staff user has created
+     * @exception Exception 
+     */
     public EditCampPromptPage(ArrayList<Camp> camps ) throws Exception {
         this.camps = camps;
     }
     
-
+    /**
+     * Initializes the questions to be asked in this prompt.
+     * It displays the different camps the user created to choose from
+     * to edit.
+     * The rest of the questions are optional since the allowEmpty variable is set
+     * to true. Pressing enter indicates the user doesn't want to change the 
+     * existing value
+     * It has the relevant regex for date and integer inputs. This is
+     * to prevent parse exceptions and also ensure that users only
+     * enter valid input types.
+     * This method also stores the values.
+     */
     private void initPrompts() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //show all camps 
@@ -121,14 +144,16 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
         this.value = campToChange;
     }
 
-
+    /**Begins prompting */
     @Override
     public void perform() {
         initPrompts();
         
     }
 
-
+    /**Returns the Camp object with the set edit values 
+     * @return value as a Camp object
+    */
     @Override
     public Camp getObject() {
        return this.value;

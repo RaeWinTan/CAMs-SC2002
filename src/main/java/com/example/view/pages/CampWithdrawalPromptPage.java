@@ -10,6 +10,11 @@ import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
 import com.example.view.PromptOption;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for students to choose which camp they 
+ * would like to withdraw from
+ */
 public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
 
     private IPrompt prompt;
@@ -17,6 +22,10 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
     private ArrayList<Camp> camps;
     private ArrayList<String>camp_str = new ArrayList<>();
     private Camp value;
+
+    /**Constructor for the class
+     * @param student which is the student who is withdrawing from camp
+     */
     public CampWithdrawalPromptPage(Student student) {
         this.student = student;
         this.camps = new ArrayList<Camp>();
@@ -27,6 +36,9 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
     }
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
+    /**
+     * Initializes the questions to be asked in this prompt.
+     */
     private void initPrompt() {
         
         for(Camp c:this.camps) camp_str.add(c.getCampName());
@@ -34,6 +46,9 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
         
     }
 
+    /**Begin the prompting process
+     * and stores the input the user provides
+     */
     @Override
     public void perform() {
         this.prompt.startPrompt();
@@ -41,6 +56,9 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
         this.value = this.camps.get(idx);
     }
 
+    /**Getter method to return the result
+     * @return value as a Camp object
+     */
     @Override
     public Camp getObject() {
         return this.value;

@@ -9,15 +9,29 @@ import com.example.view.IPromptPage;
 import com.example.view.Prompt;
 import com.example.view.PromptOption;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for the students to choose which camp they
+ * would like to register for.
+ * It displays the different camps open to them and prompts them
+ * to enter an option
+ */
 public class RegisterForCampPromptPage implements IPromptPage<Camp> {
 
     private ArrayList<Camp> camps;
     private IPrompt prompt;
     private Camp value;
+
+    /**Constructor for the class
+     * @param camps which is an array list of camps open to the student
+     */
     public RegisterForCampPromptPage(ArrayList<Camp> camps) {//must intilize list of camps
         this.camps = camps;
     }
 
+    /**Begin prompting.
+     * Displays the options of camps for the student user to choose
+     */
     @Override
     public void perform() {
         ArrayList<String> cs = new ArrayList<String>();
@@ -31,7 +45,9 @@ public class RegisterForCampPromptPage implements IPromptPage<Camp> {
     }
 
 
-
+    /**Getter method to return result
+     * @return value as a Camp object
+     */
     @Override
     public Camp getObject() {
         return this.value;

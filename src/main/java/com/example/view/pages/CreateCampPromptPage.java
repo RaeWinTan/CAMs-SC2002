@@ -15,6 +15,12 @@ import com.example.view.IPromptPage;
 import com.example.view.Prompt;
 import com.example.view.PromptOption;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for staff members to create a new camp
+ * and consists of a series of compulsory questions to fill
+ * in the details for the new camp that they are creating
+ */
 public class CreateCampPromptPage implements IPromptPage<Camp>{
     private String CampName;
     private String CampStartDate;
@@ -35,6 +41,10 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private ArrayList<String> questions = new ArrayList<String>();
     private Camp newCamp;
+
+    /**Constructor for the class
+     * 
+     */
     public CreateCampPromptPage() {
         this.newCamp = new Camp();//
         initPrompts();
@@ -44,7 +54,12 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
 
-
+    /**
+     * Initializes the questions to be asked in this prompt.
+     * It has the relevant regex for date and integer inputs. This is
+     * to prevent parse exceptions and also ensure that users only
+     * enter valid input types
+     */
     private void initPrompts() {
         String dateRegex = "\\d{2}/\\d{2}/\\d{4}"; // Regex for date format DD/MM/YYYY
         String integerRegex = "\\d+"; // Regex for integer values
@@ -67,7 +82,7 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
             else if(i == 4){
                 ArrayList<String> ops = new ArrayList<>();
                 for(int j = 0; j < GroupName.values().length;j++){
-                    ops.add(GroupName.values()[j].toString());//TODO LATER MUST CHANGE ACCORDING TO ROBIN COD
+                    ops.add(GroupName.values()[j].toString());
                 }
                 this.prompts.add(new PromptOption(questions.get(i), ops));
                 
@@ -85,7 +100,9 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
     }
 
 
-
+    /**Begin the prompting process
+     * and stores the input the user provides
+     */
     public void perform() {
         int i = 0;
         while (i < prompts.size()) {
@@ -138,7 +155,11 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
         }}
 
 
-
+    /**This method sets the values returned by the user
+     * into a new Camp object which it then
+     * returns
+     * @return value as a Camp object
+     */
     public Camp getObject() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {

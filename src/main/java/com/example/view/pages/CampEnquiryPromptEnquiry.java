@@ -11,6 +11,10 @@ import com.example.view.IPromptPage;
 import com.example.view.Prompt;
 import com.example.view.PromptOption;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for students to submit camp enquiries
+ */
 public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
     private Student student;
     private Camp campReferingTo;
@@ -19,6 +23,13 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
     private ArrayList<String> cs;
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private ArrayList<String> questions = new ArrayList<String>();
+
+    /**
+     * Constructor for the class
+     *
+     * @param student which is the student submitting the enquiry
+     * @param camps which is the list of camps the student can submit an enquiry for
+     */
     public CampEnquiryPromptEnquiry(Student student, ArrayList<Camp> camps) {
         this.student = student;
         this.camps = camps;
@@ -36,12 +47,17 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
     }
     //public void addQuestion_attribute(String question, String attributeName) {return;}
 
-
+    /**
+     * Initializes the questions to be asked in this prompt.
+     */
     private void initQuestions() {
         questions.add("Which camp you want to enquire about: ");
         questions.add("What do you want to enquire about this camp");
     }
 
+    /**Begin the prompting process
+     * and stores the input the user provides
+     */
     @Override
     public void perform() {//the prompting starts 
         for(int i = 0; i < this.prompts.size(); i++){
@@ -54,6 +70,10 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
             }
         }
     }
+
+    /**Getter method to return the result
+     * @return value as a Enquiry object
+     */
     @Override
     public Enquiry getObject() {
         return new Enquiry(text, student, campReferingTo);

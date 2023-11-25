@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.example.exception.PromptOptionException;
-
+/**This class basically displays data in the form of a table.
+ * It implements both IPrompt and IViewPage to both display data
+ * and also take in the user's option if it is required
+ */
 public class TablePromptOption implements IPrompt,IViewPage {
     private ArrayList<ArrayList<String>> columns;
     private String question;
@@ -15,14 +17,24 @@ public class TablePromptOption implements IPrompt,IViewPage {
     private int maximumRows;
     private final int maxColumnWidth = 40; //set maximum width of columns here
 
+    /**constructor for the class
+     * @param question which is the statement or question displayed
+     * @param headers which is the ArrayList of column titles for the table
+     * @param columns which is the ArrayList of ArrayList of strings for the
+     * content of all the rows
+     */
     public TablePromptOption(String question, ArrayList<String> headers, ArrayList<ArrayList<String>> columns ) {
         this.question = question;
         this.headers = headers;
         this.columns = columns;
-        
-        if(columns.get(0).size()==0) throw new PromptOptionException("There are no data to be displayed");
         this.sc = new Scanner(System.in);
     }
+
+    /**Will display the data. It calculates the width of the columns and accordingly
+     * prints the borders. Furthermore, it also helps the text wrap to the
+     * next line nearly to prevent overflow and excessive stretching of the table
+     * for the sake of neatness and clarity
+     */
     @Override
     public void perform() {
         // calculate max width of columns here based off the content inputted
@@ -122,6 +134,11 @@ public class TablePromptOption implements IPrompt,IViewPage {
         // print the bottom border
         System.out.println(lineSeparator);
     }
+
+    /**will begin the prompting process. this method can be called only
+     * if user input is required. if the table just needs to be displayed
+     * you don't need this method
+     */
     @Override
     public void startPrompt(){
         //this is in case we want to
@@ -140,6 +157,9 @@ public class TablePromptOption implements IPrompt,IViewPage {
         }
     }
 
+    /**getter method to retrieve result
+     * @return the integer choice converted to a string
+     */
     public String getResult() {
         return Integer.toString(this.choice);
     }

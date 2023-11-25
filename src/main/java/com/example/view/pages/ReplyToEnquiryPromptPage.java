@@ -13,6 +13,12 @@ import com.example.view.Prompt;
 import com.example.view.PromptOption;
 import com.example.view.TablePromptOption;
 
+/**
+ * This class implements IPromptPage.
+ * It is a prompt page for the user to reply to enquiries from students 
+ * It displays enquiries from the students and the 
+ * user can select one to accept it
+ */
 public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Message>> {
 
     private ArrayList<String>questions = new ArrayList<>();
@@ -22,6 +28,10 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
     private Pair<Enquiry, Message> value;
 
     //should a message
+    /**Constructor for the class
+     * @param author which is the sender of the message
+     * @param camps which is the list of camps the user can see enquiries from
+     */
     public ReplyToEnquiryPromptPage(User author, ArrayList<Camp> camps) {
         this.author = author;
         this.camps = camps;
@@ -30,13 +40,17 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
         
         
     }
-
+    /**Initialise the list of questions to ask the user */
     private void initialise_questions() {
         questions.add("Which Camp do you want to see enquiries from? ");
         questions.add("Which enquiry you want to reply to");
         questions.add("Submit your reply below");
 
     }
+
+    /**Initialise the list of prompts based off the questions.
+     * Also displays the list of enquiries addressed to the user
+     */
     private void init_prompts(){
         ArrayList<String> cs = new ArrayList<String>();
         for(int i = 0; i < this.camps.size(); i++){
@@ -54,6 +68,9 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
         }
     }
 
+    /**Begin prompting
+     * Displays the options of camps for the student user to choose
+     */
     @Override
     public void perform() {
         Camp campReferingTo = new Camp();
@@ -97,6 +114,9 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
         this.value = new Pair<>(enquiryReferingTo, messageReferingTo);
     }
 
+    /**Getter method to return result
+     * @return value as a Pair of Enquiry object and Message Object
+     */
     @Override
     public Pair<Enquiry, Message> getObject() {
         return this.value;
