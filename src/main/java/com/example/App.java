@@ -84,7 +84,20 @@ public class App {
 						currentPage = PageGenerator.StaffDashBoard();
 					}else if (currentPage.equals(Page.StudentDashBoard)){
 						currentPage = PageGenerator.StudentDashBoard(student);
-					}else{
+					}else if (currentPage.equals(Page.ChangePassword)){
+						if (u instanceof Student){
+							PageGenerator.ChangePassword(student);
+							currentPage = Page.StudentDashBoard;
+						}
+							
+						else if (u instanceof Staff){
+							PageGenerator.ChangePassword(staff);
+							currentPage = Page.StaffDashBoard;
+						}
+							
+					}
+					
+					else{
 						if(currentPage.equals(Page.Logout)){
 							currentPage = Page.Login;
 						}else{

@@ -35,6 +35,7 @@ import com.example.view.TablePromptOption;
 
 import com.example.view.pages.CampEnquiryPromptPage;
 import com.example.view.pages.CampWithdrawalPromptPage;
+import com.example.view.pages.ChangePasswordPromptPage;
 import com.example.view.pages.CreateCampPromptPage;
 import com.example.view.pages.EditEnquiryPromptPage;
 import com.example.view.pages.AcceptRejectSuggestionPromptPage;
@@ -69,6 +70,16 @@ public class PageGenerator {
         }
         return user;
     } 
+
+    public static void ChangePassword(User user){
+        IPromptPage<User> p = new ChangePasswordPromptPage(user);
+        p.perform();
+        if (user instanceof Staff){
+            staffDataStore.manageData(staffDBService.DBUserChangePassword((Staff)p.getObject()));
+        } else if (user instanceof Student){
+            studentDataStore.manageData(studentDBService.DBUserChangePassword((Student)p.getObject()));
+        }
+    }
 
     //staff only
     public static Page StaffDashBoard(){
@@ -139,7 +150,7 @@ public class PageGenerator {
         Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
         IPromptPage<Pair<Enquiry,Message>> p = new ReplyToEnquiryPromptPage(staff, staff.getCampsCreated());
         p.perform();
-        staffDBService.DSEnquiryReply(p.getObject());
+        campDataStore.manageData(staffDBService.DSEnquiryReply(p.getObject()));
     }
     public static void ViewSuggestionsStaff(Staff s){
         Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
