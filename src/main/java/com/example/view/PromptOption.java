@@ -52,7 +52,10 @@ public class PromptOption extends Prompt {
         while(true){
             for (int i = 0; i < this.options.size(); i++) { System.out.println(i  + ". " + this.options.get(i));}
             setValue(getSc().nextLine());
-
+            if(allowEmpty() && getValue().trim().isEmpty()){
+                setValue("");
+                break;
+            }
             if(!allowEmpty() && getValue().trim().isEmpty()){
                 System.out.println("Input cannot be empty. Please try again.");
                 continue;

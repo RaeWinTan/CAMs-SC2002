@@ -2,6 +2,8 @@ package com.example.view.pages;
 
 import java.util.ArrayList;
 
+import javax.management.relation.RoleList;
+
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Student;
@@ -19,8 +21,6 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
 
     private IPrompt prompt;
     private Student student;
-    private ArrayList<Camp> camps;
-    private ArrayList<String>camp_str = new ArrayList<>();
     private Camp value;
 
     /**Constructor for the class
@@ -28,9 +28,6 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
      */
     public CampWithdrawalPromptPage(Student student) {
         this.student = student;
-        this.camps = new ArrayList<Camp>();
-        for(CampMember cm:student.getAttending()) this.camps.add(cm.getCamp());
-        initPrompt();
         
         
     }
@@ -39,21 +36,22 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
     /**
      * Initializes the questions to be asked in this prompt.
      */
-    private void initPrompt() {
-        
-        for(Camp c:this.camps) camp_str.add(c.getCampName());
-        this.prompt = new PromptOption("Enter the name of the camp you would like to withdraw from", camp_str);
-        
-    }
+   
 
     /**Begin the prompting process
      * and stores the input the user provides
      */
     @Override
     public void perform() {
-        this.prompt.startPrompt();
-        int idx = camp_str.indexOf(this.prompt.getResult());
-        this.value = this.camps.get(idx);
+        ArrayList<Camp> camps = new ArrayList<>();
+        for(CampMember cm:student.getAttending()) camps.add(cm.getCamp());
+        ArrayList<String> campNames = new ArrayList<>();
+        for(Camp c: camps) campNames.add(c.getCampName());
+        System.out.println(campNames.size()+"size;");
+        prompt = new PromptOption("What camp you want to withdraw from", campNames);
+        prompt.startPrompt();
+        int idx = campNames.indexOf(this.prompt.getResult());
+        this.value = camps.get(idx);
     }
 
     /**Getter method to return the result
