@@ -1,4 +1,4 @@
-package com.example;
+package com.example.controllerlibs;
 public class UserCredentials{
 	private String userId;
 	private String password;

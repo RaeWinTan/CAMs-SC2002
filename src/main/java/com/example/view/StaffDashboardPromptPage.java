@@ -1,20 +1,54 @@
 package com.example.view;
 
 import java.util.ArrayList;
-/* 
-public class StaffDashboardPromptPage implements IPromptPage{
 
-    @Override
-    public ArrayList<IPrompt> returnInputs() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'returnInputs'");
+import com.example.controllerlibs.Page;
+
+
+public class StaffDashboardPromptPage implements IPromptPage<Page>{
+
+    private IPrompt prompt;
+    private ArrayList<Page> pages = new ArrayList<>();
+    private Page value;
+    public StaffDashboardPromptPage(){//here must determine if committee or not
+        initialise_pages();
+        ArrayList<String> os = new ArrayList<String>();
+        for(int i = 0; i < this.pages.size(); i++) {
+            os.add(this.pages.get(i).getPageView());
+        }
+        try {
+            this.prompt = new PromptOption("What actions you want to do?",os);
+        } catch (Exception e) {e.printStackTrace();}
     }
+
+    private void initialise_pages(){
+        this.pages.add(Page.ChangePassword);
+        this.pages.add(Page.ViewCampsStaff);
+        this.pages.add(Page.CreateCamp);
+        this.pages.add(Page.EditCamp);
+        this.pages.add(Page.ViewEnquiries);
+        this.pages.add(Page.ReplyEnquiry);
+        this.pages.add(Page.ViewSuggestions);
+        this.pages.add(Page.AcceptRejectSuggestions);
+        this.pages.add(Page.GeneratePerformanceReport);
+        this.pages.add(Page.GenerateStudentReport);
+        this.pages.add(Page.Logout);
+    }
+
 
     @Override
     public void perform() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'prompting'");
+        this.prompt.startPrompt();
+        int i = 0;
+        for(i = 0; i < this.pages.size(); i++){
+            if(this.pages.get(i).getPageView().equals(this.prompt.getResult())) break;
+        }
+        this.value = this.pages.get(i);
     }
-    
+
+    @Override
+    public Page getObject() {
+        return this.value;
+    }
+
 }
- */

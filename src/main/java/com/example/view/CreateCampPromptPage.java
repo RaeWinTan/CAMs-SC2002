@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.example.UserType;
+import com.example.controllerlibs.UserType;
 import com.example.datastructure.Camp;
 import com.example.datastructure.GroupName;
 import com.example.utility.Pair;

@@ -12,7 +12,7 @@ import com.example.datastore.IDataStoreObject;
 public class Camp implements IDataStoreObject<Camp>{
 	private UUID campId = null;
 	private String campName= null;
-	private Date[] dates;
+	private Date[] dates = null;
 	private Date closingDate= null;
 	private GroupName userGroup= null;
 	private String location= null;
@@ -109,7 +109,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * Get method for totalSlots.
 	 * @return		Maximum number of slots for students to participate (including committees).
 	 */
-	public int getTotalSlots() {
+	public Integer getTotalSlots() {
 		return this.totalSlots;
 	}
 
@@ -117,7 +117,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * Get method for comitteeSlot.
 	 * @return 		Maximum number of slots for commitee members.
 	 */
-	public int getCommitteeSlot() {
+	public Integer getCommitteeSlot() {
 		return this.committeeSlots;
 	}
 
@@ -141,7 +141,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * Get method for visibility.
 	 * @return		Flag for Student's access to view the camp.
 	 */
-	public boolean getVisibility() {
+	public Boolean getVisibility() {
 		return this.visibility;
 	}
 
@@ -191,12 +191,6 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param dates		Dates in which the camp is active.
 	 */
 	public void setDates(Date[] dates) {
-		if (dates[1].before(dates[0]))
-			throw new IllegalArgumentException("End date cannot be earlier than start date.");
-		if (closingDate != null){
-			if (dates[0].before(closingDate))
-				throw new IllegalArgumentException("Closing date cannot be after camp start date.");
-		}
 		
 		this.dates = dates.clone();
 	}
@@ -206,10 +200,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param closingDate		Last day for registration.
 	 */
 	public void setClosingDate(Date closingDate) {
-		if (dates[0] != null){
-			if (dates[0].before(closingDate))
-				throw new IllegalArgumentException("Closing date cannot be after camp start date.");
-		}
+		
 		this.closingDate = closingDate;
 	}
 
@@ -234,12 +225,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param totalSlots		Maximum number of slots for students to participate (including committees).
 	 */
 	public void setTotalSlots(int totalSlots) {
-		if (totalSlots < this.committeeSlots){
-			throw new IllegalArgumentException("Number of committee members shall not exceed total number of participants");
-		}
-		if (totalSlots < this.attendees.size() + this.committees.size()){
-			throw new IllegalArgumentException("Number of participants exceeds the new total slot value.");
-		}
+		
 		this.totalSlots = totalSlots;
 	}
 
@@ -248,9 +234,7 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param committeeSlots		Maximum number of slots for commitee members.
 	 */
 	public void setCommitteeSlot(int committeeSlots) {
-		if (committeeSlots < this.committees.size()){
-			throw new IllegalArgumentException("Number of committees exceeds the new commitee slot value.");
-		}
+		
 		this.committeeSlots = committeeSlots;
 	}
 
@@ -289,7 +273,7 @@ public class Camp implements IDataStoreObject<Camp>{
 			this.setUserGroup(other.userGroup);
 		if (other.getLocation()!=null)
 			this.setLocation(other.getLocation());
-		if (other.getTotalSlots()>=0)
+		if (other.getTotalSlots()!=null)
 			this.setTotalSlots(other.getTotalSlots());
 		if (other.getCommitteeSlot()>=0)
 			this.setCommitteeSlot(other.getCommitteeSlot());

@@ -3,9 +3,9 @@ package com.example.view;
 import java.util.ArrayList;
 
 import com.example.utility.Pair;
+import com.example.controllerlibs.UserCredentials;
+import com.example.controllerlibs.UserType;
 import com.example.datastructure.User;
-import com.example.UserCredentials;
-import com.example.UserType;
 
 public class LoginPromptPage implements IPromptPage<UserCredentials>{
     private String userId;

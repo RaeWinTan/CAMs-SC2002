@@ -1,5 +1,5 @@
 package com.example.view;
-public interface IViewPage<T> {
+public interface IViewPage {
     public void perform();
-    public T getObject();
+
 }

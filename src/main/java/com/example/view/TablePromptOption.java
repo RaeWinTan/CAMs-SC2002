@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TablePromptOption implements IPrompt {
+public class TablePromptOption implements IPrompt,IViewPage {
     private ArrayList<ArrayList<String>> columns;
     private String question;
     private ArrayList<String> headers;
@@ -19,8 +19,8 @@ public class TablePromptOption implements IPrompt {
         this.columns = columns;
         this.sc = new Scanner(System.in);
     }
-
-    public void display() {
+    @Override
+    public void perform() {
         // calculate max width of columns here based off the content inputted
         List<Integer> columnWidths = new ArrayList<>();
         for (int j = 0; j < columns.size(); ++j) {
@@ -118,10 +118,10 @@ public class TablePromptOption implements IPrompt {
         // print the bottom border
         System.out.println(lineSeparator);
     }
-
+    @Override
     public void startPrompt(){
         //this is in case we want to
-        display();
+        perform();
         System.out.println("Enter the number of your choice:");
         while (!sc.hasNextInt()) {
             System.out.println("That's not a number. Please enter a valid number.");
