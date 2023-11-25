@@ -32,7 +32,8 @@ import com.example.view.IViewPage;
 
 import com.example.view.TablePromptOption;
 
-import com.example.view.pages.CampEnquiryPromptEnquiry;
+
+import com.example.view.pages.CampEnquiryPromptPage;
 import com.example.view.pages.CampWithdrawalPromptPage;
 import com.example.view.pages.CreateCampPromptPage;
 import com.example.view.pages.EditEnquiryPromptPage;
@@ -238,11 +239,7 @@ public class PageGenerator {
 
     public static void StudentSubmitEnquiry(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
-        ArrayList<Camp> attendingCamp = new ArrayList<>();
-        for (CampMember cm : student.getAttending()) {
-            attendingCamp.add(cm.getCamp());
-        }
-        IPromptPage<Enquiry> p = new CampEnquiryPromptEnquiry(student, attendingCamp);
+        IPromptPage<Enquiry> p = new CampEnquiryPromptPage(student);
         p.perform();
         campDataStore.manageData(studentDBService.DSEnquiryCreate(p.getObject(), studentDataStore));
     }
@@ -390,8 +387,10 @@ public class PageGenerator {
 
     private static void DELETETHIS_campinit() throws ParseException{
 
+        Student student;
         Staff staff;
         Camp camp;
+        Camp tempCamp;
 
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ANWIT", "password")).get(0);
         staffDBService = new StaffDBService(staff);
@@ -422,6 +421,8 @@ public class PageGenerator {
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
 
+        tempCamp = camp.copyOf();
+
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("SCSE Camp - Visible");
@@ -450,5 +451,11 @@ public class PageGenerator {
         camp.setDescription("Camp for NBS");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
+
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STUDENT", "password")).get(0);
+        studentDBService = new StudentDBService(student);
+        
+        //Enquiry enquiry = new Enquiry("")
+    
     }
 }

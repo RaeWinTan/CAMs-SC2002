@@ -3,6 +3,7 @@ package com.example.view.pages;
 import java.util.ArrayList;
 
 import com.example.datastructure.Camp;
+import com.example.datastructure.CampMember;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Student;
 import com.example.utility.Pair;
@@ -15,12 +16,12 @@ import com.example.view.PromptOption;
  * This class implements IPromptPage.
  * It is a prompt page for students to submit camp enquiries
  */
-public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
+public class CampEnquiryPromptPage implements IPromptPage<Enquiry> {
     private Student student;
     private Camp campReferingTo;
     private String text;
     private ArrayList<Camp> camps;
-    private ArrayList<String> cs;
+    private ArrayList<String> cs = new ArrayList<String>();
     private ArrayList<IPrompt> prompts = new ArrayList<IPrompt>();
     private ArrayList<String> questions = new ArrayList<String>();
 
@@ -30,13 +31,16 @@ public class CampEnquiryPromptEnquiry implements IPromptPage<Enquiry> {
      * @param student which is the student submitting the enquiry
      * @param camps which is the list of camps the student can submit an enquiry for
      */
-    public CampEnquiryPromptEnquiry(Student student, ArrayList<Camp> camps) {
+    public CampEnquiryPromptPage(Student student) {
         this.student = student;
-        this.camps = camps;
+        this.camps = new ArrayList<>();
+        for(CampMember cm: student.getAttending()){
+            camps.add(cm.getCamp());
+            
+        } 
         initQuestions();
-         cs = new ArrayList<>();
-        for(int i = 0; i < 0; i++) cs.add(camps.get(i).getCampName());
-        for(int i = 0; i < this.prompts.size();i++){
+        for(int i = 0; i < camps.size(); i++) cs.add(camps.get(i).getCampName());
+        for(int i = 0; i < this.questions.size();i++){
             if(i == 0){
                this.prompts.add(new PromptOption(this.questions.get(i),cs));
             }else { 
