@@ -49,8 +49,8 @@ public class App {
 			PageGenerator.ViewAllRegisteredCampsStudent(student);
 		else if (currentPage==Page.SuggestionCamp)
 			PageGenerator.CommitteeMakeSuggestion(student);
-		else if (currentPage==Page.ViewEnquiriesFromStudent)
-			PageGenerator.ViewEnquiryCommittee(student);
+		// else if (currentPage==Page.ViewEnquiriesFromStudent)
+		// 	PageGenerator.ViewEnquiryCommittee(student);
 		// else if (currentPage==Page.ViewSubmittedSuggestions)
 		// 	PageGenerator.
 	}
