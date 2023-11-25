@@ -49,8 +49,8 @@ public class App {
 			PageGenerator.ViewAllRegisteredCampsStudent(student);
 		else if (currentPage==Page.SuggestionCamp)
 			PageGenerator.CommitteeMakeSuggestion(student);
-		// else if (currentPage==Page.ViewEnquiriesFromStudent)
-		// 	PageGenerator.ViewEnquiryCommittee(student);
+		else if (currentPage==Page.ViewEnquiries)
+			PageGenerator.ViewEnquiryCommittee(student);
 		// else if (currentPage==Page.ViewSubmittedSuggestions)
 		// 	PageGenerator.
 	}
@@ -77,7 +77,7 @@ public class App {
 			}
 			while(!currentPage.equals(Page.Login)){//while the person is logged in
 				System.out.println(ANSI_GREEN_BACKGROUND+currentPage.getPageView()+ANSI_RESET);
-				try{
+				//try{
 					if(currentPage.equals(Page.StaffDashBoard)){
 						currentPage = PageGenerator.StaffDashBoard();
 					}else if (currentPage.equals(Page.StudentDashBoard)){
@@ -96,11 +96,11 @@ public class App {
 							
 						}
 					}
-				} catch (Exception e){
-					System.out.println(ANSI_RED+e.getMessage()+ANSI_RESET);
-					if(u instanceof Staff) currentPage = Page.StaffDashBoard;
-					else currentPage = Page.StudentDashBoard;
-				}
+				//} catch (Exception e){
+				// 	System.out.println(ANSI_RED+e.getMessage()+ANSI_RESET);
+				// 	if(u instanceof Staff) currentPage = Page.StaffDashBoard;
+				// 	else currentPage = Page.StudentDashBoard;
+				// }
 			}
 		}
 	}
