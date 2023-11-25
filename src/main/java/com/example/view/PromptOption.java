@@ -67,7 +67,7 @@ public class PromptOption extends Prompt {
                 continue;
             }
             setValue(this.options.get(ans));
-            System.out.println("Value is here ;"+getValue());
+           
             break;
         }
     }

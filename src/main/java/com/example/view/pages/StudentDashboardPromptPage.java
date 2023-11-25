@@ -63,7 +63,11 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
     @Override
     public void perform() {
         this.prompt.startPrompt();
-        int i = Integer.valueOf(this.prompt.getResult());
+        
+        int i = 0;
+        for(i = 0; i < this.pages.size(); i++){
+            if(this.pages.get(i).getPageView().equals(this.prompt.getResult())) break;
+        }
         this.value = this.pages.get(i);
     }
 
