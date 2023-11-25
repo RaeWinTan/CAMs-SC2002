@@ -2,7 +2,7 @@ package com.example.view;
 
 import java.util.ArrayList;
 
-import com.example.Page;
+import com.example.controllerlibs.Page;
 
 
 public class StaffDashboardPromptPage implements IPromptPage<Page>{

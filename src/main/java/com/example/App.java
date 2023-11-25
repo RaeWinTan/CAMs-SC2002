@@ -1,28 +1,26 @@
 package com.example;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
+import com.example.controllerlibs.Page;
+import com.example.controllerlibs.UserCredentials;
+import com.example.controllerlibs.UserType;
 import com.example.dataloader.StaffCSVLoader;
 import com.example.dataloader.StudentCSVLoader;
 import com.example.dataservice.admin.StaffDBService;
 import com.example.dataservice.student.StudentDBService;
 import com.example.datastore.DataStore;
-import com.example.datastore.operator.StaffCampCreate;
-import com.example.datastore.operator.StaffCampRetrival;
+
 import com.example.datastore.operator.UserDataStoreLoad;
 import com.example.datastore.operator.UserLoginRetrival;
 import com.example.datastructure.Camp;
-import com.example.datastructure.Enquiry;
-import com.example.datastructure.GroupName;
+
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
-import com.example.datastructure.Suggestion;
+
 import com.example.exception.InvalidLoginCredentialException;
-import com.example.exception.ObjectClash;
+
 import com.example.view.*;
 
 
@@ -84,6 +82,7 @@ public class App {
 						newCamp.setCreatedBy(staff);
 						campDataStore.manageData(staffDBService.DSCreateCamp(p.getObject(), staffDataStore));
 					}else if (currentPage==Page.ViewCampsStaff){
+						//here i should just give the 
 						ArrayList<Camp> camps = campDataStore.retrieveData(staffDBService.DSCampRetrival());
 						ArrayList<String> headers = new ArrayList<>();
 						headers.add("camp name");
