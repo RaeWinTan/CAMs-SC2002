@@ -1,6 +1,7 @@
 package com.example.dataservice.student;
 
 import com.example.dataservice.UserDBService;
+import com.example.datastore.DataStore;
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastore.IDataStoreRetrivable;
 import com.example.datastore.operator.AdminReplyToEnquiry;
@@ -36,12 +37,12 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
 		return new StudentCampRetrival(this.student);
 	}
     @Override
-    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe) {
-        return new StudentJoinCampAsAttendee(this.student, camp, studentDataStorE, studentDataStoRe);
+    public IDataStoreEditOperation<Camp> DSJoinCampAsAttendee(Camp camp, DataStore<Student> studentDS) {
+        return new StudentJoinCampAsAttendee(this.student, camp, studentDS,studentDS);
     }
     @Override
-    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe) {
-        return new StudentJoinCampAsCommittee(this.student, camp, studentDataStorE, studentDataStoRe);
+    public IDataStoreEditOperation<Camp> DSJoinCampAsCommittee(Camp camp, DataStore<Student> studentDS) {
+        return new StudentJoinCampAsCommittee(this.student, camp, studentDS, studentDS);
     }
 
     @Override
@@ -50,8 +51,8 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
     }
 
     @Override
-    public IDataStoreEditOperation<Camp> DSEnquiryCreate(Enquiry enquiry, IDataStoreEditable<Student> studentDataStore) {
-        return new StudentEnquiryCreate(this.student, enquiry, studentDataStore);
+    public IDataStoreEditOperation<Camp> DSEnquiryCreate(Enquiry enquiry, IDataStoreEditable<Student> studentDSEditable) {
+        return new StudentEnquiryCreate(this.student, enquiry, studentDSEditable);
     }
 
     @Override
@@ -70,13 +71,13 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
 	}
 
     @Override
-    public IDataStoreEditOperation<Camp> DSSuggestionCreate(Suggestion suggestion, IDataStoreEditable<Student> studentDataStorE, IDataStoreRetrivable<Student> studentDataStoRe){
-        return new CommitteeMakeSuggestion(this.student, suggestion, studentDataStorE, studentDataStoRe);
+    public IDataStoreEditOperation<Camp> DSSuggestionCreate(Suggestion suggestion, DataStore<Student> studentDS){
+        return new CommitteeMakeSuggestion(this.student, suggestion, studentDS, studentDS);
     }
 
     @Override 
-    public IDataStoreEditOperation<Camp> DSSuggestioNDelete(Suggestion suggestion, IDataStoreEditable<Student> studentDataStore){
-        return new CommitteeDeleteSuggestion(this.student, suggestion, studentDataStore);
+    public IDataStoreEditOperation<Camp> DSSuggestioNDelete(Suggestion suggestion, IDataStoreEditable<Student> studentDSEditable){
+        return new CommitteeDeleteSuggestion(this.student, suggestion, studentDSEditable);
     }
 
     @Override
