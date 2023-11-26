@@ -25,7 +25,7 @@ public class PromptOption extends Prompt {
     public PromptOption(String question, ArrayList<String> options) {
         super(question);
         this.options = options;
-        if (this.options == null || options.size() == 0) throw new PromptOptionException("The is not options for prompt message of " + question);
+        if (this.options == null || options.size() == 0) throw new PromptOptionException("Have not options for: " + question);
     }
 
     /**constructor with question, boolean, default value and option array list
