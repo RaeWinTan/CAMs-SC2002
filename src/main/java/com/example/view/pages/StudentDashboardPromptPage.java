@@ -13,6 +13,9 @@ import com.example.view.PromptOption;
  * Staff Dashboard
  */
 public class StudentDashboardPromptPage implements IPromptPage<Page>{
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     private IPrompt prompt;
     private boolean isCommittee;
     private ArrayList<Page> pages = new ArrayList<>();
@@ -67,6 +70,7 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
     /**Here the prompting begins */
     @Override
     public void perform() {
+        System.out.println(isCommittee?ANSI_GREEN_BACKGROUND+"COMMITTEE MEMBER"+ANSI_RESET:ANSI_YELLOW_BACKGROUND+"NON-COMMITTEE MEMBER"+ANSI_RESET);
         this.prompt.startPrompt();
         
         int i = 0;
