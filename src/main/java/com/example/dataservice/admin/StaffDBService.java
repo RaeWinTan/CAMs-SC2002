@@ -1,5 +1,6 @@
 package com.example.dataservice.admin;
 
+import com.example.controllerlibs.ReportFilter;
 import com.example.dataservice.UserDBService;
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastore.IDataStoreRetrivable;
@@ -97,7 +98,7 @@ public class StaffDBService extends UserDBService<Staff> implements IStaffCampDB
 	}
 
 	@Override
-	public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName){
-		return new StaffGenerateParticipantReport(staff, fileName);
+	public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName, ReportFilter reportFilter){
+		return new StaffGenerateParticipantReport(staff, fileName, reportFilter);
 	}
 }
