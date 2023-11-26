@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.example.controllerlibs.Page;
+import com.example.controllerlibs.ReportFilter;
 import com.example.controllerlibs.UserCredentials;
 import com.example.controllerlibs.UserType;
 import com.example.dataloader.StaffCSVLoader;
@@ -41,6 +42,7 @@ import com.example.view.pages.CreateSuggestionPromptPage;
 import com.example.view.pages.DeleteSuggestionPromptPage;
 import com.example.view.pages.EditEnquiryPromptPage;
 import com.example.view.pages.EditSuggestionPromptPage;
+import com.example.view.pages.GenerateStudentReportPromptPage;
 import com.example.view.pages.AcceptRejectSuggestionPromptPage;
 import com.example.view.pages.EditCampPromptPage;
 
@@ -275,7 +277,21 @@ public class PageGenerator {
         campDataStore.manageData(staffDBService.DSSuggestionApprove(p.getObject(), studentDataStore, campDataStore));
     }
 
+    public static void StaffGenerateStudentReport(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        IPromptPage<ReportFilter> p = new GenerateStudentReportPromptPage();
+        p.perform();
+        //TODO
+    }
+
     // student only
+    public static void StudentGenerateStudentReport(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        IPromptPage<ReportFilter> p = new GenerateStudentReportPromptPage();
+        p.perform();
+        //TODO
+    }
+
     public static Page StudentDashBoard(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
         IPromptPage<Page> dashboard = new StudentDashboardPromptPage(student);

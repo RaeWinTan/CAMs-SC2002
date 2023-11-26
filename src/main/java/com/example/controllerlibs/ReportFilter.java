@@ -1,4 +1,4 @@
-package com.example.datastructure;
+package com.example.controllerlibs;
 
 public enum ReportFilter {
         //shared amonst all users
