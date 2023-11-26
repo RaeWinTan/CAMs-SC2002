@@ -86,10 +86,16 @@ public class App {
 				u = PageGenerator.Login();
 				if(u instanceof Staff){
 					staff = (Staff) u;
-					currentPage = Page.StaffDashBoard;
+					if(u.isDefaultPassword()){
+						currentPage = Page.ChangePassword;
+
+					}else currentPage = Page.StaffDashBoard;
 				} else{
 					student = (Student) u;
-					currentPage = Page.StudentDashBoard;
+					if(u.isDefaultPassword()){
+						currentPage = Page.ChangePassword;
+					}
+					else currentPage = Page.StudentDashBoard;
 				}
 			}catch(InvalidLoginCredentialException e){
 				System.out.println(ANSI_RED+e.getMessage()+ANSI_RESET);
