@@ -41,8 +41,8 @@ public enum Page {
     EditCamp("Edit an existing camp"),//d
     ViewSuggestions("View suggestions from camp committee members"),//d
     AcceptSuggestion("Choose suggestions to accept"),//d
-    GeneratePerformanceReport("Generate a performance report of camp commmittee members");
-
+    GeneratePerformanceReport("Generate a performance report of camp commmittee members"),
+    ViewCampsCreatedStaff("Camps created");
 
     private String pageView;
     Page(String pageView){

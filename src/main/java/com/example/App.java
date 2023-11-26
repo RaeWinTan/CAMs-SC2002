@@ -28,6 +28,8 @@ public class App {
 			PageGenerator.ViewSuggestionsStaff(staff);
 		}else if(currentPage==Page.AcceptSuggestion){
 			PageGenerator.StaffAcceptSuggestion(staff);
+		}else if(currentPage==Page.ViewCampsCreatedStaff){
+			PageGenerator.ViewCampsCreatedStaff(staff);
 		}
 	}
 	public static void studentRedirection(Page currentPage, Student student){
