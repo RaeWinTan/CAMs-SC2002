@@ -6,7 +6,7 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Student;
-import com.example.utility.Pair;
+
 import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
 import com.example.view.Prompt;

@@ -76,8 +76,8 @@ public class EditSuggestionPromptPage implements IPromptPage<Suggestion>{
         questions.add(new Pair<>(6,"committee slots" + d));
         questions.add(new Pair<>(7,"camp description" + d));
         questions.add(new Pair<>(8, "Visibility"+d));
-        Date[] ds = new Date[2];
         Camp campToChange = this.value;
+        Date[] ds = new Date[2];
         ds[0] = (Date)campToChange.getDates()[0].clone();
         ds[1] = (Date)campToChange.getDates()[1].clone();
 

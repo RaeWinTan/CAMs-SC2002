@@ -98,22 +98,107 @@ public class PageGenerator {
         newCamp.setCreatedBy(staff);
         campDataStore.manageData(staffDBService.DSCreateCamp(p.getObject(), staffDataStore));
     }
-
+    public static void ViewCampsCreatedStaff(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        ArrayList<Camp> camps = staff.getCampsCreated();
+        ArrayList<String> headers = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        headers.add("camp name");
+        headers.add("closing date");
+        headers.add("start date");
+        headers.add("end date");
+        headers.add("open to");
+        headers.add("location");
+        headers.add("total slots");
+        headers.add("committee slots");
+        headers.add("description");
+        headers.add("visibility");
+        
+        ArrayList<String> camp_names = new ArrayList<>();
+        ArrayList<String> closing_dates = new ArrayList<>();
+        ArrayList<String> start_dates = new ArrayList<>();
+        ArrayList<String> end_dates = new ArrayList<>();
+        ArrayList<String> openTos = new ArrayList<>();
+        ArrayList<String> locations = new ArrayList<>();
+        ArrayList<String> totalSlots = new ArrayList<>();
+        ArrayList<String> committeeSlots = new ArrayList<>();
+        ArrayList<String> descriptions = new ArrayList<>();
+        ArrayList<String> visibilitys = new ArrayList<>();
+        for(Camp c:camps){
+            camp_names.add(c.getCampName());
+            closing_dates.add(sdf.format(c.getClosingDate()));
+            start_dates.add(sdf.format(c.getDates()[0]));
+            end_dates.add(sdf.format(c.getDates()[1]));
+            openTos.add(c.getUserGroup().toString());
+            locations.add(c.getLocation());
+            totalSlots.add(c.getTotalSlots()+"");
+            committeeSlots.add(c.getCommitteeSlot()+"");
+            descriptions.add(c.getDescription());
+            visibilitys.add(c.getVisibility()+"");
+        }
+        ArrayList<ArrayList<String>> columns = new ArrayList<>();
+        columns.add(camp_names);
+        columns.add(closing_dates);
+        columns.add(start_dates);
+        columns.add(end_dates);
+        columns.add(openTos);
+        columns.add(locations);
+        columns.add(totalSlots);
+        columns.add(committeeSlots);
+        columns.add(descriptions);
+        columns.add(visibilitys);
+        IViewPage p = new TablePromptOption("List of Camps", headers,columns);
+        p.perform();
+    }
     public static void ViewCampsStaff(){
         ArrayList<Camp> camps = campDataStore.retrieveData(staffDBService.DSCampRetrival());
 
         ArrayList<String> headers = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         headers.add("camp name");
+        headers.add("closing date");
+        headers.add("start date");
+        headers.add("end date");
+        headers.add("open to");
+        headers.add("location");
+        headers.add("total slots");
+        headers.add("committee slots");
         headers.add("description");
+        headers.add("visibility");
+        
         ArrayList<String> camp_names = new ArrayList<>();
-        ArrayList<String> camp_details = new ArrayList<>();
+        ArrayList<String> closing_dates = new ArrayList<>();
+        ArrayList<String> start_dates = new ArrayList<>();
+        ArrayList<String> end_dates = new ArrayList<>();
+        ArrayList<String> openTos = new ArrayList<>();
+        ArrayList<String> locations = new ArrayList<>();
+        ArrayList<String> totalSlots = new ArrayList<>();
+        ArrayList<String> committeeSlots = new ArrayList<>();
+        ArrayList<String> descriptions = new ArrayList<>();
+        ArrayList<String> visibilitys = new ArrayList<>();
         for(Camp c:camps){
             camp_names.add(c.getCampName());
-            camp_details.add(c.getDescription());
+            closing_dates.add(sdf.format(c.getClosingDate()));
+            start_dates.add(sdf.format(c.getDates()[0]));
+            end_dates.add(sdf.format(c.getDates()[1]));
+            openTos.add(c.getUserGroup().toString());
+            locations.add(c.getLocation());
+            totalSlots.add(c.getTotalSlots()+"");
+            committeeSlots.add(c.getCommitteeSlot()+"");
+            descriptions.add(c.getDescription());
+            visibilitys.add(c.getVisibility()+"");
         }
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(camp_names);
-        columns.add(camp_details);
+        columns.add(closing_dates);
+        columns.add(start_dates);
+        columns.add(end_dates);
+        columns.add(openTos);
+        columns.add(locations);
+        columns.add(totalSlots);
+        columns.add(committeeSlots);
+        columns.add(descriptions);
+        columns.add(visibilitys);
         IViewPage p = new TablePromptOption("List of Camps", headers,columns);
         p.perform();
     }
@@ -215,18 +300,48 @@ public class PageGenerator {
     public static void ViewCampStudent(Student student){
         ArrayList<Camp> camps = campDataStore.retrieveData(studentDBService.DSCampRetrival());
 
-        ArrayList<String> headers = new ArrayList<>();
+         ArrayList<String> headers = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         headers.add("camp name");
+        headers.add("closing date");
+        headers.add("start date");
+        headers.add("end date");
+        headers.add("open to");
+        headers.add("location");
+        headers.add("remainding slots");
         headers.add("description");
+        headers.add("visibility");
+        
         ArrayList<String> camp_names = new ArrayList<>();
-        ArrayList<String> camp_details = new ArrayList<>();
+        ArrayList<String> closing_dates = new ArrayList<>();
+        ArrayList<String> start_dates = new ArrayList<>();
+        ArrayList<String> end_dates = new ArrayList<>();
+        ArrayList<String> openTos = new ArrayList<>();
+        ArrayList<String> locations = new ArrayList<>();
+        ArrayList<String> remaindingSlots = new ArrayList<>();
+        ArrayList<String> descriptions = new ArrayList<>();
+        ArrayList<String> visibilitys = new ArrayList<>();
         for(Camp c:camps){
             camp_names.add(c.getCampName());
-            camp_details.add(c.getDescription());
+            closing_dates.add(sdf.format(c.getClosingDate()));
+            start_dates.add(sdf.format(c.getDates()[0]));
+            end_dates.add(sdf.format(c.getDates()[1]));
+            openTos.add(c.getUserGroup().toString());
+            locations.add(c.getLocation());
+            remaindingSlots.add(c.getRemaindingSlots()+"");
+            descriptions.add(c.getDescription());
+            visibilitys.add(c.getVisibility()+"");
         }
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(camp_names);
-        columns.add(camp_details);
+        columns.add(closing_dates);
+        columns.add(start_dates);
+        columns.add(end_dates);
+        columns.add(openTos);
+        columns.add(locations);
+        columns.add(remaindingSlots);
+        columns.add(descriptions);
+        columns.add(visibilitys);
         IViewPage p = new TablePromptOption("List of Camps", headers,columns);
         p.perform();
     }
