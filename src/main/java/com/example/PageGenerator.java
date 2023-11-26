@@ -3,11 +3,14 @@ package com.example;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.UUID;
 
 import com.example.controllerlibs.Page;
 import com.example.controllerlibs.ReportFilter;
+import com.example.controllerlibs.SortBy;
 import com.example.controllerlibs.UserCredentials;
 import com.example.controllerlibs.UserType;
 import com.example.dataloader.StaffCSVLoader;
@@ -29,9 +32,10 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.datastructure.User;
 import com.example.utility.Pair;
+import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
 import com.example.view.IViewPage;
-
+import com.example.view.PromptOption;
 import com.example.view.TablePromptOption;
 
 
@@ -54,12 +58,16 @@ import com.example.view.pages.StaffDashboardPromptPage;
 import com.example.view.pages.StudentDashboardPromptPage;
 
 public class PageGenerator {
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_RESET = "\u001B[0m";
     public static DataStore<Staff> staffDataStore;
 	public static DataStore<Student> studentDataStore;
 	public static DataStore<Camp> campDataStore;
 	
 	public static StaffDBService staffDBService = null;
 	public static StudentDBService studentDBService = null;
+    public static ArrayList<SortBy> sortBy = new ArrayList<>(Arrays.asList(SortBy.values()));
+    public static ArrayList<String> sortyBy_str = new ArrayList<>();
     //shared
     public static User Login(){
         IPromptPage<UserCredentials> loginPage = new LoginPromptPage();
@@ -127,6 +135,7 @@ public class PageGenerator {
         ArrayList<String> committeeSlots = new ArrayList<>();
         ArrayList<String> descriptions = new ArrayList<>();
         ArrayList<String> visibilitys = new ArrayList<>();
+        sortCamps(camps);
         for(Camp c:camps){
             camp_names.add(c.getCampName());
             closing_dates.add(sdf.format(c.getClosingDate()));
@@ -179,6 +188,7 @@ public class PageGenerator {
         ArrayList<String> committeeSlots = new ArrayList<>();
         ArrayList<String> descriptions = new ArrayList<>();
         ArrayList<String> visibilitys = new ArrayList<>();
+        sortCamps(camps);
         for(Camp c:camps){
             camp_names.add(c.getCampName());
             closing_dates.add(sdf.format(c.getClosingDate()));
@@ -283,19 +293,19 @@ public class PageGenerator {
         p.perform();
         String fileName = "ParticipantReport-" + UUID.randomUUID().toString();
         campDataStore.manageData(staffDBService.DSGenerateParticipantReport(fileName, p.getObject()));
-        System.out.println("Participant Report saved as " + fileName + ".csv");
+        System.out.println(ANSI_GREEN_BACKGROUND+"Participant Report saved as " + fileName + ".csv"+ANSI_RESET);
     }
 
     public static void StaffGenerateEnquiryReport(){
         String fileName = "EnquiryReport-" + UUID.randomUUID().toString();
         campDataStore.manageData(staffDBService.DSGenerateEnquiryReport(fileName));
-        System.out.println("Enquiry Report saved as " + fileName + ".txt");
+        System.out.println(ANSI_GREEN_BACKGROUND+"Enquiry Report saved as " + fileName + ".txt"+ANSI_RESET);
     }
 
     public static void StaffGeneratePerformanceReport(){
         String fileName = "PerformanceReport-" + UUID.randomUUID().toString();
         campDataStore.manageData(staffDBService.DSGeneratePerformanceReport(fileName,studentDataStore));
-        System.out.println("Performance Report saved as " + fileName + ".csv");
+        System.out.println(ANSI_GREEN_BACKGROUND+"Performance Report saved as " + fileName + ".csv"+ANSI_RESET);
     }
 
     // student only
@@ -311,11 +321,36 @@ public class PageGenerator {
         dashboard.perform();
 		return dashboard.getObject();
     }
-
+    private static void sortCamps(ArrayList<Camp> cs){
+        IPrompt po= new PromptOption("How would you like to filter", true, "Camp name", sortyBy_str);
+        po.startPrompt();
+        SortBy sb = SortBy.fromString(po.getResult());
+        if(sb.equals(SortBy.CampName)){
+                cs.sort(
+                    Comparator.comparing((Camp cc)->{
+                        return cc.getCampName();
+                    })
+                );
+        }else if (sb.equals(SortBy.ClosingDate)){
+            cs.sort(
+                    Comparator.comparing((Camp cc)->{
+                        return cc.getClosingDate();
+                    })
+                );
+        }else{
+            cs.sort(
+                    Comparator.comparing((Camp cc)->{
+                        return cc.getLocation();
+                    })
+                );
+        }
+    }
     public static void ViewCampStudent(Student student){
-        ArrayList<Camp> camps = campDataStore.retrieveData(studentDBService.DSCampRetrival());
+        
+        
 
-         ArrayList<String> headers = new ArrayList<>();
+        ArrayList<Camp> camps = campDataStore.retrieveData(studentDBService.DSCampRetrival());
+        ArrayList<String> headers = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         headers.add("camp name");
         headers.add("closing date");
@@ -338,6 +373,8 @@ public class PageGenerator {
         ArrayList<String> remaindingCSlots = new ArrayList<>();
         ArrayList<String> descriptions = new ArrayList<>();
         ArrayList<String> visibilitys = new ArrayList<>();
+        
+        sortCamps(camps);
         for(Camp c:camps){
             camp_names.add(c.getCampName());
             closing_dates.add(sdf.format(c.getClosingDate()));
@@ -350,6 +387,7 @@ public class PageGenerator {
             descriptions.add(c.getDescription());
             visibilitys.add(c.getVisibility()+"");
         }
+        
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(camp_names);
         columns.add(closing_dates);
@@ -421,30 +459,69 @@ public class PageGenerator {
         p.perform();
         campDataStore.manageData(studentDBService.DSEnquiryEdit(p.getObject()));
     }
-
+    private static void sortCampMembers(ArrayList<Pair<CampMember, String>> cs){
+        IPrompt po= new PromptOption("How would you like to filter", true, "Camp name", sortyBy_str);
+        po.startPrompt();
+        SortBy sb = SortBy.fromString(po.getResult());
+        if(sb.equals(SortBy.CampName)){
+                cs.sort(
+                    Comparator.comparing((Pair<CampMember, String> cc)->{
+                        return cc.getFirst().getCamp().getCampName();
+                    })
+                );
+        }else if (sb.equals(SortBy.ClosingDate)){
+            cs.sort(
+                    Comparator.comparing((Pair<CampMember, String> cc)->{
+                        return cc.getFirst().getCamp().getClosingDate();
+                    })
+                );
+        }else{
+            cs.sort(
+                    Comparator.comparing((Pair<CampMember, String> cc)->{
+                        return cc.getFirst().getCamp().getLocation();
+                    })
+                );
+        }
+    }
     public static void ViewAllRegisteredCampsStudent(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
-
+        //need tot ask how would he like to Filter it by
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
         ArrayList<String> headers = new ArrayList<>();
         headers.add("camp name");
         headers.add("description");
+        headers.add("location");
+        headers.add("closing date");
         headers.add("role");
+        
         ArrayList<String> camp_names = new ArrayList<>();
         ArrayList<String> camp_details = new ArrayList<>();
+        ArrayList<String> locations = new ArrayList<>();
+        ArrayList<String> closingDates = new ArrayList<>();
         ArrayList<String> roles = new ArrayList<>();
+        ArrayList<Pair<CampMember, String>> cms = new ArrayList<>();
+        
         for(CampMember cm:student.getAttending()){
-            camp_names.add(cm.getCamp().getCampName());
-            camp_details.add(cm.getCamp().getDescription());
-            roles.add("Attendee");
+            cms.add(new Pair<>(cm, "Attendee"));
+            
         }
         for(CampMember cm:student.getLeading()){
-            camp_names.add(cm.getCamp().getCampName());
-            camp_details.add(cm.getCamp().getDescription());
-            roles.add("Committee Member");
+            cms.add(new Pair<>(cm, "Committee"));
         }
+        sortCampMembers(cms);
+        for(Pair<CampMember, String> ccc:cms){
+            camp_names.add(ccc.getFirst().getCamp().getCampName());
+            camp_details.add(ccc.getFirst().getCamp().getDescription());
+            closingDates.add(formatter.format(ccc.getFirst().getCamp().getClosingDate()));
+            locations.add(ccc.getFirst().getCamp().getLocation());
+            roles.add(ccc.getSecond());    
+        }
+        
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(camp_names);
         columns.add(camp_details);
+        columns.add(locations);
+        columns.add(closingDates);
         columns.add(roles);
         IViewPage p = new TablePromptOption("Camps attended by you", headers,columns);
         p.perform();
@@ -529,9 +606,6 @@ public class PageGenerator {
 
     public static void ViewSuggestionCommittee(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
-
-
-
         ArrayList<String> headers = new ArrayList<>();
         headers.add("Camp");
         headers.add("Suggestion");
@@ -571,6 +645,9 @@ public class PageGenerator {
     // Controller
 
     public static void init(){
+        for(SortBy rf : sortBy){
+            sortyBy_str.add(rf.toString());
+        }
         staffDataStore = new DataStore<Staff>();
 		studentDataStore = new DataStore<Student>();
 		campDataStore = new DataStore<Camp>();
