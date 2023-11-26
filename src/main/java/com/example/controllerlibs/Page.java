@@ -69,7 +69,9 @@ public enum Page {
     /** Generate Performance Report page for Staff */
     PerformanceReport("Generate Committee performance Report"),
     /** Generate Enquiry Report page for Staff */
-    EnquiryReport("Generate Enquiry");
+    EnquiryReport("Generate Enquiry"),
+    /** Delete Camp page for Staff */
+    DeleteCamp("Delete Camp");
 
     private String pageView;
     Page(String pageView){

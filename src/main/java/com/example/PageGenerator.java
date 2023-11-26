@@ -44,6 +44,7 @@ import com.example.view.pages.CampWithdrawalPromptPage;
 import com.example.view.pages.ChangePasswordPromptPage;
 import com.example.view.pages.CreateCampPromptPage;
 import com.example.view.pages.CreateSuggestionPromptPage;
+import com.example.view.pages.DeleteCampPromptPage;
 import com.example.view.pages.DeleteSuggestionPromptPage;
 import com.example.view.pages.EditEnquiryPromptPage;
 import com.example.view.pages.EditSuggestionPromptPage;
@@ -104,6 +105,13 @@ public class PageGenerator {
         IPromptPage<Page> dashboard = new StaffDashboardPromptPage();
         dashboard.perform();
 		return dashboard.getObject();
+    }
+
+    public static void StaffDeleteCamp(Staff s){
+        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
+        IPromptPage<Camp> p = new DeleteCampPromptPage(staff);
+        p.perform();
+        campDataStore.manageData(staffDBService.DSDeleteCamp(p.getObject(), staffDataStore, studentDataStore));
     }
 
     public static void StaffCreateCamp(Staff staff){
