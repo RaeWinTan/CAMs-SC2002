@@ -262,24 +262,24 @@ public class Camp implements IDataStoreObject<Camp>{
 	}
 
 	public void setAll(Camp other){
-		if (other.getCampName()!=null)
-			this.setCampName(other.getCampName());
-		if (other.getDates()!=null)
-			this.setDates(other.getDates());
-		if (other.getClosingDate()!=null)
-			this.setClosingDate(other.getClosingDate());
-		if (other.getUserGroup()!=null)
-			this.setUserGroup(other.userGroup);
-		if (other.getLocation()!=null)
-			this.setLocation(other.getLocation());
-		if (other.getTotalSlots()!=null)
-			this.setTotalSlots(other.getTotalSlots());
-		if (other.getCommitteeSlot()>=0)
-			this.setCommitteeSlot(other.getCommitteeSlot());
-		if (other.getDescription()!=null)
-			this.setDescription(other.getDescription());
-		if (other.getVisibility())
-			this.setVisibility(other.getVisibility());
+		
+		this.setCampName(other.getCampName());
+	
+		this.setDates(other.getDates());
+
+		this.setClosingDate(other.getClosingDate());
+
+		this.setUserGroup(other.userGroup);
+
+		this.setLocation(other.getLocation());
+
+		this.setTotalSlots(other.getTotalSlots());
+
+		this.setCommitteeSlot(other.getCommitteeSlot());
+
+		this.setDescription(other.getDescription());
+
+		this.setVisibility(other.getVisibility());
 	}
 
 	/**
