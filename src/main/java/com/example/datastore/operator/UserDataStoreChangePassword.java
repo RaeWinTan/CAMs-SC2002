@@ -31,6 +31,7 @@ public class UserDataStoreChangePassword<T extends User> implements IDataStoreEd
             T u = data.get(i);
             if (u.isEquals(user)){
                 u.setPassword(user.getPassword());
+                u.setIsDefaultPassword(false);
                 return;
             }
         }

@@ -12,6 +12,7 @@ public abstract class User { //implements IDataStoreObject<User>{
 	private String password = null;
 	private GroupName faculty = null;
 	private String name = null;
+	private boolean isDefaultPassword = true;
 
 	/**
 	 * Constructor for User class, password will be set to default.
@@ -80,6 +81,14 @@ public abstract class User { //implements IDataStoreObject<User>{
 	public void setPassword(String password) {
 		this.password = password;
 	} 
+
+	public boolean getIsDefaultPassword(){
+		return this.isDefaultPassword;
+	}
+
+	public void setIsDefaultPassword(boolean isDefaultPassword){
+		this.isDefaultPassword = isDefaultPassword;
+	}
 
 
 	/**
