@@ -7,8 +7,8 @@ import com.example.datastructure.Student;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in StudentEnquiryDelete.
  * Student DataStore edit Operator for removing an Enquiry from a Student.
+ * NOTE: This class is only to be used in StudentEnquiryDelete.
  * @see StudentEnquiryDelete
  * @see IDataStoreEditOperation
  */

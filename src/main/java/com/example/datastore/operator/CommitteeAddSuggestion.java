@@ -7,8 +7,8 @@ import com.example.datastructure.Suggestion;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in CommitteeMakeSuggestion.
  * Student DataStore edit Operator for creating a Suggestion by a committee member.
+ * NOTE: This class is only to be used in CommitteeMakeSuggestion.
  * @see CommitteeMakeSuggestion
  * @see IDataStoreEditOperation
  */

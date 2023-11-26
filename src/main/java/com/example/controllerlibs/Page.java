@@ -1,48 +1,74 @@
 package com.example.controllerlibs;
 
-//import com.example.view.CampWithdrawalPromptPage;
-//import com.example.view.DeleteSuggestion;
-
-//refer to StudentDatshBoardPromptPage to make this mapping
-//look at this link you should get where i am going with this:
-//https://howtodoinjava.com/java/enum/java-enum-string-example/
+/**
+ * Page enum for navigating between pages.
+ */
 public enum Page {
     //shared amonst all users
-    Login("Login Page"), //d
-    ChangePassword("Change password"), //d
-    Logout("Logout"),  //d
-    ViewEnquiries("View enquiries from students"),//staffDone
-    ReplyEnquiry("Reply to enquiries from students"),//staffDone
+    /** Login Page for all User*/
+    Login("Login Page"),
+    /** Change Password page for all User*/
+    ChangePassword("Change password"), 
+    /** Logout page for all User*/
+    Logout("Logout"),
+    /** View attendee-submitted enquries page for Staff and Committee Member*/
+    ViewEnquiries("View enquiries from students"),
+    /** Reply to attendee-submitted enquries page for Staff and Committee Member*/
+    ReplyEnquiry("Reply to enquiries from students"),
     //for students
-    StudentDashBoard("Student Dashboard"), //d
-    ViewAvailableCampsStudent("View camps open to your faculty"),//d
-    WithdrawFromCamp("Withdraw from a camp"),//d
-    RegisterAttendeeCamp("Register for a camp as an attendee"),//d
-    RegisterCommitteeCamp("Register for a camp as a committee"),//d
-    SubmitEnquiry("Submit an enquiry"),//dd
-    ViewEnquiry("View enquiries that you submitted previously"),//d
-    EditEnquiry("Edit enquiries that you submitted previously"),//d
-    ViewAllRegisteredCamps("View all the camps you have registered for"),//d
-    ViewRepliesToEnquiry("View replies to enquiries you have submitted"),//d
+
+    /** Dashboard page for Student */
+    StudentDashBoard("Student Dashboard"),
+    /** View all available camp page for Student */
+    ViewAvailableCampsStudent("View camps open to your faculty"),
+    /** Withdraw from Camp page for all Student */
+    WithdrawFromCamp("Withdraw from a camp"),
+    /** Register for Camp as Attendee page for Student */
+    RegisterAttendeeCamp("Register for a camp as an attendee"),
+    /** Register for Camp as Committee Member page for Student */
+    RegisterCommitteeCamp("Register for a camp as a committee"),
+    /** Submit Enquiry page for Attendee */
+    SubmitEnquiry("Submit an enquiry"),
+    /** View self-submitted Enquiry page for Attendee */
+    ViewEnquiry("View enquiries that you submitted previously"),
+    /** Edit self-submitted Enquiry page for Attendee */
+    EditEnquiry("Edit enquiries that you submitted previously"),
+    /** View all registered Camps page for Student */
+    ViewAllRegisteredCamps("View all the camps you have registered for"),
+    /** View Reply to self-submitted Enqury page for Attendee */
+    ViewRepliesToEnquiry("View replies to enquiries you have submitted"),
 
     //for camp commmittee member only
-    CreateSuggestion("Create a suggestion"),//
-    ViewSubmittedSuggestions("View all suggestions you have submitted"),//d
-    EditSuggestion("Edit suggestions you have submitted"),//
-    DeleteSuggestion("Delete suggestions you have submitted"),//
+    /** Create Suggestion page for Committee Member */
+    CreateSuggestion("Create a suggestion"),
+    /** View self-submitted Suggestion page for Committee Member */
+    ViewSubmittedSuggestions("View all suggestions you have submitted"),
+    /** Edit self-submitted Suggestion page for Committee Member */
+    EditSuggestion("Edit suggestions you have submitted"),
+    /** Delete self-submitted Suggestion page for Committee Member */
+    DeleteSuggestion("Delete suggestions you have submitted"),
 
-    //for both camp committee and staff
+    /** Generate Participant Report page for Staff and Committee Member */
     GenerateStudentReport("Generate camp report with list of students attending each camp"),
 
     //for staff only
+    /** Dashboard page for Staff */
     StaffDashBoard("Staff Dashboard"),
+    /** View all Camp page for Staff */
     ViewCampsStaff("View all camps"),
+    /** Create Camp page for Staff */
     CreateCamp("Create a camp"),
-    EditCamp("Edit an existing camp"),//d
-    ViewSuggestions("View suggestions from camp committee members"),//d
-    AcceptSuggestion("Choose suggestions to accept"),//d
+    /** Edit self-created camp page for Staff */
+    EditCamp("Edit an existing camp"),
+    /** View Committee-Member-submitted Suggestion page for Staff */
+    ViewSuggestions("View suggestions from camp committee members"),
+    /** Accept Committee-Member-submitted Suggestion page for Staff */
+    AcceptSuggestion("Choose suggestions to accept"),
+    /** View self-created Camp page for Staff */
     ViewCampsCreatedStaff("Camps created"),
+    /** Generate Performance Report page for Staff */
     PerformanceReport("Generate Committee performance Report"),
+    /** Generate Enquiry Report page for Staff */
     EnquiryReport("Generate Enquiry");
 
     private String pageView;

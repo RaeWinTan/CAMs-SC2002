@@ -8,8 +8,8 @@ import com.example.datastructure.Student;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in StudentJoinCampAsAttendee.
  * Student DataStore edit operator to add attending camp to Student.
+ * NOTE: This class is only to be used in StudentJoinCampAsAttendee.
  * @see StudentJoinCampAsAttendee
  * @see IDataStoreEditOperation
  */

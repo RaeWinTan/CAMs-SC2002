@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
-import com.example.utility.Pair;
 
+/**
+ * Class storing data of an enquiry. Extends Message.
+ */
 public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
     private Camp to;
     private ArrayList<Message> replies;
@@ -36,7 +38,7 @@ public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
      * @param author    Student who made the enquiry.
      * @param to        Camp the enquiry is made for.
      */
-    public Enquiry(UUID messageId, String text, Student author, Camp to, ArrayList<Message> replies){
+    private Enquiry(UUID messageId, String text, Student author, Camp to, ArrayList<Message> replies){
         super(messageId, text,author);
         this.to = to;
         this.replies = replies;
@@ -50,10 +52,12 @@ public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
         return this.to;
     }
 
+    /** Get method for replies to enquiry  */
     public ArrayList<Message> getReplies(){
         return this.replies;
     }
 
+    /** Method to add reply to enquiry. */
     public void addReply(Message reply){
         this.replies.add(reply);
     }
@@ -79,13 +83,5 @@ public class Enquiry extends Message implements IDataStoreObject<Enquiry>{
             repliesCopy.add(message.copyOf());
         }
 		return new Enquiry(this.getMessageId(), this.getText(), (Student) this.getAuthor(), this.to, repliesCopy);
-	}
-
-    public ArrayList<Pair<String, String>> toAttributeValueMapping(){
-		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
-		rtn.add(new Pair<String, String>("text", this.text));
-		rtn.add(new Pair<String, String>("author", this.author.getName()));
-		rtn.add(new Pair<String, String>("password", this.to.getCampName()));
-		return rtn;
 	}
 }

@@ -1,0 +1,14 @@
+com.example
+com.example.controllerlibs
+com.example.dataloader
+com.example.dataservice
+com.example.dataservice.admin
+com.example.dataservice.student
+com.example.datastore
+com.example.datastore.objectchecker
+com.example.datastore.operator
+com.example.datastructure
+com.example.exception
+com.example.utility
+com.example.view
+com.example.view.pages

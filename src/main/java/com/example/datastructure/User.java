@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-// import datastore.IDataStoreObject;
 
+/**
+ * Class Storing data of a User.
+ */
 public abstract class User { //implements IDataStoreObject<User>{
 
 	private String userId = null;

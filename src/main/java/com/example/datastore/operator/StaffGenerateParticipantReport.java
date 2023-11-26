@@ -12,18 +12,31 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 
+/**
+ * Camp DataStore edit operator for generating a participant report.
+ * @see IDataStoreEditOperation
+ */
 public class StaffGenerateParticipantReport implements IDataStoreEditOperation<Camp> {
 
     Staff staff;
     String fileName;
     ReportFilter reportFilter;
 
+    /**
+     * Constructor for StaffGenerateParticipantReport
+     * @param staff         Staff generating the report.
+     * @param fileName      File path & name for report to be saved as.
+     * @param reportFilter  Type of filter for the report.
+     */
     public StaffGenerateParticipantReport(Staff staff, String fileName, ReportFilter reportFilter){
         this.staff = staff;
         this.fileName = fileName + ".csv";
         this.reportFilter = reportFilter;
     }
 
+    /**
+     * Write down a list of participants (depending on filer) if the camp is created by the Staff.
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         try {

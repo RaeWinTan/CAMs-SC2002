@@ -14,7 +14,6 @@ public interface IDataStoreEditOperation<T> {
 	 * This method modifies data provided by DataStore. 
 	 * Modification behaviour shall differ for each class.
 	 * @param data		ArrayList from DataStore.
-	 * @see DataStore
 	 */
 	void perform(ArrayList<T> data);
 }

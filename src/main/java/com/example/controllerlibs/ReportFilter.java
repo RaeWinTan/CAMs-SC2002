@@ -1,9 +1,14 @@
 package com.example.controllerlibs;
 
+/**
+ * ReportFilter enum for filtering generated report by student role.
+ */
 public enum ReportFilter {
-        //shared amonst all users
+        /** Filter by Attendee only */
         Attendee("Attendee"),
+        /** Filter by Committee only */
         Committee("Committee"),
+        /** No filer, show all */
         All("All");
         
         private String reportFilter;

@@ -7,8 +7,8 @@ import com.example.datastructure.Student;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in StudentEnquiryCreate.
  * Student DataStore edit operator to add Enquiry to Student.
+ * NOTE: This class is only to be used in StudentEnquiryCreate.
  * @see StudentEnquiryCreate
  * @see IDataStoreEditOperation
  */

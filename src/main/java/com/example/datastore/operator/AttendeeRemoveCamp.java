@@ -7,8 +7,8 @@ import com.example.datastructure.Student;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in AttendeeCampQuit.
  * Student DataStore edit Operator for removing a Camp from a Student.
+ * NOTE: This class is only to be used in AttendeeCampQuit.
  * @see AttendeeCampQuit
  * @see IDataStoreEditOperation
  */

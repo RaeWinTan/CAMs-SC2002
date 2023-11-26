@@ -6,6 +6,9 @@ import com.example.datastore.operator.IDataStoreEditOperation;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Student;
 
+/**
+ * Interface for Student's access to Report generation.
+ */
 public interface IStudentReportDBService {
     public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName, IDataStoreRetrivable<Student> studentDSRetrivable, ReportFilter reportFilter);
 }

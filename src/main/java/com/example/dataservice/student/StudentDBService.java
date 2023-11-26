@@ -26,10 +26,19 @@ import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.utility.Pair;
 
+/**
+ * Class for creating DataStore operator classes that Student has access to.
+ * @see IDataStoreEditOperation  
+ * @see IDataStoreRetrivalOperation  
+ */
 public class StudentDBService extends UserDBService<Student> implements IStudentCampDBService, IStudentEnquiryDBService, IStudentSuggestionDBService, IStudentReportDBService {
 
     private Student student;
     
+    /**
+	 * Constructor for StudentDBService.
+	 * @param student	Reference to student, required by some operations.
+	 */
     public StudentDBService(Student student){
         this.student = student;
     }

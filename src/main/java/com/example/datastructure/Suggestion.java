@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
 
+/**
+ * Class storing data of a Suggestion.
+ */
 public class Suggestion implements IDataStoreObject<Suggestion> {
     private UUID suggestionId;
     private Student author;
