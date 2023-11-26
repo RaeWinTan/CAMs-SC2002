@@ -2,6 +2,8 @@ package com.example.view.pages;
 
 import java.util.ArrayList;
 
+import com.example.datastructure.Camp;
+import com.example.datastructure.CampMember;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Suggestion;
 import com.example.view.IPrompt;
@@ -41,18 +43,30 @@ public class AcceptRejectSuggestionPromptPage implements IPromptPage<Suggestion>
     private void initQuestions() {
         this.question = "Which suggestion do you want to accept";
         for(int j = 0; j < staff.getCampsCreated().size();j++) suggestions.addAll(staff.getCampsCreated().get(j).getSuggestions());
+        
+        
         ArrayList<String> headers = new ArrayList<>();
-        headers.add("Camp name");
-        headers.add("author");
+        headers.add("Original");
+        headers.add("Author");
         headers.add("Suggestion");
         ArrayList<String> camp_string = new ArrayList<>();
         ArrayList<String> author_string = new ArrayList<>();
         ArrayList<String> suggestion_string = new ArrayList<>();
+
         ArrayList<ArrayList<String>> objs = new ArrayList<ArrayList<String>>();
         for(int k = 0; k < suggestions.size(); k++){
-            camp_string.add(suggestions.get(k).getCamp().toString());
-            author_string.add(suggestions.get(k).getAuthor().getUserId());
-            suggestion_string.add(suggestions.get(k).getCamp().toString());            
+            if (suggestions.get(k).getApproved()){
+                continue;
+            }
+            for (Camp c : staff.getCampsCreated()) {
+                if (c.isEquals(suggestions.get(k).getCamp())){
+                    camp_string.add(c.toString());
+                    break;
+                }
+            }
+            
+            author_string.add(suggestions.get(k).getAuthor().getName());
+            suggestion_string.add(suggestions.get(k).getCamp().toString());          
         }
         objs.add(camp_string);
         objs.add(author_string);

@@ -63,6 +63,8 @@ public class App {
 		}
 		else if (currentPage==Page.CreateSuggestion)
 			PageGenerator.CommitteeMakeSuggestion(student);
+		else if (currentPage==Page.ReplyEnquiry)
+			PageGenerator.CommitteeReplyEnquiry(student);
 	}
 
 	public static void workFlow(){

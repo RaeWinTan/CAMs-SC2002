@@ -37,27 +37,29 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
      */
     private void initialise_pages(){
         this.pages.add(Page.ChangePassword);
-        this.pages.add(Page.WithdrawFromCamp);
+        this.pages.add(Page.ViewAvailableCampsStudent);
+        this.pages.add(Page.ViewAllRegisteredCamps);
         this.pages.add(Page.RegisterAttendeeCamp);
+        this.pages.add(Page.RegisterCommitteeCamp);
         
         this.pages.add(Page.SubmitEnquiry);
         this.pages.add(Page.EditEnquiry);
-        this.pages.add(Page.RegisterCommitteeCamp);
-        this.pages.add(Page.ViewAllRegisteredCamps);
-        this.pages.add(Page.ViewAvailableCampsStudent);
-         this.pages.add(Page.ViewEnquiry);
+        this.pages.add(Page.ViewEnquiry);   // view own enquiry
         this.pages.add(Page.ViewRepliesToEnquiry);
-        
+
         if(isCommittee){
             this.pages.add(Page.CreateSuggestion);
-            this.pages.add(Page.ViewSubmittedSuggestions);//
-            
-            this.pages.add(Page.ViewEnquiries);//same as view enquiry
-            
+            this.pages.add(Page.ViewSubmittedSuggestions);
             this.pages.add(Page.EditSuggestion);
             this.pages.add(Page.DeleteSuggestion);
+            
+            this.pages.add(Page.ViewEnquiries); // view enquries by other students
+            this.pages.add(Page.ReplyEnquiry);
+
             this.pages.add(Page.GenerateStudentReport);
         }
+
+        this.pages.add(Page.WithdrawFromCamp);
         this.pages.add(Page.Logout);
     }
 

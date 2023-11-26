@@ -243,46 +243,33 @@ public class PageGenerator {
     public static void ViewSuggestionsStaff(Staff s){
         Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
         ArrayList<String> headers = new ArrayList<>();
-        headers.add("camp");
-        headers.add("student");
-        headers.add("suggestion");
+        headers.add("Camp");
+        headers.add("Student");
+        headers.add("Suggestion");
+        headers.add("Approved");
         ArrayList<String> camps = new ArrayList<>();
         ArrayList<String> students = new ArrayList<>();
         ArrayList<String> suggestions = new ArrayList<>();
+        ArrayList<String> approveds = new ArrayList<>();
         for(Camp c:staff.getCampsCreated()){
             for(Suggestion sug :c.getSuggestions()){
                 camps.add(c.getCampName());
                 students.add(sug.getAuthor().getName());
                 suggestions.add(sug.getCamp().toString());
+                approveds.add(sug.getApproved()+"");
             }
         }
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(camps);
         columns.add(students);
         columns.add(suggestions);
+        columns.add(approveds);
         IViewPage p = new TablePromptOption("Camp Suggestions Committee members", headers, columns);
         p.perform();
     }
     public static void StaffAcceptSuggestion(Staff s){
         Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
-        ArrayList<String> headers = new ArrayList<>();
-        headers.add("camp");
-        headers.add("student");
-        headers.add("suggestion");
-        ArrayList<String> camps = new ArrayList<>();
-        ArrayList<String> students = new ArrayList<>();
-        ArrayList<String> suggestions = new ArrayList<>();
-        for(Camp c:staff.getCampsCreated()){
-            for(Suggestion sug :c.getSuggestions()){
-                camps.add(c.getCampName());
-                students.add(sug.getAuthor().getName());
-                suggestions.add(sug.getCamp().toString());
-            }
-        }
-        ArrayList<ArrayList<String>> columns = new ArrayList<>();
-        columns.add(camps);
-        columns.add(students);
-        columns.add(suggestions);
+
         IPromptPage<Suggestion> p = new AcceptRejectSuggestionPromptPage(staff);
         p.perform();
         campDataStore.manageData(staffDBService.DSSuggestionApprove(p.getObject(), studentDataStore, campDataStore));
@@ -542,6 +529,17 @@ public class PageGenerator {
         p.perform();
     }
 
+    public static void CommitteeReplyEnquiry(Student s){
+        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
+        ArrayList<Camp> camps = new ArrayList<>();
+        for (CampMember cm : student.getLeading()) {
+            camps.add(cm.getCamp());
+        }
+        IPromptPage<Pair<Enquiry,Message>> p = new ReplyToEnquiryPromptPage(student, camps);
+        p.perform();
+        campDataStore.manageData(staffDBService.DSEnquiryReply(p.getObject()));
+    }
+
     // Controller
 
     public static void init(){
@@ -634,7 +632,7 @@ public class PageGenerator {
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
 
-        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STUDENT", "password")).get(0);
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD", "password")).get(0);
         studentDBService = new StudentDBService(student);
         
         campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp, studentDataStore));
@@ -649,7 +647,7 @@ public class PageGenerator {
         campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq,reply)));
 
 
-        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STUDENT", "password")).get(0);
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD", "password")).get(0);
         studentDBService = new StudentDBService(student);
 
         campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp2, studentDataStore));

@@ -34,6 +34,9 @@ public class EditSuggestionPromptPage implements IPromptPage<Suggestion>{
         ArrayList<String> newCamps_str = new ArrayList<>();
         ArrayList<Suggestion> sugs = new ArrayList<>();
         for(Suggestion sus:student.getSuggestions()){
+            if (sus.getApproved()){
+                continue;
+            }
             Camp nc = sus.getCamp();
             Camp oc = new Camp();
             this.newCamps.add(nc);
