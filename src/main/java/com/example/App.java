@@ -30,6 +30,12 @@ public class App {
 			PageGenerator.StaffAcceptSuggestion(staff);
 		}else if(currentPage==Page.ViewCampsCreatedStaff){
 			PageGenerator.ViewCampsCreatedStaff(staff);
+		}else if(currentPage==Page.PerformanceReport){
+			//just generate report here
+		}else if(currentPage==Page.EnquiryReport){
+			//just generate report here
+		}else if(currentPage==Page.GenerateStudentReport){
+			PageGenerator.StaffGenerateStudentReport(staff);
 		}
 	}
 	public static void studentRedirection(Page currentPage, Student student){
@@ -51,6 +57,8 @@ public class App {
 			PageGenerator.ViewAllRegisteredCampsStudent(student);
 		else if (currentPage==Page.ViewRepliesToEnquiry)
 			PageGenerator.ViewRepliesToEnquiryStudent(student);
+		else if(currentPage==Page.GenerateStudentReport)
+			PageGenerator.StudentGenerateStudentReport(student);
 		
 		else if (currentPage==Page.ViewEnquiries)
 			PageGenerator.ViewEnquiryCommittee(student);
