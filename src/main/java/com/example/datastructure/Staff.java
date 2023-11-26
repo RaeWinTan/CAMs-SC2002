@@ -27,8 +27,8 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 * @param faculty		Faculty the user is staff.
 	 * @param password		Password of the staff.
 	 */
-	private Staff(String userId, String name, GroupName faculty, String password, ArrayList<Message> repliedTo, ArrayList<Camp> campsCreated) {
-		super(userId, name, faculty, password);
+	private Staff(String userId, String name, GroupName faculty, String password, ArrayList<Message> repliedTo, ArrayList<Camp> campsCreated, boolean isDefaultPassword) {
+		super(userId, name, faculty, password, isDefaultPassword);
 		this.repliedTo = repliedTo;
 		this.campsCreated = campsCreated;
 	}
@@ -47,7 +47,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	@Override
 	public Staff copyOf() {
-		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Camp>)this.getCampsCreated().clone());
+		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Camp>)this.getCampsCreated().clone(), this.getIsDefaultPassword());
 	}
 
 	

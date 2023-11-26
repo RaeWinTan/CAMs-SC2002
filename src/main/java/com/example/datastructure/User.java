@@ -12,7 +12,7 @@ public abstract class User { //implements IDataStoreObject<User>{
 	private String password = null;
 	private GroupName faculty = null;
 	private String name = null;
-	private boolean isDefaultPassword = true;
+	private boolean isDefaultPassword;
 
 	/**
 	 * Constructor for User class, password will be set to default.
@@ -26,6 +26,7 @@ public abstract class User { //implements IDataStoreObject<User>{
 		this.name = name;
 		this.faculty = faculty;
 		this.password = "password"; // DEFAULT PASSWORD
+		this.isDefaultPassword = true;
 	}
 
 	/**
@@ -35,11 +36,12 @@ public abstract class User { //implements IDataStoreObject<User>{
 	 * @param faculty		Faculty the user is from.
 	 * @param password		Password of the user.
 	 */
-	protected User(String userId, String name,GroupName faculty,  String password) {
+	protected User(String userId, String name,GroupName faculty,  String password, boolean isDefaultPassword) {
 		this.userId= userId;
 		this.name = name;
 		this.faculty = faculty;
 		this.password = password;
+		this.isDefaultPassword = isDefaultPassword;
 	}
 
 	/**

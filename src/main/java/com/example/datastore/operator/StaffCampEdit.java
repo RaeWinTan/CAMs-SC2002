@@ -2,7 +2,7 @@ package com.example.datastore.operator;
 
 import java.util.ArrayList;
 
-import com.example.datastore.ObjectChecker.CampChecker;
+import com.example.datastore.objectchecker.CampChecker;
 import com.example.datastructure.Camp;
 import com.example.datastructure.Staff;
 import com.example.exception.IllegalOperationException;

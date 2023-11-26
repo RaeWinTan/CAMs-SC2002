@@ -86,13 +86,13 @@ public class App {
 				u = PageGenerator.Login();
 				if(u instanceof Staff){
 					staff = (Staff) u;
-					if(u.isDefaultPassword()){
+					if(u.getIsDefaultPassword()){
 						currentPage = Page.ChangePassword;
 
 					}else currentPage = Page.StaffDashBoard;
 				} else{
 					student = (Student) u;
-					if(u.isDefaultPassword()){
+					if(u.getIsDefaultPassword()){
 						currentPage = Page.ChangePassword;
 					}
 					else currentPage = Page.StudentDashBoard;

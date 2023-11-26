@@ -1,4 +1,4 @@
-package com.example.datastore.ObjectChecker;
+package com.example.datastore.objectchecker;
 
 import java.util.Date;
 

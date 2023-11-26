@@ -32,7 +32,7 @@ public class StaffGenerateEnquiryReport implements IDataStoreEditOperation<Camp>
                     // Write enquries to file.
                     writer.write(camp.getCampName() + "\n");
                     if (camp.getEnquiries().isEmpty()){
-                        writer.write("| No enquiries\n");
+                        writer.write("| No enquiries\n\n");
                         continue;
                     }
                     for (Enquiry enquiry : camp.getEnquiries()) {
@@ -40,15 +40,16 @@ public class StaffGenerateEnquiryReport implements IDataStoreEditOperation<Camp>
                         writer.write("| " + enquiry.getText() + "\n");
                         // Write replies to enquiry to file.
                         if (enquiry.getReplies().isEmpty()){
-                            writer.write("  | No replies\n");
+                            writer.write("  | No replies\n\n");
                             continue;
                         }
                         for (Message reply : enquiry.getReplies()){
-                            writer.write("  | " + reply.getAuthor().getName() + ":\n");
-                            writer.write("  | " + reply.getText() + "\n");
+                            writer.write("| | " + reply.getAuthor().getName() + ":\n");
+                            writer.write("| | " + reply.getText() + "\n");
+                            writer.write("| |\n");
                         }
                     }
-                    writer.write("\n");
+                    writer.write("|\n\n");
                 }
             }
             writer.close();

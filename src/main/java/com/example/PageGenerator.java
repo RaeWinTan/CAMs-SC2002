@@ -82,6 +82,7 @@ public class PageGenerator {
             user = studentDataStore.retrieveData(new UserLoginRetrival<Student>(uc.getUserId(), uc.getPassword())).get(0);
             if(user instanceof Student) studentDBService = new StudentDBService((Student)user);
         }
+        
         return user;
     } 
 
@@ -312,7 +313,9 @@ public class PageGenerator {
     public static void StudentGenerateStudentReport(Student s){
         IPromptPage<ReportFilter> p = new GenerateStudentReportPromptPage();
         p.perform();
-        campDataStore.manageData(studentDBService.DSGenerateParticipantReport("ParticipantReport" + UUID.randomUUID().toString(), studentDataStore ,p.getObject()));
+        String fileName = "PerformanceReport-" + UUID.randomUUID().toString();
+        campDataStore.manageData(studentDBService.DSGenerateParticipantReport(fileName, studentDataStore ,p.getObject()));
+        System.out.println(ANSI_GREEN_BACKGROUND+"Participant Report saved as " + fileName + ".csv"+ANSI_RESET);
     }
 
     public static Page StudentDashBoard(Student s){

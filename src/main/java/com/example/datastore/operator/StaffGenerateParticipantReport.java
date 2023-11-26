@@ -56,7 +56,7 @@ public class StaffGenerateParticipantReport implements IDataStoreEditOperation<C
                             writer.write(String.format("%s,%s,Committee Member\n", student.getUserId(), student.getName()));
                         }
                     }
-                    writer.write("\n");
+                    writer.write("########,########,########\n");
                 }
             }
             writer.close();
