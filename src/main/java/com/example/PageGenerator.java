@@ -536,7 +536,7 @@ public class PageGenerator {
         }
         IPromptPage<Pair<Enquiry,Message>> p = new ReplyToEnquiryPromptPage(student, camps);
         p.perform();
-        campDataStore.manageData(staffDBService.DSEnquiryReply(p.getObject()));
+        campDataStore.manageData(studentDBService.DSEnquiryReply(p.getObject()));
     }
 
     // Controller
@@ -567,12 +567,14 @@ public class PageGenerator {
         Student student;
         Staff staff;
         Camp camp;
-        Camp tempCamp;
+        Camp tempCamp_NTUvisible;
         Camp tempCamp2;
 
-        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ANWIT", "password")).get(0);
+        // Log in as STF
+        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
         staffDBService = new StaffDBService(staff);
 
+        // STF creates NTU Camp - Invisible
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("NTU Camp - Invisible");
@@ -586,6 +588,7 @@ public class PageGenerator {
         camp.setVisibility(false);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
         
+        // STF creates NTU Camp - Visible
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("NTU Camp - Visible");
@@ -599,8 +602,9 @@ public class PageGenerator {
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
 
-        tempCamp = camp.copyOf();
+        tempCamp_NTUvisible = camp.copyOf();
 
+        // NTU
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("SCSE Camp - Visible");
@@ -615,7 +619,8 @@ public class PageGenerator {
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
         tempCamp2 = camp.copyOf();
 
-        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ARVI", "password")).get(0);
+        // Login as STF2
+        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF2", "password")).get(0);
         staffDBService = new StaffDBService(staff);
 
         camp = new Camp();
@@ -631,16 +636,19 @@ public class PageGenerator {
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
 
+        // Login as STD
         student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD", "password")).get(0);
         studentDBService = new StudentDBService(student);
         
-        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp, studentDataStore));
+        // STD join NTU Camp - Visible
+        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp_NTUvisible, studentDataStore));
 
-        Enquiry enquiry = new Enquiry("This one what?", student, tempCamp);
+        // STD make enquiry for NTU Camp - Visible
+        Enquiry enquiry = new Enquiry("This one what?", student, tempCamp_NTUvisible);
         campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
         Enquiry tempEnq = enquiry.copyOf();
 
-        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("ANWIT", "password")).get(0);
+        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
         staffDBService = new StaffDBService(staff);
         Message reply = new Message("This one ur mother", staff);
         campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq,reply)));
