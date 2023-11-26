@@ -51,6 +51,9 @@ public class CreateSuggestionPromptPage implements IPromptPage<Suggestion>{
         getCampPrompt.startPrompt();
         int idx = campnames.indexOf(getCampPrompt.getResult());
         campToChange = camps.get(idx);
+        Date[] ds = new Date[2];
+        ds[0] = (Date)campToChange.getDates()[0].clone();
+        ds[1] = (Date)campToChange.getDates()[1].clone();
         for(int i = 1; i < questions.size();i++){
             IPrompt tmp;
             if(i==1 || i==2 || i ==3){
@@ -58,14 +61,13 @@ public class CreateSuggestionPromptPage implements IPromptPage<Suggestion>{
                     tmp = new Prompt(questions.get(i).getSecond(), RegexType.DATE.toString(), true, sdf.format(campToChange.getDates()[0]));
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    Date[] ds = campToChange.getDates();
+                    
                     try{ds[0] = sdf.parse(tmp.getResult());}catch(Exception e){}
                     campToChange.setDates(ds);
                 } else if(i==2){
                     tmp = new Prompt(questions.get(i).getSecond(), RegexType.DATE.toString(), true, sdf.format(campToChange.getDates()[1]));
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    Date[] ds = campToChange.getDates();
                     try{ds[1] = sdf.parse(tmp.getResult());}catch(Exception e){}
                     campToChange.setDates(ds);
                 } else{

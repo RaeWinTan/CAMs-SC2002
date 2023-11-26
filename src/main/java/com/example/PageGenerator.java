@@ -200,7 +200,7 @@ public class PageGenerator {
         columns.add(suggestions);
         IPromptPage<Suggestion> p = new AcceptRejectSuggestionPromptPage(staff);
         p.perform();
-        staffDBService.DSSuggestionApprove(p.getObject(), studentDataStore, campDataStore);
+        campDataStore.manageData(staffDBService.DSSuggestionApprove(p.getObject(), studentDataStore, campDataStore));
     }
 
     // student only
