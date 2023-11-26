@@ -144,7 +144,7 @@ public class TablePromptOption implements IPrompt,IViewPage {
      */
     @Override
     public void startPrompt(){
-        //this is in case we want to
+        //this is in case we want to get the user input directly from here
         perform();
         System.out.println("Enter the number of your choice:");
         while (!sc.hasNextInt()) {

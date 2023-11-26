@@ -14,7 +14,9 @@ import com.example.view.PromptOption;
 
 /**
  * This class implements IPromptPage.
- * It is a prompt page for students to submit camp enquiries
+ * It is a prompt page for students to submit camp enquiries.
+ * 
+ * 
  */
 public class CampEnquiryPromptPage implements IPromptPage<Enquiry> {
     private Student student;
@@ -49,8 +51,6 @@ public class CampEnquiryPromptPage implements IPromptPage<Enquiry> {
             }
         }
     }
-    //public void addQuestion_attribute(String question, String attributeName) {return;}
-
     /**
      * Initializes the questions to be asked in this prompt.
      */

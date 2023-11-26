@@ -7,9 +7,9 @@ import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
 import com.example.view.PromptOption;
 
-/**This class implements IPromptPage
- * It has all the pages that represent the functionalities offered by the
- * Staff Dashboard
+/**It has all the pages that represent the functionalities offered by the Staff Dashboard.
+ * This class implements IPromptPage
+ * 
  */
 public class StaffDashboardPromptPage implements IPromptPage<Page>{
 
@@ -48,7 +48,7 @@ public class StaffDashboardPromptPage implements IPromptPage<Page>{
     }
 
 
-    /**here the prompting begins */
+    /**Here the prompting begins */
     @Override
     public void perform() {
         this.prompt.startPrompt();

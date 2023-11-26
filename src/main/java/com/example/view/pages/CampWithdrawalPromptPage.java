@@ -13,9 +13,9 @@ import com.example.view.IPromptPage;
 import com.example.view.PromptOption;
 
 /**
+ * It is a prompt page for students to choose which camp they would like to withdraw from.
  * This class implements IPromptPage.
- * It is a prompt page for students to choose which camp they 
- * would like to withdraw from
+ * 
  */
 public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
 
@@ -31,7 +31,6 @@ public class CampWithdrawalPromptPage implements IPromptPage<Camp> {
         
         
     }
-    //public void addQuestion_attribute(String question, String attributeName) {return;}
 
     /**
      * Initializes the questions to be asked in this prompt.

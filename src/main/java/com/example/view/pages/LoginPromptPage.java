@@ -12,10 +12,10 @@ import com.example.controllerlibs.UserType;
 import com.example.datastructure.User;
 
 /**
- * This class implements IPromptPage.
- * It is a prompt page common to all users
- *  displayed to them when entering the system.
+ * It is a prompt page common to all users displayed to them when entering the system.
  * It requires them to enter their credentials.
+ * This class implements IPromptPage.
+ * 
  */
 public class LoginPromptPage implements IPromptPage<UserCredentials>{
     private String userId;
@@ -29,8 +29,6 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
         this.initialise_questions();   
         this.initialise_prompts();
     }
-
-    //public void addQuestion_attribute(String question, String attributeName) {return;}
 
     /**Initialise the questions for the prompts*/
     private void initialise_questions(){
@@ -59,7 +57,6 @@ public class LoginPromptPage implements IPromptPage<UserCredentials>{
      * Stores the inputs.
      */
     public void perform() {
-        // TODO Auto-generated method stub
         int i = 0;
         while (i < questions.size()) {
             String q = questions.get(i);

@@ -14,10 +14,10 @@ import com.example.view.PromptOption;
 import com.example.view.TablePromptOption;
 
 /**
+ * It is a prompt page for the user to reply to enquiries from students. It displays enquiries from the students and the 
+ * user can select one to accept it.
  * This class implements IPromptPage.
- * It is a prompt page for the user to reply to enquiries from students 
- * It displays enquiries from the students and the 
- * user can select one to accept it
+ * 
  */
 public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Message>> {
 
@@ -27,7 +27,6 @@ public class ReplyToEnquiryPromptPage implements IPromptPage<Pair<Enquiry, Messa
     private User author;
     private Pair<Enquiry, Message> value;
 
-    //should a message
     /**Constructor for the class
      * @param author which is the sender of the message
      * @param camps which is the list of camps the user can see enquiries from
