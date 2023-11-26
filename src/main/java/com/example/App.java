@@ -31,9 +31,9 @@ public class App {
 		}else if(currentPage==Page.ViewCampsCreatedStaff){
 			PageGenerator.ViewCampsCreatedStaff(staff);
 		}else if(currentPage==Page.PerformanceReport){
-			//just generate report here
+			PageGenerator.StaffGeneratePerformanceReport();
 		}else if(currentPage==Page.EnquiryReport){
-			//just generate report here
+			PageGenerator.StaffGenerateEnquiryReport();
 		}else if(currentPage==Page.GenerateStudentReport){
 			PageGenerator.StaffGenerateStudentReport(staff);
 		}

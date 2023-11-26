@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import com.example.controllerlibs.Page;
 import com.example.controllerlibs.ReportFilter;
@@ -278,18 +279,30 @@ public class PageGenerator {
     }
 
     public static void StaffGenerateStudentReport(Staff s){
-        Staff staff = staffDataStore.retrieveData(new DataStoreRetrieve<Staff>(s)).get(0);
         IPromptPage<ReportFilter> p = new GenerateStudentReportPromptPage();
         p.perform();
-        //TODO
+        String fileName = "ParticipantReport-" + UUID.randomUUID().toString();
+        campDataStore.manageData(staffDBService.DSGenerateParticipantReport(fileName, p.getObject()));
+        System.out.println("Participant Report saved as " + fileName + ".csv");
+    }
+
+    public static void StaffGenerateEnquiryReport(){
+        String fileName = "EnquiryReport-" + UUID.randomUUID().toString();
+        campDataStore.manageData(staffDBService.DSGenerateEnquiryReport(fileName));
+        System.out.println("Enquiry Report saved as " + fileName + ".txt");
+    }
+
+    public static void StaffGeneratePerformanceReport(){
+        String fileName = "PerformanceReport-" + UUID.randomUUID().toString();
+        campDataStore.manageData(staffDBService.DSGeneratePerformanceReport(fileName,studentDataStore));
+        System.out.println("Performance Report saved as " + fileName + ".csv");
     }
 
     // student only
     public static void StudentGenerateStudentReport(Student s){
-        Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
         IPromptPage<ReportFilter> p = new GenerateStudentReportPromptPage();
         p.perform();
-        //TODO
+        campDataStore.manageData(studentDBService.DSGenerateParticipantReport("ParticipantReport" + UUID.randomUUID().toString(), studentDataStore ,p.getObject()));
     }
 
     public static Page StudentDashBoard(Student s){
@@ -567,7 +580,7 @@ public class PageGenerator {
         
         try {
             DELETETHIS_campinit();
-        } catch (Exception e) {
+        } catch (ParseException e) {
             System.out.println(e);
         }
         
@@ -585,6 +598,8 @@ public class PageGenerator {
         Camp camp;
         Camp tempCamp_NTUvisible;
         Camp tempCamp2;
+        StudentDBService studentDBService;
+        StaffDBService staffDBService;
 
         // Log in as STF
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
@@ -620,12 +635,12 @@ public class PageGenerator {
 
         tempCamp_NTUvisible = camp.copyOf();
 
-        // NTU
+        // SCSE Camp
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("SCSE Camp - Visible");
-        camp.setDates(new Date[]{DATE("30112023"),DATE("07122023")});
-        camp.setClosingDate(DATE("26112023"));
+        camp.setDates(new Date[]{DATE("30112024"),DATE("07122024")});
+        camp.setClosingDate(DATE("26112024"));
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.SCSE);
@@ -639,6 +654,7 @@ public class PageGenerator {
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF2", "password")).get(0);
         staffDBService = new StaffDBService(staff);
 
+        // STF2 Create NBS CAmp
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("NBS Camp - Visible");
@@ -658,25 +674,31 @@ public class PageGenerator {
         
         // STD join NTU Camp - Visible
         campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp_NTUvisible, studentDataStore));
+        // STD join SCSE Camp - VIsible as committee
+        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp2, studentDataStore));
 
         // STD make enquiry for NTU Camp - Visible
         Enquiry enquiry = new Enquiry("This one what?", student, tempCamp_NTUvisible);
         campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
         Enquiry tempEnq = enquiry.copyOf();
 
+        // STD Make suggestion for SCSE Camp - Visible
+        Suggestion suggestion = new Suggestion(student,tempCamp2.copyOf());
+        suggestion.getCamp().setDescription("i set in tps htsotiah pao ha ph ap hap p");
+        campDataStore.manageData(studentDBService.DSSuggestionCreate(suggestion,studentDataStore));
+
+        // Staff Reply to STD's enquiry
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
         staffDBService = new StaffDBService(staff);
         Message reply = new Message("This one ur mother", staff);
         campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq,reply)));
 
-
-        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD", "password")).get(0);
+        // Login as STD2
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD2", "password")).get(0);
         studentDBService = new StudentDBService(student);
 
-        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp2, studentDataStore));
-
-        Suggestion suggestion = new Suggestion(student,tempCamp2.copyOf());
-        suggestion.getCamp().setDescription("i set in tps htsotiah pao ha ph ap hap p");
-        campDataStore.manageData(studentDBService.DSSuggestionCreate(suggestion,studentDataStore));
+        // STD2 joim ntucamp visible
+        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp_NTUvisible, studentDataStore));
+        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp2, studentDataStore));
     }
 }

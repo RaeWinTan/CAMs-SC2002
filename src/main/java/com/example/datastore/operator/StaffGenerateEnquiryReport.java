@@ -8,6 +8,7 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.Enquiry;
 import com.example.datastructure.Message;
 import com.example.datastructure.Staff;
+import com.example.exception.IllegalOperationException;
 
 
 public class StaffGenerateEnquiryReport implements IDataStoreEditOperation<Camp> {
@@ -53,7 +54,7 @@ public class StaffGenerateEnquiryReport implements IDataStoreEditOperation<Camp>
             writer.close();
         } 
         catch (IOException e){
-            System.out.println("not implementing this hehe");
+            throw new IllegalOperationException("FileIO exception");
         }
     }
 }

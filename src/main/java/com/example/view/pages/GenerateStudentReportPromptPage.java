@@ -20,7 +20,7 @@ public class GenerateStudentReportPromptPage implements IPromptPage<ReportFilter
         ArrayList<ArrayList<String>> columns = new ArrayList<>();
         columns.add(fs);
         TablePromptOption p = new TablePromptOption("What would you like to sort by", headers, columns);
-        p.perform();
+        p.startPrompt();
         int idx = Integer.valueOf(p.getResult());
         value = filters.get(idx);
     }

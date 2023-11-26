@@ -1,5 +1,6 @@
 package com.example.dataservice.student;
 
+import com.example.controllerlibs.ReportFilter;
 import com.example.dataservice.UserDBService;
 import com.example.datastore.DataStore;
 import com.example.datastore.IDataStoreEditable;
@@ -86,7 +87,7 @@ public class StudentDBService extends UserDBService<Student> implements IStudent
     }
 
     @Override
-	public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName, IDataStoreRetrivable<Student> studentDSRetrivable){
-		return new StudentGenerateParticipantReport(this.student, fileName);
+	public IDataStoreEditOperation<Camp> DSGenerateParticipantReport(String fileName, IDataStoreRetrivable<Student> studentDSRetrivable, ReportFilter reportFilter){
+		return new StudentGenerateParticipantReport(this.student, fileName, reportFilter);
 	}
 }
