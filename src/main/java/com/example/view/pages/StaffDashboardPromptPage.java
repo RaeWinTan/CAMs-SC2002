@@ -41,6 +41,7 @@ public class StaffDashboardPromptPage implements IPromptPage<Page>{
         this.pages.add(Page.AcceptSuggestion);
         this.pages.add(Page.GeneratePerformanceReport);
         this.pages.add(Page.GenerateStudentReport);
+        this.pages.add(Page.ViewCampsCreatedStaff);
         this.pages.add(Page.Logout);
     }
 
