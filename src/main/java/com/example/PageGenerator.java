@@ -57,6 +57,9 @@ import com.example.view.pages.ReplyToEnquiryPromptPage;
 import com.example.view.pages.StaffDashboardPromptPage;
 import com.example.view.pages.StudentDashboardPromptPage;
 
+/**
+ * Controller class containing page behaviour.
+ */
 public class PageGenerator {
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
     public static final String ANSI_RESET = "\u001B[0m";

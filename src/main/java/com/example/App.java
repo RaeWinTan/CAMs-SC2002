@@ -4,6 +4,10 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.User;
 import com.example.exception.InvalidLoginCredentialException;
+
+/**
+ * Main controller class.
+ */
 public class App {
 	public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
