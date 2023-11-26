@@ -674,7 +674,8 @@ public class PageGenerator {
         Staff staff;
         Camp camp;
         Camp tempCamp_NTUvisible;
-        Camp tempCamp2;
+        Camp tempCamp_SCSE;
+        Camp tempCamp_NBS;
         StudentDBService studentDBService;
         StaffDBService staffDBService;
 
@@ -682,100 +683,143 @@ public class PageGenerator {
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
         staffDBService = new StaffDBService(staff);
 
-        // STF creates NTU Camp - Invisible
+        // 1. STF creates NTU Camp - Invisible
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("NTU Camp - Invisible");
         camp.setDates(new Date[]{DATE("27112023"),DATE("01122023")});
-        camp.setClosingDate(DATE("26112000"));
-        camp.setTotalSlots(15);
-        camp.setCommitteeSlot(10);
+        camp.setClosingDate(DATE("26112023"));
         camp.setUserGroup(GroupName.NTU);
         camp.setLocation("NTU Campus");
-        camp.setDescription("Camp for NTU");
+        camp.setTotalSlots(30);
+        camp.setCommitteeSlot(5);
+        camp.setDescription("A camp for all NTU students.");
         camp.setVisibility(false);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
         
-        // STF creates NTU Camp - Visible
+        // 2. STF creates NTU Camp - Visible
         camp = new Camp();
         camp.setCreatedBy(staff);
         camp.setCampName("NTU Camp - Visible");
         camp.setDates(new Date[]{DATE("27112023"),DATE("01122023")});
         camp.setClosingDate(DATE("26112023"));
-        camp.setTotalSlots(15);
-        camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.NTU);
         camp.setLocation("NTU Campus");
-        camp.setDescription("Camp for NTU");
+        camp.setTotalSlots(30);
+        camp.setCommitteeSlot(5);
+        camp.setDescription("A camp for all NTU students.");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
 
         tempCamp_NTUvisible = camp.copyOf();
 
-        // SCSE Camp
+        // 3. SCSE Camp
         camp = new Camp();
         camp.setCreatedBy(staff);
-        camp.setCampName("SCSE Camp - Visible");
+        camp.setCampName("SCSE Camp");
         camp.setDates(new Date[]{DATE("30112024"),DATE("07122024")});
         camp.setClosingDate(DATE("26112024"));
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.SCSE);
         camp.setLocation("SWLab2");
-        camp.setDescription("Camp for SCSE");
+        camp.setDescription("A camp for SCSE students.");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
-        tempCamp2 = camp.copyOf();
+        tempCamp_SCSE = camp.copyOf();
 
         // Login as STF2
         staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF2", "password")).get(0);
         staffDBService = new StaffDBService(staff);
 
-        // STF2 Create NBS CAmp
+        // 4. STF2 Create NBS CAmp
         camp = new Camp();
         camp.setCreatedBy(staff);
-        camp.setCampName("NBS Camp - Visible");
-        camp.setDates(new Date[]{DATE("30112023"),DATE("07122023")});
-        camp.setClosingDate(DATE("26112023"));
+        camp.setCampName("NBS Camp");
+        camp.setDates(new Date[]{DATE("30112024"),DATE("07122024")});
+        camp.setClosingDate(DATE("26112024"));
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.NBS);
-        camp.setLocation("ur mother");
-        camp.setDescription("Camp for NBS");
+        camp.setLocation("Johor Bahru");
+        camp.setDescription("A camp for NBS students.");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
+        tempCamp_NBS = camp.copyOf();
 
         // Login as STD
         student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD", "password")).get(0);
         studentDBService = new StudentDBService(student);
         
-        // STD join NTU Camp - Visible
+        // 5. STD join NTU Camp - Visible as attendee
         campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp_NTUvisible, studentDataStore));
-        // STD join SCSE Camp - VIsible as committee
-        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp2, studentDataStore));
+        // 6. STD join SCSE Camp as committee member
+        campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp_SCSE, studentDataStore));
 
-        // STD make enquiry for NTU Camp - Visible
-        Enquiry enquiry = new Enquiry("This one what?", student, tempCamp_NTUvisible);
+        // 7. STD make enquiry for NTU Camp - Visible
+        Enquiry enquiry = new Enquiry("Is food provided?", student, tempCamp_NTUvisible);
         campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
-        Enquiry tempEnq = enquiry.copyOf();
+        Enquiry tempEnq_NTU = enquiry.copyOf();
 
-        // STD Make suggestion for SCSE Camp - Visible
-        Suggestion suggestion = new Suggestion(student,tempCamp2.copyOf());
-        suggestion.getCamp().setDescription("i set in tps htsotiah pao ha ph ap hap p");
+        // 8. STD Make suggestion for SCSE Camp
+        Suggestion suggestion = new Suggestion(student,tempCamp_SCSE.copyOf());
+        suggestion.getCamp().setDescription("The bestest SCSE camp!");
         campDataStore.manageData(studentDBService.DSSuggestionCreate(suggestion,studentDataStore));
-
-        // Staff Reply to STD's enquiry
-        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
-        staffDBService = new StaffDBService(staff);
-        Message reply = new Message("This one ur mother", staff);
-        campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq,reply)));
 
         // Login as STD2
         student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD2", "password")).get(0);
         studentDBService = new StudentDBService(student);
 
-        // STD2 joim ntucamp visible
+        // 9. STD2 joim NTU Camp - Visible as committee member
         campDataStore.manageData(studentDBService.DSJoinCampAsCommittee(tempCamp_NTUvisible, studentDataStore));
-        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp2, studentDataStore));
+
+        // 10. STD2 join SCSE Camp as attendee
+        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp_SCSE, studentDataStore));
+
+        // 11. STD2 Make enquiry for SCSE Camp
+        enquiry = new Enquiry("Why is the camp at software lab 2?", student, tempCamp_SCSE);
+        campDataStore.manageData(studentDBService.DSEnquiryCreate(enquiry, studentDataStore));
+        Enquiry tempEnq_SCSE = enquiry.copyOf();
+
+        // 12. STD2 reply to STD's enquiry for NTU Camp - Visible
+        Message reply = new Message("Yes, there will be pizza", student);
+        campDataStore.manageData(studentDBService.DSEnquiryReply(new Pair<Enquiry, Message>(tempEnq_NTU,reply)));
+
+        // Login as STD
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD", "password")).get(0);
+        studentDBService = new StudentDBService(student);
+
+        // 13. STD Make suggestion for SCSE Camp
+        suggestion = new Suggestion(student,tempCamp_SCSE.copyOf());
+        suggestion.getCamp().setLocation("Zoom meeting");
+        campDataStore.manageData(studentDBService.DSSuggestionCreate(suggestion,studentDataStore));
+
+        // 14. STD reply to STD2's enquiry for SCSE Camp
+        reply = new Message("I have suggested a change for the location to be online.", student);
+        campDataStore.manageData(studentDBService.DSEnquiryReply(new Pair<Enquiry, Message>(tempEnq_SCSE,reply)));
+
+        // Login as STF
+        staff = staffDataStore.retrieveData(new UserLoginRetrival<Staff>("STF", "password")).get(0);
+        staffDBService = new StaffDBService(staff);
+
+        // 15. STF reply to STD's enquiry for NTU Camp - visible
+        reply = new Message("You are also allowed to bring in or order your own food during the camp.", staff);
+        campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq_NTU,reply)));
+
+        // 16. STF reply to STD2's enquiry for SCSE Camp
+        reply = new Message("Committee Members are suggesting to change this to a Zoom meeting. I will meet with the rest of the whole committee to decide if this change should be made.",staff);
+        campDataStore.manageData(staffDBService.DSEnquiryReply(new Pair<Enquiry,Message>(tempEnq_SCSE,reply)));
+
+
+        // Login as STD3
+        student = studentDataStore.retrieveData(new UserLoginRetrival<Student>("STD3", "password")).get(0);
+        studentDBService = new StudentDBService(student);
+
+        // 17. STD3 join NTU Camp - Visible as attendee
+        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp_NTUvisible, studentDataStore));
+
+        // 18. STD3 join NBS Camp as attendee
+        campDataStore.manageData(studentDBService.DSJoinCampAsAttendee(tempCamp_NBS, studentDataStore));
+
     }
 }
