@@ -308,7 +308,8 @@ public class PageGenerator {
         headers.add("end date");
         headers.add("open to");
         headers.add("location");
-        headers.add("remainding slots");
+        headers.add("remainding attendee slots");
+        headers.add("remainding committee slots");
         headers.add("description");
         headers.add("visibility");
         
@@ -318,7 +319,8 @@ public class PageGenerator {
         ArrayList<String> end_dates = new ArrayList<>();
         ArrayList<String> openTos = new ArrayList<>();
         ArrayList<String> locations = new ArrayList<>();
-        ArrayList<String> remaindingSlots = new ArrayList<>();
+        ArrayList<String> remaindingASlots = new ArrayList<>();
+        ArrayList<String> remaindingCSlots = new ArrayList<>();
         ArrayList<String> descriptions = new ArrayList<>();
         ArrayList<String> visibilitys = new ArrayList<>();
         for(Camp c:camps){
@@ -328,7 +330,8 @@ public class PageGenerator {
             end_dates.add(sdf.format(c.getDates()[1]));
             openTos.add(c.getUserGroup().toString());
             locations.add(c.getLocation());
-            remaindingSlots.add(c.getRemaindingSlots()+"");
+            remaindingASlots.add(c.getRemaindingSlots()+"");
+            remaindingCSlots.add(c.getRemaindingCommitteeSlots()+"");
             descriptions.add(c.getDescription());
             visibilitys.add(c.getVisibility()+"");
         }
@@ -339,7 +342,8 @@ public class PageGenerator {
         columns.add(end_dates);
         columns.add(openTos);
         columns.add(locations);
-        columns.add(remaindingSlots);
+        columns.add(remaindingASlots);
+        columns.add(remaindingCSlots);
         columns.add(descriptions);
         columns.add(visibilitys);
         IViewPage p = new TablePromptOption("List of Camps", headers,columns);
