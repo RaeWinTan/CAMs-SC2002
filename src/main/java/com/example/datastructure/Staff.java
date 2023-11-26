@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import com.example.datastore.IDataStoreObject;
 import com.example.utility.Pair;
 
-
+/**
+ * Class storing data of a Staff.
+ */
 public class Staff extends User implements IDataStoreObject<Staff>{
-	private ArrayList<Message> repliedTo = new ArrayList<>();
 	private ArrayList<Camp> campsCreated = new ArrayList<>();
 	/**
 	 * Constructor for Staff class, password will be set to default.
@@ -19,7 +20,6 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 		super(userId, name, faculty);
 	}
 
-
 	/**
 	 * Constructor for Staff class.
 	 * @param userId		Unique Identifier of the staff.
@@ -27,14 +27,9 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 * @param faculty		Faculty the user is staff.
 	 * @param password		Password of the staff.
 	 */
-	private Staff(String userId, String name, GroupName faculty, String password, ArrayList<Message> repliedTo, ArrayList<Camp> campsCreated) {
-		super(userId, name, faculty, password);
-		this.repliedTo = repliedTo;
+	private Staff(String userId, String name, GroupName faculty, String password, ArrayList<Camp> campsCreated, boolean isDefaultPassword) {
+		super(userId, name, faculty, password, isDefaultPassword);
 		this.campsCreated = campsCreated;
-	}
-
-	public ArrayList<Message> getRepliedTo(){
-		return this.repliedTo;
 	}
 
 	public ArrayList<Camp> getCampsCreated(){
@@ -47,7 +42,7 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	 */
 	@Override
 	public Staff copyOf() {
-		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Camp>)this.getCampsCreated().clone());
+		return new Staff(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), (ArrayList<Camp>)this.getCampsCreated().clone(), this.getIsDefaultPassword());
 	}
 
 	
@@ -60,15 +55,4 @@ public class Staff extends User implements IDataStoreObject<Staff>{
 	public boolean isEquals(Staff o) {
 		return super.isEquals(o);
 	}
-
-	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
-		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
-		rtn.add(new Pair<String, String>("name", this.getName()));
-		rtn.add(new Pair<String, String>("faculty", this.getFaculty().toString()));
-		
-		return rtn;
-	}
-
-	
-	
 }

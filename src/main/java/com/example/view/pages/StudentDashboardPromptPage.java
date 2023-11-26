@@ -13,6 +13,9 @@ import com.example.view.PromptOption;
  * Staff Dashboard
  */
 public class StudentDashboardPromptPage implements IPromptPage<Page>{
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     private IPrompt prompt;
     private boolean isCommittee;
     private ArrayList<Page> pages = new ArrayList<>();
@@ -23,8 +26,9 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
       * since they have more functionalities on their dashboard 
       */
     public StudentDashboardPromptPage(Student student){//here must determine if committee or not
-        initialise_pages();
+        
         this.isCommittee = student.getLeading().size() > 0;
+        initialise_pages();
         ArrayList<String> os = new ArrayList<String>();
         for(int i = 0; i < this.pages.size(); i++) os.add(this.pages.get(i).getPageView());
         this.prompt = new PromptOption("What actions you want to do?",os);
@@ -36,25 +40,29 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
      */
     private void initialise_pages(){
         this.pages.add(Page.ChangePassword);
-        this.pages.add(Page.WithdrawFromCamp);
+        this.pages.add(Page.ViewAvailableCampsStudent);
+        this.pages.add(Page.ViewAllRegisteredCamps);
         this.pages.add(Page.RegisterAttendeeCamp);
+        this.pages.add(Page.RegisterCommitteeCamp);
         
         this.pages.add(Page.SubmitEnquiry);
         this.pages.add(Page.EditEnquiry);
-        this.pages.add(Page.RegisterCommitteeCamp);
-        this.pages.add(Page.ViewAllRegisteredCamps);
-        this.pages.add(Page.ViewAvailableCampsStudent);
-         this.pages.add(Page.ViewEnquiry);
+        this.pages.add(Page.ViewEnquiry);   // view own enquiry
         this.pages.add(Page.ViewRepliesToEnquiry);
-        
+
         if(isCommittee){
-            this.pages.add(Page.SuggestionCamp);
-            this.pages.add(Page.ViewEnquiries);//same as view enquiry
-            this.pages.add(Page.ViewSubmittedSuggestions);//
+            this.pages.add(Page.CreateSuggestion);
+            this.pages.add(Page.ViewSubmittedSuggestions);
             this.pages.add(Page.EditSuggestion);
             this.pages.add(Page.DeleteSuggestion);
+            
+            this.pages.add(Page.ViewEnquiries); // view enquries by other students
+            this.pages.add(Page.ReplyEnquiry);
+
             this.pages.add(Page.GenerateStudentReport);
         }
+
+        this.pages.add(Page.WithdrawFromCamp);
         this.pages.add(Page.Logout);
     }
 
@@ -62,6 +70,7 @@ public class StudentDashboardPromptPage implements IPromptPage<Page>{
     /**Here the prompting begins */
     @Override
     public void perform() {
+        System.out.println(isCommittee?ANSI_GREEN_BACKGROUND+"COMMITTEE MEMBER"+ANSI_RESET:ANSI_YELLOW_BACKGROUND+"NON-COMMITTEE MEMBER"+ANSI_RESET);
         this.prompt.startPrompt();
         
         int i = 0;

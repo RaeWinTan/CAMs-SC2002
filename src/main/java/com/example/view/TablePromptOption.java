@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.example.exception.PromptOptionException;
+
 /**This class basically displays data in the form of a table.
  * It implements both IPrompt and IViewPage to both display data
  * and also take in the user's option if it is required
@@ -24,6 +26,7 @@ public class TablePromptOption implements IPrompt,IViewPage {
      * content of all the rows
      */
     public TablePromptOption(String question, ArrayList<String> headers, ArrayList<ArrayList<String>> columns ) {
+        if(columns.size()==0 || columns.get(0).size() == 0) throw new PromptOptionException(question + " has not options.");
         this.question = question;
         this.headers = headers;
         this.columns = columns;

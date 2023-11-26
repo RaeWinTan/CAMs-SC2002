@@ -1,10 +1,8 @@
 package com.example.exception;
 
-public class ObjectClash  extends IllegalOperationException{
-
+/** Exception for clash in object name. */
+public class ObjectClash  extends RuntimeException {
     public ObjectClash(String objectType, String name) {
         super(objectType + " of name "+ name + " already exists, pick another name");
-        //TODO Auto-generated constructor stub
     }
-    
 }

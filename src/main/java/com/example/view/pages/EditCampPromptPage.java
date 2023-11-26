@@ -2,7 +2,7 @@ package com.example.view.pages;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+
 
 import com.example.dataloader.UserCSVLoader;
 import com.example.datastructure.Camp;
@@ -31,7 +31,6 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
 
     /**Constructor for the class
      * @param camps which is the array list of camps the staff user has created
-     * @exception Exception 
      */
     public EditCampPromptPage(ArrayList<Camp> camps ) {
         this.camps = camps;
@@ -54,11 +53,11 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
         //show all camps 
         Camp campToChange;
         ArrayList<Pair<Integer, String>> questions = new ArrayList<>();
-        String d = " (just press enter if you don't want to edit this value)";
-        questions.add(new Pair<>(0,"Chose Camp you want to edit"+ d));
-        questions.add(new Pair<>(1,"start date" + d));
-        questions.add(new Pair<>(2,"end date" + d));
-        questions.add(new Pair<>(3,"Registration closing date" + d));
+        String d = " (enter to skip)";
+        questions.add(new Pair<>(0,"Choose Camp you want to edit"));
+        questions.add(new Pair<>(1,"start date (dd/mm/yyyy)" + d));
+        questions.add(new Pair<>(2,"end date (dd/mm/yyyy)" + d));
+        questions.add(new Pair<>(3,"Registration closing date (dd/mm/yyyy)" + d));
         questions.add(new Pair<>(4,"Open to which Faculty" + d));
         questions.add(new Pair<>(5,"Location" + d));
         questions.add(new Pair<>(6,"total slots" + d));
@@ -72,6 +71,9 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
         getCampPrompt.startPrompt();
         int idx = campnames.indexOf(getCampPrompt.getResult());
         campToChange = this.camps.get(idx);
+        Date[] ds = new Date[2];
+        ds[0] = (Date)campToChange.getDates()[0].clone();
+        ds[1] = (Date)campToChange.getDates()[1].clone();
         for(int i = 1; i < questions.size();i++){
             IPrompt tmp;
             if(i==1 || i==2 || i ==3){
@@ -80,14 +82,14 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
                     tmp = new Prompt(questions.get(i).getSecond(), RegexType.DATE.toString(), true, sdf.format(campToChange.getDates()[0]));
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    Date[] ds = campToChange.getDates();
+                    
                     try{ds[0] = sdf.parse(tmp.getResult());}catch(Exception e){}
                     campToChange.setDates(ds);
                 } else if(i==2){
                     tmp = new Prompt(questions.get(i).getSecond(), RegexType.DATE.toString(), true, sdf.format(campToChange.getDates()[1]));
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    Date[] ds = campToChange.getDates();
+                    
                     try{ds[1] = sdf.parse(tmp.getResult());}catch(Exception e){}
                     campToChange.setDates(ds);
                 } else{
@@ -99,7 +101,11 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
                 
                  
             }else if(i==4){
-                tmp = new PromptOption(questions.get(i).getSecond(), true, campToChange.getUserGroup().name(), campnames);
+                ArrayList<String> faculty = new ArrayList<>();
+                for (GroupName grpname : GroupName.values())
+                    faculty.add(grpname.toString());
+                
+                tmp = new PromptOption(questions.get(i).getSecond(), true, campToChange.getUserGroup().name(), faculty);
                 tmp.startPrompt();
                 if(tmp.getResult().isEmpty()) continue;
                 campToChange.setUserGroup(UserCSVLoader.getFacultyFromString(tmp.getResult()));
@@ -112,27 +118,27 @@ public class EditCampPromptPage implements IPromptPage<Camp> {
                 }
                 
                 else if(i==6){
-                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(), true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(), true, campToChange.getTotalSlots().toString());
                     tmp.startPrompt();
                     if (tmp.getResult().isEmpty()) continue;
                     campToChange.setTotalSlots(Integer.valueOf(tmp.getResult()));
                 }
                 else if(i==7){
-                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(),true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), RegexType.INTEGER.toString(),true, campToChange.getCommitteeSlot().toString());
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
                     campToChange.setCommitteeSlot(Integer.valueOf(tmp.getResult()));
                 }
                 else if(i==8){
-                    tmp = new Prompt(questions.get(i).getSecond(), true, campToChange.getLocation());
+                    tmp = new Prompt(questions.get(i).getSecond(), true, campToChange.getDescription());
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;
-                    campToChange.setLocation(tmp.getResult());
+                    campToChange.setDescription(tmp.getResult());
                 }
                 else {
                     ArrayList<String> ops = new ArrayList<>();
-                    ops.add("true");
                     ops.add("false");
+                    ops.add("true");
                     tmp = new PromptOption(questions.get(i).getSecond(), true, campToChange.getVisibility()+"", ops);
                     tmp.startPrompt();
                     if(tmp.getResult().isEmpty()) continue;

@@ -7,8 +7,8 @@ import com.example.datastructure.Staff;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in StaffCampCreate.
  * Staff DataStore edit operator to add a Camp to Staff.
+ * NOTE: This class is only to be used in StaffCampCreate.
  * @see CommitteeDeleteSuggestion
  * @see IDataStoreEditOperation
  */

@@ -1,12 +1,13 @@
 package com.example.utility;
 
+/** Class storing a pair of two classes */
 public class Pair<T, U> {
 
 	private T first;
 	private U second;
 
 	/**
-	 * 
+	 * Constructor 
 	 * @param first
 	 * @param second
 	 */

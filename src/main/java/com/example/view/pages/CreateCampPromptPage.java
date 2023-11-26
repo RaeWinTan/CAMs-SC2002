@@ -123,9 +123,9 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
                 CampRegCloseDate = this.prompts.get(i).getResult();}
 
             else if(i==4){
-                System.out.println("STSRT 4");
+                
                 this.prompts.get(i).startPrompt();
-                System.out.println("END 4");
+                
                 CampFaculty = this.prompts.get(i).getResult();}
 
             else if(i==5){

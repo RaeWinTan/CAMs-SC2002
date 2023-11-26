@@ -5,13 +5,22 @@ import java.util.ArrayList;
 import com.example.datastructure.GroupName;
 import com.example.datastructure.Student;
 
-    public class StudentCSVLoader extends UserCSVLoader<Student>{
+/** Class to convert CSV file into Student objects. */
+public class StudentCSVLoader extends UserCSVLoader<Student>{
 
-        public StudentCSVLoader(String sourceFile){
-            super(sourceFile);
-        }
+    /**
+     * Constructor for StudentCSVLoader.
+     * @param sourceFile    Path of csv file.
+     */
+    public StudentCSVLoader(String sourceFile){
+        super(sourceFile);
+    }
     
-        public ArrayList<Student> loadData() {
+    /**
+     * Read data from csv file, convert to a 2D ArrayList of String, then convert to Student objects.
+     * @return An ArrayList of Student.
+     */
+    public ArrayList<Student> loadData() {
         ArrayList<ArrayList<String>> strData = this.getCellStringFormat().toDataString();
 
         ArrayList<Student> users = new ArrayList<Student>();

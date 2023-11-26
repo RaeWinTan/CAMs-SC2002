@@ -7,8 +7,8 @@ import com.example.datastructure.Staff;
 import com.example.exception.ObjectNotFoundException;
 
 /**
- * NOTE: This class is only to be used in StaffCampDelete.
  * Staff DataStore Operator to remove camp from Staff object.
+ * NOTE: This class is only to be used in StaffCampDelete.
  * @see StaffCampDelete
  * @see IDataStoreEditOperation
  */

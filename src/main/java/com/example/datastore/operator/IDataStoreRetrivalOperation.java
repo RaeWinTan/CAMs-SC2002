@@ -14,7 +14,6 @@ public interface IDataStoreRetrivalOperation<T> {
 	 * This method filters the data provided by DataStore and returns a deep clone of the filtered data.
 	 * Filter shall differ for each class.
 	 * @param data		Deep clone of ArrayList from DataStore.
-	 * @see DataStore
 	 */
 	ArrayList<T> perform(ArrayList<T> data);
 }

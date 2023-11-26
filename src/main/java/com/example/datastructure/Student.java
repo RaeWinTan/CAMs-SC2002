@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import com.example.datastore.IDataStoreObject;
 import com.example.utility.Pair;
 
+/**
+ * Class storing data of a Student.
+ */
 public class Student extends User implements IDataStoreObject<Student>{
 
 	private int points = 0;
 	private ArrayList<CampMember> leading = new ArrayList<>();
 	private ArrayList<CampMember> attending = new ArrayList<>();
-	private ArrayList<Message> repliedTo = new ArrayList<>();
 	private ArrayList<Enquiry> enquireAbout = new ArrayList<>();
 	private ArrayList<Suggestion> suggestions = new ArrayList<>();
 
@@ -24,20 +26,27 @@ public class Student extends User implements IDataStoreObject<Student>{
 	}
 
 	/**
-	 * Constructor for Student class.
+	 * Constructor for student class.
 	 * @param userId		Unique Identifier of the student.
 	 * @param name			Name of the student.
 	 * @param faculty		Faculty the student is from.
 	 * @param password		Password of the student.
+	 * @param points		Points accumulated by the Student.
+	 * @param leading		ArrayList of CampMember with camp the Student is a committee member of.
+	 * @param attending		ArrayList of CampMember with camp the Student is an attendee of.
+	 * @param enquireAbout	ArrayList of Enquries made by the Student.
+	 * @param suggestions	ArrayList of Suggestions made by the Student.
+	 * @param isDefaultPassword	Flag for if the student is still using the default password.
 	 */
-	private Student(String userId, String name, GroupName faculty, String password, int points, ArrayList<CampMember> leading, ArrayList<CampMember> attending, ArrayList<Message> repliedTo, ArrayList<Enquiry> enquireAbout) {
-		super(userId, name, faculty, password);
+	private Student(String userId, String name, GroupName faculty, String password, int points, ArrayList<CampMember> leading, ArrayList<CampMember> attending, ArrayList<Enquiry> enquireAbout, ArrayList<Suggestion> suggestions, boolean isDefaultPassword) {
+		super(userId, name, faculty, password, isDefaultPassword);
 		this.points = points;
 		this.leading = leading;
 		this.attending = attending;
-		this.repliedTo = repliedTo;
 		this.enquireAbout = enquireAbout;
+		this.suggestions = suggestions;
 	}
+
 
 	public int getPoints(){
 		return this.points;
@@ -59,9 +68,6 @@ public class Student extends User implements IDataStoreObject<Student>{
 		return this.enquireAbout;
 	}
 
-	public ArrayList<Message> getRepliedTo(){
-		return this.repliedTo;
-	}
 	public ArrayList<Suggestion> getSuggestions(){
 		return this.suggestions;
 	}
@@ -72,7 +78,7 @@ public class Student extends User implements IDataStoreObject<Student>{
 	 */
 	@Override
 	public Student copyOf() {
-		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), (ArrayList<CampMember>)this.getLeading().clone(), (ArrayList<CampMember>)this.getAttending().clone(), (ArrayList<Message>)this.getRepliedTo().clone(), (ArrayList<Enquiry> )this.enquireAbout.clone());
+		return new Student(this.getUserId(), this.getName(), this.getFaculty(), this.getPassword(), this.getPoints(), (ArrayList<CampMember>)this.getLeading().clone(), (ArrayList<CampMember>)this.getAttending().clone(), (ArrayList<Enquiry> )this.enquireAbout.clone(), (ArrayList<Suggestion> )this.suggestions.clone(), this.getIsDefaultPassword());
 	}
 	
 	/**
@@ -83,13 +89,5 @@ public class Student extends User implements IDataStoreObject<Student>{
 	@Override
 	public boolean isEquals(Student o) {
 		return super.isEquals(o);
-	}
-
-	public ArrayList<Pair<String, String>> toAttributeValueMapping(){
-		ArrayList<Pair<String, String>> rtn = new ArrayList<Pair<String, String>>();
-		rtn.add(new Pair<String, String>("name", this.getName()));
-		rtn.add(new Pair<String, String>("faculty", this.getFaculty().toString()));
-		rtn.add(new Pair<String, String>("points", ""+this.points));
-		return rtn;
 	}
 }

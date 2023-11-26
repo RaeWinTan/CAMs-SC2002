@@ -59,6 +59,9 @@ public class StudentJoinCampAsCommittee implements IDataStoreEditOperation<Camp>
         // Chcek for clash in attending camp dates
         Date[] camp1Dates = this.camp.getDates();
         for (CampMember campMember : this.student.getAttending()) {
+            if (campMember.getCamp().isEquals(this.camp)){
+                throw new IllegalOperationException("Student is already an attendee of this camp.");
+            }
             Date[] camp2Dates = campMember.getCamp().getDates();
             if (camp1Dates[0].before(camp2Dates[1]) && camp1Dates[1].before(camp2Dates[0]))
                 throw new IllegalOperationException("Camp date overlaps with other camps student is participating in.");

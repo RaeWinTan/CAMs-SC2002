@@ -8,6 +8,9 @@ import java.util.UUID;
 
 import com.example.datastore.IDataStoreObject;
 
+/**
+ * Class storing data of a Camp.
+ */
 public class Camp implements IDataStoreObject<Camp>{
 	private UUID campId = null;
 	private String campName= null;
@@ -25,12 +28,11 @@ public class Camp implements IDataStoreObject<Camp>{
 	private ArrayList<Enquiry> enquiries= new ArrayList<>();
 	private ArrayList<Suggestion> suggestions= new ArrayList<>(); 
 
+	/**
+	 * Constructor for a new camp, used when staff is creating a new camp.
+	 */
 	public Camp(){
 		this.campId = UUID.randomUUID();
-	}
-
-	public Camp(Camp camp){
-		this.campId = camp.getCampId();
 	}
 
 	/**
@@ -46,8 +48,12 @@ public class Camp implements IDataStoreObject<Camp>{
 	 * @param description	Description of the camp.
 	 * @param visibility	Flag for Student's access to view the camp.
 	 * @param createdBy		Staff who created the camp.
+	 * @param attendees		ArrayList of CampMember with students attending the camp.
+	 * @param committees	ArrayList of CampMember with students leading the camp.
+	 * @param enquiries		ArrayList of Enquiry made for the camp.
+	 * @param suggestions	ArrayList of Suggestion for the camp.
 	 */
-	private Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy, ArrayList<CampMember> attendees, ArrayList<CampMember> committees, ArrayList<Enquiry> enquiries) {
+	private Camp(UUID campId, String campName, Date[] dates, Date closingDate, GroupName userGroup, String location, int totalSlots, int committeeSlot, String description, boolean visibility, Staff createdBy, ArrayList<CampMember> attendees, ArrayList<CampMember> committees, ArrayList<Enquiry> enquiries, ArrayList<Suggestion> suggestions) {
 		this.campId = campId;
 		this.campName = campName;
 		this.dates = dates;
@@ -62,6 +68,7 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.attendees = attendees;
 		this.committees = committees;
 		this.enquiries = enquiries;
+		this.suggestions = suggestions;
 	}
 
 	/**
@@ -160,20 +167,44 @@ public class Camp implements IDataStoreObject<Camp>{
 		return this.totalSlots - this.committees.size() - this.attendees.size();
 	}
 
+	/**
+	 * Returns the number of committee slots remaining.
+	 * @return	Number of committee slots remaining.
+	 */
 	public int getRemaindingCommitteeSlots() {
 		return this.committeeSlots - this.committees.size();
 	}
 
+	/**
+	 * Get method for attendees.
+	 * @return	ArrayList of CampMember with students attending the camp.
+	 */
 	public ArrayList<CampMember> getAttendees(){
 		return this.attendees;
 	}
 
+	/**
+	 * Get method for committees.
+	 * @return	ArrayList of CampMember with students leading the camp.
+	 */
 	public ArrayList<CampMember> getCommittees(){
 		return this.committees;
 	}
 
+	/**
+	 * Get method for enquiries.
+	 * @return	ArrayList of Enquiry made for the camp.
+	 */
 	public ArrayList<Enquiry> getEnquiries(){
 		return this.enquiries;
+	}
+
+	/**
+	 * Get method for suggestions.
+	 * @return	ArrayList of Suggestion for the camp.
+	 */
+	public ArrayList<Suggestion> getSuggestions(){
+		return this.suggestions;
 	}
 
 
@@ -261,25 +292,20 @@ public class Camp implements IDataStoreObject<Camp>{
 		this.createdBy = createdBy;
 	}
 
+	/**
+	 * Copy other camp's attributes to this camp. Used when editing camp/approving suggestion. Only attributes that can be changed in edit/suggestion will be changed.
+	 * @param other	Other camp.
+	 */
 	public void setAll(Camp other){
-		if (other.getCampName()!=null)
-			this.setCampName(other.getCampName());
-		if (other.getDates()!=null)
-			this.setDates(other.getDates());
-		if (other.getClosingDate()!=null)
-			this.setClosingDate(other.getClosingDate());
-		if (other.getUserGroup()!=null)
-			this.setUserGroup(other.userGroup);
-		if (other.getLocation()!=null)
-			this.setLocation(other.getLocation());
-		if (other.getTotalSlots()!=null)
-			this.setTotalSlots(other.getTotalSlots());
-		if (other.getCommitteeSlot()>=0)
-			this.setCommitteeSlot(other.getCommitteeSlot());
-		if (other.getDescription()!=null)
-			this.setDescription(other.getDescription());
-		if (other.getVisibility())
-			this.setVisibility(other.getVisibility());
+		this.setCampName(other.getCampName());
+		this.setDates(other.getDates());
+		this.setClosingDate(other.getClosingDate());
+		this.setUserGroup(other.userGroup);
+		this.setLocation(other.getLocation());
+		this.setTotalSlots(other.getTotalSlots());
+		this.setCommitteeSlot(other.getCommitteeSlot());
+		this.setDescription(other.getDescription());
+		this.setVisibility(other.getVisibility());
 	}
 
 	/**
@@ -298,37 +324,35 @@ public class Camp implements IDataStoreObject<Camp>{
 	 */
 	@Override
 	public Camp copyOf() {
-		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, (ArrayList<CampMember>)this.attendees.clone(), (ArrayList<CampMember>)this.committees.clone(), (ArrayList<Enquiry>)this.enquiries.clone());
+		return new Camp(campId, campName, dates,  closingDate,  userGroup,  location,  totalSlots,  committeeSlots,  description,  visibility,  createdBy, (ArrayList<CampMember>)this.attendees.clone(), (ArrayList<CampMember>)this.committees.clone(), (ArrayList<Enquiry>)this.enquiries.clone(), (ArrayList<Suggestion>)this.suggestions.clone());
 	}
 
-	public ArrayList<Suggestion> getSuggestions(){
-		return this.suggestions;
-	}
-
+	/**
+	 * Convert Camp to String.
+	 */
 	@Override
 	public String toString(){
 		String str = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		if (this.getCampName()!=null)
-			str += "Camp Name: " + this.getCampName() + "\n";
+			str += "Camp Name: " + this.getCampName() ;
 		if (this.getDates()!=null)
-			str += "Dates: " + sdf.format(this.dates[0]) + " - " + sdf.format(this.dates[1])+ "\n";
+			str += "Dates: " + sdf.format(this.dates[0]) + " - " + sdf.format(this.dates[1]);
 		if (this.getClosingDate()!=null)
-			str += "Last day of registration: " + sdf.format(this.getClosingDate())+ "\n";
+			str += "Last day of registration: " + sdf.format(this.getClosingDate());
 		if (this.getUserGroup()!=null)
-			str += "User Group:" + this.userGroup.toString()+ "\n";
+			str += "User Group:" + this.userGroup.toString();
 		if (this.getLocation()!=null)
-			str += "Location: " + this.getLocation()+ "\n";
+			str += "Location: " + this.getLocation();
 		if (this.getTotalSlots()>=0)
-			str += "Total Slot: " + this.getTotalSlots()+ "\n";	
+			str += "Total Slot: " + this.getTotalSlots();	
 		if (this.getCommitteeSlot()>=0)
-			str += "Committee Slot: " + this.getCommitteeSlot()+ "\n";	
+			str += "Committee Slot: " + this.getCommitteeSlot();	
 		if (this.getDescription()!=null)
-			str += "Description: " + this.getDescription()+ "\n";	
+			str += "Description: " + this.getDescription();	
 		if (this.getVisibility())
-			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible")+ "\n";
+			str += "Visibility: " + (this.getVisibility()?"Visible":"Not visible");
 		return str;
 	}
-
 }

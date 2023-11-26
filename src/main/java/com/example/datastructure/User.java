@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import com.example.utility.Pair;
 
-// import datastore.IDataStoreObject;
 
+/**
+ * Class Storing data of a User.
+ */
 public abstract class User { //implements IDataStoreObject<User>{
 
 	private String userId = null;
 	private String password = null;
 	private GroupName faculty = null;
 	private String name = null;
+	private boolean isDefaultPassword;
 
 	/**
 	 * Constructor for User class, password will be set to default.
@@ -25,6 +28,7 @@ public abstract class User { //implements IDataStoreObject<User>{
 		this.name = name;
 		this.faculty = faculty;
 		this.password = "password"; // DEFAULT PASSWORD
+		this.isDefaultPassword = true;
 	}
 
 	/**
@@ -34,11 +38,12 @@ public abstract class User { //implements IDataStoreObject<User>{
 	 * @param faculty		Faculty the user is from.
 	 * @param password		Password of the user.
 	 */
-	protected User(String userId, String name,GroupName faculty,  String password) {
+	protected User(String userId, String name,GroupName faculty,  String password, boolean isDefaultPassword) {
 		this.userId= userId;
 		this.name = name;
 		this.faculty = faculty;
 		this.password = password;
+		this.isDefaultPassword = isDefaultPassword;
 	}
 
 	/**
@@ -80,6 +85,14 @@ public abstract class User { //implements IDataStoreObject<User>{
 	public void setPassword(String password) {
 		this.password = password;
 	} 
+
+	public boolean getIsDefaultPassword(){
+		return this.isDefaultPassword;
+	}
+
+	public void setIsDefaultPassword(boolean isDefaultPassword){
+		this.isDefaultPassword = isDefaultPassword;
+	}
 
 
 	/**

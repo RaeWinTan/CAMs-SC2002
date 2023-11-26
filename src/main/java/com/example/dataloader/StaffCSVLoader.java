@@ -5,12 +5,21 @@ import java.util.ArrayList;
 import com.example.datastructure.GroupName;
 import com.example.datastructure.Staff;
 
+/** Class to convert CSV file into Staff objects. */
 public class StaffCSVLoader extends UserCSVLoader<Staff> {
 
+    /**
+     * Constructor for StaffCSVLoader.
+     * @param sourceFile    Path of csv file.
+     */
     public StaffCSVLoader(String sourceFile){
         super(sourceFile);
     }
 
+    /**
+     * Read data from csv file, convert to a 2D ArrayList of String, then convert to Staff objects.
+     * @return An ArrayList of Staff.
+     */
     public ArrayList<Staff> loadData() {
         ArrayList<ArrayList<String>> strData = this.getCellStringFormat().toDataString();
 

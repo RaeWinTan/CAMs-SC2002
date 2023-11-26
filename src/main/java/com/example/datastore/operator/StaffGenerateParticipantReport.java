@@ -2,50 +2,80 @@ package com.example.datastore.operator;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.example.controllerlibs.ReportFilter;
 import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
+import com.example.exception.IllegalOperationException;
 
+/**
+ * Camp DataStore edit operator for generating a participant report.
+ * @see IDataStoreEditOperation
+ */
 public class StaffGenerateParticipantReport implements IDataStoreEditOperation<Camp> {
 
     Staff staff;
     String fileName;
+    ReportFilter reportFilter;
 
-    public StaffGenerateParticipantReport(Staff staff, String fileName){
+    /**
+     * Constructor for StaffGenerateParticipantReport
+     * @param staff         Staff generating the report.
+     * @param fileName      File path & name for report to be saved as.
+     * @param reportFilter  Type of filter for the report.
+     */
+    public StaffGenerateParticipantReport(Staff staff, String fileName, ReportFilter reportFilter){
         this.staff = staff;
         this.fileName = fileName + ".csv";
+        this.reportFilter = reportFilter;
     }
 
+    /**
+     * Write down a list of participants (depending on filer) if the camp is created by the Staff.
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         try {
             FileWriter writer = new FileWriter(this.fileName);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             // Get camp created by staff.
             for (Camp camp : data) {
                 if (camp.getCreatedBy().isEquals(this.staff)){
                     // Write details of camp to file.
-                    writer.write(camp.toString());
+                    writer.write(
+                        String.format("%s (%s-%s)\n",
+                            camp.getCampName(),
+                            sdf.format(camp.getDates()[0]),
+                            sdf.format(camp.getDates()[1])
+                        )
+                    );
                     writer.write("Student ID,Student Name,Role\n");
                     Student student;
-                    for (CampMember cm : camp.getAttendees()) {
-                        student = cm.getStudent();
-                        writer.write(String.format("%s,%s,Attendee\n", student.getUserId(), student.getName()));
+
+                    if (this.reportFilter == ReportFilter.All || this.reportFilter == ReportFilter.Attendee){
+                        for (CampMember cm : camp.getAttendees()) {
+                            student = cm.getStudent();
+                            writer.write(String.format("%s,%s,Attendee\n", student.getUserId(), student.getName()));
+                        }
                     }
 
-                    for (CampMember cm : camp.getCommittees()) {
-                        student = cm.getStudent();
-                        writer.write(String.format("%s,%s,Committee Member\n", student.getUserId(), student.getName()));
+                    if (this.reportFilter == ReportFilter.All || this.reportFilter == ReportFilter.Committee){
+                        for (CampMember cm : camp.getCommittees()) {
+                            student = cm.getStudent();
+                            writer.write(String.format("%s,%s,Committee Member\n", student.getUserId(), student.getName()));
+                        }
                     }
-                    writer.write("\n");
+                    writer.write("########,########,########\n");
                 }
             }
             writer.close();
         }
         catch (IOException e){
-            System.out.println("not implementing this hehe");
+            throw new IllegalOperationException("FileIO exception");
         }
         
     }

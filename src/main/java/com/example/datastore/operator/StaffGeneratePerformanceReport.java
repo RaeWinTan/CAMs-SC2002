@@ -9,19 +9,34 @@ import com.example.datastructure.Camp;
 import com.example.datastructure.CampMember;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
+import com.example.exception.IllegalOperationException;
 
+/**
+ * Camp DataStore edit operator for generating a committee member performance report.
+ * @see IDataStoreEditOperation
+ */
 public class StaffGeneratePerformanceReport implements IDataStoreEditOperation<Camp> {
 
     Staff staff;
     String fileName;
     IDataStoreRetrivable<Student> studentDSRetrivable;
 
+    /**
+     * Constructor for StaffGenerateParticipantReport
+     * @param staff         Staff generating the report.
+     * @param fileName      File path & name for report to be saved as.
+     * @param studentDSRetrivable  Student DataStore, required for getting the latest copy of student to get access to their points (in theory this should not be necessary but I'm in a rush so I have no time to test xD)
+     */
     public StaffGeneratePerformanceReport(Staff staff, String fileName, IDataStoreRetrivable<Student> studentDSRetrivable){
         this.staff = staff;
         this.fileName = fileName + ".csv";
         this.studentDSRetrivable = studentDSRetrivable;
     }
 
+    /**
+     * For every camp, for every committee member, write down their points to file.
+     * @param data  ArrayList of Camp from Camp DataStore
+     */
     @Override
     public void perform(ArrayList<Camp> data) {
         try{
@@ -42,7 +57,7 @@ public class StaffGeneratePerformanceReport implements IDataStoreEditOperation<C
             writer.close();
         } 
         catch (IOException e){
-            System.out.println("not implementing this hehe");
+            throw new IllegalOperationException("FileIO exception");
         }
     }
     
