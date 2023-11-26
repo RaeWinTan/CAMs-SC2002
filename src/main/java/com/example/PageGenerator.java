@@ -31,6 +31,23 @@ import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.datastructure.Suggestion;
 import com.example.datastructure.User;
+import com.example.pages.AcceptRejectSuggestionPromptPage;
+import com.example.pages.CampEnquiryPromptPage;
+import com.example.pages.CampWithdrawalPromptPage;
+import com.example.pages.ChangePasswordPromptPage;
+import com.example.pages.CreateCampPromptPage;
+import com.example.pages.CreateSuggestionPromptPage;
+import com.example.pages.DeleteCampPromptPage;
+import com.example.pages.DeleteSuggestionPromptPage;
+import com.example.pages.EditCampPromptPage;
+import com.example.pages.EditEnquiryPromptPage;
+import com.example.pages.EditSuggestionPromptPage;
+import com.example.pages.GenerateStudentReportPromptPage;
+import com.example.pages.LoginPromptPage;
+import com.example.pages.RegisterForCampPromptPage;
+import com.example.pages.ReplyToEnquiryPromptPage;
+import com.example.pages.StaffDashboardPromptPage;
+import com.example.pages.StudentDashboardPromptPage;
 import com.example.utility.Pair;
 import com.example.view.IPrompt;
 import com.example.view.IPromptPage;
@@ -38,28 +55,8 @@ import com.example.view.IViewPage;
 import com.example.view.PromptOption;
 import com.example.view.TablePromptOption;
 
-
-import com.example.view.pages.CampEnquiryPromptPage;
-import com.example.view.pages.CampWithdrawalPromptPage;
-import com.example.view.pages.ChangePasswordPromptPage;
-import com.example.view.pages.CreateCampPromptPage;
-import com.example.view.pages.CreateSuggestionPromptPage;
-import com.example.view.pages.DeleteCampPromptPage;
-import com.example.view.pages.DeleteSuggestionPromptPage;
-import com.example.view.pages.EditEnquiryPromptPage;
-import com.example.view.pages.EditSuggestionPromptPage;
-import com.example.view.pages.GenerateStudentReportPromptPage;
-import com.example.view.pages.AcceptRejectSuggestionPromptPage;
-import com.example.view.pages.EditCampPromptPage;
-
-import com.example.view.pages.LoginPromptPage;
-import com.example.view.pages.RegisterForCampPromptPage;
-import com.example.view.pages.ReplyToEnquiryPromptPage;
-import com.example.view.pages.StaffDashboardPromptPage;
-import com.example.view.pages.StudentDashboardPromptPage;
-
 /**
- * Controller class containing page behaviour.
+ * Supplies data to the pages in the PagesPackage.
  */
 public class PageGenerator {
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";

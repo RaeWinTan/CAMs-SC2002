@@ -1,8 +1,7 @@
 package com.example.view;
 
-/**IPrompt is an interface  which the 3 prompt types
- * we have: Prompt, PromptOption and TablePromptOption
- * implement. It declares the relevant methods to begin
+/**IPrompt is an interface  which the 3 prompt types we have: Prompt, PromptOption and TablePromptOption implement. 
+ * It declares the relevant methods to begin
  * the prompting process and the getter method to retrieve
  * the result
  */

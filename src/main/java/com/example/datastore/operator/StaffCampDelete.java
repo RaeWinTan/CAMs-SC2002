@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
-import com.example.datastructure.CampMember;
+// import com.example.datastructure.CampMember;
 import com.example.datastructure.Staff;
 import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
@@ -55,13 +55,13 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
                 if (camp.getAttendees().size() + camp.getCommittees().size() > 0)
                     throw new IllegalOperationException("Unable to delete camp with participants");
                 
-                // Remove camps from students
-                for (CampMember cm : camp.getAttendees()) {
-                    studentDataStore.manageData(new AttendeeRemoveCamp(cm.getStudent(),camp));
-                }
-                for (CampMember cm : camp.getCommittees()){
-                    studentDataStore.manageData(new CommitteeRemoveCamp(cm.getStudent(),camp));
-                }
+                // // Remove camps from students
+                // for (CampMember cm : camp.getAttendees()) {
+                //     studentDataStore.manageData(new AttendeeRemoveCamp(cm.getStudent(),camp));
+                // }
+                // for (CampMember cm : camp.getCommittees()){
+                //     studentDataStore.manageData(new CommitteeRemoveCamp(cm.getStudent(),camp));
+                // }
 
                 break;
             }
