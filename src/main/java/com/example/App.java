@@ -6,7 +6,7 @@ import com.example.datastructure.User;
 import com.example.exception.InvalidLoginCredentialException;
 
 /**
- * Main controller class.
+ * Determine page redirection. 
  */
 public class App {
 	public static final String ANSI_RESET = "\u001B[0m";

@@ -33,8 +33,7 @@ public class StaffDBService extends UserDBService<Staff> implements IStaffCampDB
 	private Staff staff;
 	
 	/**
-	 * Constructor for StaffDBService.
-	 * @param staff	Reference to staff, required by some operations.
+	 * Give staffs their access rights to the datastore
 	 */
 	public StaffDBService(Staff staff){
 		this.staff = staff;

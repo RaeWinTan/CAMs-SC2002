@@ -1,4 +1,4 @@
 /**
- * Package containing class and interface that handles datastore permission for User.
+ * Give users their access rights to the datastore
  */
 package com.example.dataservice;

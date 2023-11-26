@@ -9,6 +9,6 @@ com.example.datastore.objectchecker
 com.example.datastore.operator
 com.example.datastructure
 com.example.exception
+com.example.pages
 com.example.utility
 com.example.view
-com.example.view.pages
