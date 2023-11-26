@@ -16,10 +16,9 @@ import com.example.view.Prompt;
 import com.example.view.PromptOption;
 
 /**
+ * 
+ * It is a prompt page for staff members to create a new camp and consists of a series of compulsory questions to fill in the details for the new camp that they are creating.
  * This class implements IPromptPage.
- * It is a prompt page for staff members to create a new camp
- * and consists of a series of compulsory questions to fill
- * in the details for the new camp that they are creating
  */
 public class CreateCampPromptPage implements IPromptPage<Camp>{
     private String CampName;
@@ -49,9 +48,6 @@ public class CreateCampPromptPage implements IPromptPage<Camp>{
         this.newCamp = new Camp();//
         initPrompts();
     }
-
-
-    //public void addQuestion_attribute(String question, String attributeName) {return;}
 
 
     /**

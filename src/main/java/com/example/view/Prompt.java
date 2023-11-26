@@ -2,9 +2,7 @@ package com.example.view;
 
 import java.util.Scanner;
 
-/**Prompt class is in charge of displaying the question
- * to the user as well as allowing them to input their
- * responses to the questions. Depending on the situation
+/**Prompt class is in charge of displaying the question to the user as well as allowing them to input their responses to the questions. Depending on the situation
  * different types of prompts are required - some with Regex,
  * some where inputs are optional and the default value
  * of the parameter must be specified, some where inputs are compulsory.
@@ -53,7 +51,7 @@ public class Prompt implements IPrompt{
         return allowEmpty;
     }
 
-    /**constructor with just question to be asked
+    /**constructor with  question to be asked
      * @param question
      */
     public Prompt(String question) {
