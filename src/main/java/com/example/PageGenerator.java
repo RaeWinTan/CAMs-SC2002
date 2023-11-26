@@ -584,7 +584,7 @@ public class PageGenerator {
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.NTU);
-        camp.setLocation("NTU");
+        camp.setLocation("NTU Campus");
         camp.setDescription("Camp for NTU");
         camp.setVisibility(false);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
@@ -597,7 +597,7 @@ public class PageGenerator {
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.NTU);
-        camp.setLocation("NTU");
+        camp.setLocation("NTU Campus");
         camp.setDescription("Camp for NTU");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
@@ -612,7 +612,7 @@ public class PageGenerator {
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.SCSE);
-        camp.setLocation("SCSE");
+        camp.setLocation("SWLab2");
         camp.setDescription("Camp for SCSE");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
@@ -629,7 +629,7 @@ public class PageGenerator {
         camp.setTotalSlots(15);
         camp.setCommitteeSlot(10);
         camp.setUserGroup(GroupName.NBS);
-        camp.setLocation("NBS");
+        camp.setLocation("ur mother");
         camp.setDescription("Camp for NBS");
         camp.setVisibility(true);	
         campDataStore.manageData(staffDBService.DSCreateCamp(camp, staffDataStore));
