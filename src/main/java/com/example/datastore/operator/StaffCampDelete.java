@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import com.example.datastore.IDataStoreEditable;
 import com.example.datastructure.Camp;
+import com.example.datastructure.CampMember;
 import com.example.datastructure.Staff;
+import com.example.datastructure.Student;
 import com.example.exception.IllegalOperationException;
 import com.example.exception.InsufficientPermissionException;
 import com.example.exception.ObjectNotFoundException;
@@ -18,17 +20,20 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
     Staff staff;
     Camp camp;
     IDataStoreEditable<Staff> staffDataStore;
+    IDataStoreEditable<Student> studentDataStore;
 
     /**
      * Constructor for StaffCampDelete.
      * @param staff             Staff executing the operator.
      * @param camp              Camp to be deleted.
      * @param staffDataStore    Staff DataStore, required to remove camp from original Staff object.
+     * @param studentDataStore  Student DataStore, required to remove camp from original Student object.
      */
-    public StaffCampDelete(Staff staff, Camp camp, IDataStoreEditable<Staff> staffDataStore){
+    public StaffCampDelete(Staff staff, Camp camp, IDataStoreEditable<Staff> staffDataStore, IDataStoreEditable<Student> studentDataStore){
         this.staff = staff;
         this.camp = camp;
         this.staffDataStore = staffDataStore;
+        this.studentDataStore = studentDataStore;
     }
 
     /**
@@ -50,9 +55,19 @@ public class StaffCampDelete implements IDataStoreEditOperation<Camp>{
                 if (camp.getAttendees().size() + camp.getCommittees().size() > 0)
                     throw new IllegalOperationException("Unable to delete camp with participants");
                 
+                // Remove camps from students
+                for (CampMember cm : camp.getAttendees()) {
+                    studentDataStore.manageData(new AttendeeRemoveCamp(cm.getStudent(),camp));
+                }
+                for (CampMember cm : camp.getCommittees()){
+                    studentDataStore.manageData(new CommitteeRemoveCamp(cm.getStudent(),camp));
+                }
+
                 break;
             }
         }
+
+        
 
         // Delete camp from campdatastore
         if (data.removeIf(camp->camp.isEquals(this.camp))){

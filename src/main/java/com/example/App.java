@@ -40,6 +40,8 @@ public class App {
 			PageGenerator.StaffGenerateEnquiryReport();
 		}else if(currentPage==Page.GenerateStudentReport){
 			PageGenerator.StaffGenerateStudentReport(staff);
+		}else if (currentPage ==Page.DeleteCamp){
+			PageGenerator.StaffDeleteCamp(staff);
 		}
 	}
 	public static void studentRedirection(Page currentPage, Student student){

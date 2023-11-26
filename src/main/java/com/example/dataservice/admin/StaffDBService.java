@@ -46,8 +46,8 @@ public class StaffDBService extends UserDBService<Staff> implements IStaffCampDB
 	}
 
 	@Override
-	public IDataStoreEditOperation<Camp> DSDeleteCamp(Camp camp, IDataStoreEditable<Staff> staffDataStore) {
-		return new StaffCampDelete(this.staff, camp, staffDataStore);
+	public IDataStoreEditOperation<Camp> DSDeleteCamp(Camp camp, IDataStoreEditable<Staff> staffDataStore, IDataStoreEditable<Student> studentDataStore) {
+		return new StaffCampDelete(this.staff, camp, staffDataStore, studentDataStore);
 	}
 
 	@Override
