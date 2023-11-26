@@ -10,11 +10,11 @@ import com.example.view.Prompt;
 import com.example.view.PromptOption;
 
 /**
- * This class implements IPromptPage.
- * It is a prompt page for the students to choose which camp they
- * would like to register for.
+ * It is a prompt page for the students to choose which camp they would like to register for. 
  * It displays the different camps open to them and prompts them
- * to enter an option
+ * to enter an option.
+ * This class implements IPromptPage.
+ * 
  */
 public class RegisterForCampPromptPage implements IPromptPage<Camp> {
 

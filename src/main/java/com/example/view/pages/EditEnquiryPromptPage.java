@@ -10,9 +10,9 @@ import com.example.view.IPromptPage;
 import com.example.view.Prompt;
 import com.example.view.TablePromptOption;
 
-/**This class implements IPromptPage.
- * It is a prompt page for students to edit the enquiries that they
- * have previously submitted.
+/**It is a prompt page for students to edit the enquiries that they have previously submitted.
+ * This class implements IPromptPage.
+ * 
  */
 public class EditEnquiryPromptPage implements IPromptPage<Enquiry>{
     private ArrayList<Enquiry> enquiries;

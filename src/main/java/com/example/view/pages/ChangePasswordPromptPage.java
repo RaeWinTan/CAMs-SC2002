@@ -8,9 +8,8 @@ import com.example.view.IPromptPage;
 import com.example.view.Prompt;
 
 /**
- * This class implements IPromptPage.
- * It is a prompt page common to all users
- *  to change their password in the system
+ * It is a prompt page common to all users to change their password in the system.
+ *  This class implements IPromptPage.
  */
 public class ChangePasswordPromptPage implements IPromptPage<User>{
     private User user;

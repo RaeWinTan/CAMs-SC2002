@@ -17,14 +17,22 @@ import com.example.view.Prompt;
 import com.example.view.PromptOption;
 import com.example.view.RegexType;
 
+/**This prompt page is for the camp committee member to make their suggestions to camp details
+ * It implements IPromptPage
+ */
 public class CreateSuggestionPromptPage implements IPromptPage<Suggestion>{
     private Student student;
     private ArrayList<IPrompt> prompts = new ArrayList<>();
     private Suggestion value;
+
+    /**constructor for the class
+     * @param s which is a student object
+     */
     public CreateSuggestionPromptPage(Student s){
         this.student = s;
         
     }
+    /** this is where the prompts are initialiased. Only the first question is compulsory*/
     private void initPrompts(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //show all camps 
@@ -128,11 +136,14 @@ public class CreateSuggestionPromptPage implements IPromptPage<Suggestion>{
         this.value = new Suggestion(student, campToChange);
     }
 
+    /**begin the prompting process */
     @Override
     public void perform() {
         initPrompts();
     }
-
+    /**return suggestions as a Suggestion object
+     * @return value as a Suggestion object
+     */
     @Override
     public Suggestion getObject() {
         return this.value;

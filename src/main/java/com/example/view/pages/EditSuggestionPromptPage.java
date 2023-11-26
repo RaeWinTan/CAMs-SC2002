@@ -17,18 +17,23 @@ import com.example.view.Prompt;
 import com.example.view.PromptOption;
 import com.example.view.RegexType;
 import com.example.view.TablePromptOption;
-
+/**This prompt page is for the camp committee member to edit their own suggestions to camp details
+ * It implements IPromptPage */
 public class EditSuggestionPromptPage implements IPromptPage<Suggestion>{
     private Student student;
     private Camp value;
     private Suggestion newSuggestion;
     private ArrayList<Camp> newCamps = new ArrayList<>();
 
-    
+    /**constructor for the class
+     * @param s which is a student object
+     */
     public EditSuggestionPromptPage(Student s) {
         this.student = s;
     }
-
+        /**This intitialises the first prompt of the page since only unapproved suggestions 
+         * can be edited
+         */
     private void initFirstPrompt(){
         ArrayList<String> oldCamps = new ArrayList<>();
         ArrayList<String> newCamps_str = new ArrayList<>();
@@ -64,7 +69,9 @@ public class EditSuggestionPromptPage implements IPromptPage<Suggestion>{
         
     }
     
-   
+    /** This is where the prompts are initialiased. You press enter to get the default value of
+     * the suggestion
+    */
     private void initPrompts() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //show all camps 
@@ -170,8 +177,8 @@ public class EditSuggestionPromptPage implements IPromptPage<Suggestion>{
         
     }
 
-    /**Returns the Camp object with the set edit values 
-     * @return value as a Camp object
+    /**Returns the Suggestion object with the set edit values 
+     * @return value as a Suggestion object
     */
     @Override
     public Suggestion getObject() {
