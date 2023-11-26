@@ -278,7 +278,6 @@ public class PageGenerator {
     // student only
     public static Page StudentDashBoard(Student s){
         Student student = studentDataStore.retrieveData(new DataStoreRetrieve<Student>(s)).get(0);
-        System.out.println(student.getLeading().size());
         IPromptPage<Page> dashboard = new StudentDashboardPromptPage(student);
         dashboard.perform();
 		return dashboard.getObject();
